@@ -1,5 +1,8 @@
 package com.pio.startup;
+import javafx.scene.input.MouseEvent;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BaseControllerStartupService implements ControllerStartupService {
 
     private final ViewStartupService viewStartupService;
@@ -11,5 +14,9 @@ public class BaseControllerStartupService implements ControllerStartupService {
     @Override
     public void run() {
         viewStartupService.showView();
+    }
+
+    public void handleActionEvent(MouseEvent event) {
+        System.out.println("Button pressed!");
     }
 }
