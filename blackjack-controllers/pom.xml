@@ -9,6 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>19-ea+7</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
     <artifactId>blackjack-controllers</artifactId>
 
