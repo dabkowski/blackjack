@@ -13,7 +13,7 @@ public class ViewRunner extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/blackjack-starter-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/Game-screen.fxml"));
         fxmlLoader.setController(new BaseControllerStartupService(new BaseViewStartupService()));
         Scene scene = new Scene(fxmlLoader.load(), 1080 , 847.09);
         stage.setTitle("Blackjack!");
