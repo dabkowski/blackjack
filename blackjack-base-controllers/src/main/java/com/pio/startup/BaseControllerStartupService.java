@@ -19,4 +19,8 @@ public class BaseControllerStartupService implements ControllerStartupService {
     public void handleActionEvent(MouseEvent event) {
         System.out.println("Button pressed!");
     }
+
+    public void leaveInfoScreen(MouseEvent event) {
+        System.out.println("Leaving!");
+    }
 }

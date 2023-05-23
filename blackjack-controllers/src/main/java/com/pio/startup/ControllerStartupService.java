@@ -8,4 +8,5 @@ public interface ControllerStartupService {
 
     void handleActionEvent(MouseEvent event);
 
+    void leaveInfoScreen(MouseEvent event);
 }
