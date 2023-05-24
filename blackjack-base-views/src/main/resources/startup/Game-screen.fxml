@@ -6,12 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.09" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="847.0" prefWidth="1085.0">
          <children>
-            <ImageView fitHeight="857.0" fitWidth="1095.0" layoutX="-11.0" layoutY="-6.0">
+            <ImageView fitHeight="858.0" fitWidth="1091.0" layoutX="-7.0" layoutY="-5.0">
                <image>
                   <Image url="@Game-screen.png" />
                </image>
@@ -88,7 +87,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="chip_20_Button" layoutX="406.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add20Chip" style="-fx-background-color: transparent;">
+            <Button fx:id="chip_20_Button" layoutX="316.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add20Chip" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView>
                      <image>
@@ -97,7 +96,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="chip_50_Button" layoutX="316.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add50Chip" style="-fx-background-color: transparent;">
+            <Button fx:id="chip_50_Button" layoutX="406.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add50Chip" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView>
                      <image>
