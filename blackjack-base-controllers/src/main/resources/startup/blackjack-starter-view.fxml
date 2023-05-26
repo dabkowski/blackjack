@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.09" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.09" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pio.startup.BaseControllerService">
    <children>
       <Pane prefHeight="847.09" prefWidth="1080.0">
          <children>
@@ -57,7 +57,7 @@
                   <Font name="Dubai Regular" size="12.0" />
                </font>
             </TextField>
-            <Button fx:id="startButton" layoutX="447.0" layoutY="587.0" mnemonicParsing="false" onMouseClicked="#handleActionEvent" style="-fx-background-color: transparent;">
+            <Button fx:id="startButton" layoutX="447.0" layoutY="587.0" mnemonicParsing="false" onMouseClicked="#moveToGameView" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="58.0" fitWidth="194.0" pickOnBounds="true" preserveRatio="true">
                      <image>

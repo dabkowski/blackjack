@@ -23,27 +23,15 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>com.pio</groupId>
-            <artifactId>blackjack-controllers</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.pio</groupId>
-            <artifactId>blackjack-views</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.pio</groupId>
-            <artifactId>blackjack-models</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>19-ea+7</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.pio</groupId>
+            <artifactId>blackjack-base-views</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

@@ -19,12 +19,6 @@
         </dependency>
         <dependency>
             <groupId>com.pio</groupId>
-            <artifactId>blackjack-controllers</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.pio</groupId>
             <artifactId>blackjack-base-controllers</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
