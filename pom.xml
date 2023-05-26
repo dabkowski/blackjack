@@ -6,12 +6,8 @@
 	<modules>
 		<module>blackjack-app</module>
 		<module>blackjack-base-controllers</module>
-		<module>blackjack-controllers</module>
-		<module>blackjack-models</module>
 		<module>blackjack-base-models</module>
-		<module>blackjack-base-views</module>
-		<module>blackjack-views</module>
-	</modules>
+    </modules>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
