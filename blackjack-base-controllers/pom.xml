@@ -29,8 +29,13 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>17.0.2</version>
+        </dependency>
+        <dependency>
             <groupId>com.pio</groupId>
-            <artifactId>blackjack-base-views</artifactId>
+            <artifactId>blackjack-base-models</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
