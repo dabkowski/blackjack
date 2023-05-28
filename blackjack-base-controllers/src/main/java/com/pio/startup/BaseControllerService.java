@@ -1,22 +1,48 @@
 package com.pio.startup;
 
+import com.pio.models.BaseModelService;
+import com.pio.models.Player;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class BaseControllerService {
+    public static int MAX_PLAYERS = 4;
+
+    @FXML
+    private Text firstMoneyPlayer;
+
+    @FXML
+    private Text secondMoneyPlayer;
+
+    @FXML
+    private Text thirdMoneyPlayer;
+
+    @FXML
+    private Text fourthMoneyPlayer;
+
+    private Text[] currentBetAmount;
 
     private Stage stage;
 
-    private FXMLLoader fxmlLoader;
+    private int currentPlayerIndex = 0;
+
+    private int betSum = 0;
+
+    private final BaseModelService baseModelService = new BaseModelService();
+
+    public BaseControllerService() {
+    }
 
     public void moveToMainStarterView() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/blackjack-starter-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1080 , 847.09);
+        Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
         stage.setTitle("Blackjack!");
         stage.getIcons().add(new Image("startup/coin.png"));
         stage.setResizable(false);
@@ -28,8 +54,8 @@ public class BaseControllerService {
     }
 
     public void moveToGameView() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/game-screen.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1080 , 847.09);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/Game-screen.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
         stage.setTitle("Blackjack!");
         stage.getIcons().add(new Image("startup/coin.png"));
         stage.setResizable(false);
@@ -38,11 +64,13 @@ public class BaseControllerService {
 
         BaseControllerService controller = fxmlLoader.getController();
         controller.setStage(stage);
+
+        initialize();
     }
 
     public void moveToInfoView() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/info-screen.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1080 , 847.09);
+        Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
         stage.setTitle("Blackjack!");
         stage.getIcons().add(new Image("startup/coin.png"));
         stage.setResizable(false);
@@ -58,7 +86,11 @@ public class BaseControllerService {
     }
 
     public void hit(MouseEvent event) {
-        System.out.println("Hit");
+        Player player = baseModelService.returnPlayer(currentPlayerIndex);
+        player.placeBet(betSum);
+        currentBetAmount[currentPlayerIndex].setText(betSum + "$");
+
+        changePlayerMove();
     }
 
     public void leaveGame(MouseEvent event) {
@@ -70,38 +102,55 @@ public class BaseControllerService {
     }
 
     public void add1000Chip(MouseEvent event) {
-        System.out.println("add1000Chip");
+        betSum += 1000;
     }
 
     public void add500Chip(MouseEvent event) {
-        System.out.println("add500Chip");
+        betSum += 500;
     }
 
     public void add200Chip(MouseEvent event) {
-        System.out.println("add200Chip");
+        betSum += 200;
     }
 
     public void add100Chip(MouseEvent event) {
-        System.out.println("add100Chip");
+        betSum += 100;
     }
 
     public void add50Chip(MouseEvent event) {
-        System.out.println("add50Chip");
+        betSum += 50;
     }
 
     public void add20Chip(MouseEvent event) {
-        System.out.println("add20Chip");
+        betSum += 20;
     }
 
     public void add10Chip(MouseEvent event) {
-        System.out.println("add10Chip");
-    }
-
-    public Stage getStage() {
-        return stage;
+        betSum += 10;
     }
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    @FXML
+    public void initialize() {
+        currentBetAmount = new Text[]{firstMoneyPlayer, secondMoneyPlayer, thirdMoneyPlayer, fourthMoneyPlayer};
+    }
+
+    public void changePlayerMove() {
+        betSum = 0;
+        currentPlayerIndex++;
+
+        if (currentPlayerIndex >= MAX_PLAYERS) {
+            currentPlayerIndex = 0;
+            cleanMoneyFields();
+        }
+    }
+
+    public void cleanMoneyFields() {
+        for (int i = 0; i < MAX_PLAYERS; i++) {
+            currentBetAmount[i].setText("0$");
+        }
     }
 }
