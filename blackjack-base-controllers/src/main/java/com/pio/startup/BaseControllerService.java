@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -86,9 +87,13 @@ public class BaseControllerService {
     }
 
     public void hit(MouseEvent event) {
+
+        if(betSum == 0){
+            return;
+        }
+
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         player.placeBet(betSum);
-        currentBetAmount[currentPlayerIndex].setText(betSum + "$");
 
         changePlayerMove();
     }
@@ -102,31 +107,73 @@ public class BaseControllerService {
     }
 
     public void add1000Chip(MouseEvent event) {
-        betSum += 1000;
+        if(event.getButton() == MouseButton.PRIMARY) {
+            betSum += 1000;
+        }
+        else if(event.getButton() == MouseButton.SECONDARY){
+            betSum -= 1000;
+        }
+        updateBetAmountText(betSum);
     }
 
     public void add500Chip(MouseEvent event) {
-        betSum += 500;
+        if(event.getButton() == MouseButton.PRIMARY) {
+            betSum += 500;
+        }
+        else if(event.getButton() == MouseButton.SECONDARY){
+            betSum -= 500;
+        }
+        updateBetAmountText(betSum);
     }
 
     public void add200Chip(MouseEvent event) {
-        betSum += 200;
+        if(event.getButton() == MouseButton.PRIMARY) {
+            betSum += 200;
+        }
+        else if(event.getButton() == MouseButton.SECONDARY){
+            betSum -= 200;
+        }
+        updateBetAmountText(betSum);
     }
 
     public void add100Chip(MouseEvent event) {
-        betSum += 100;
+        if(event.getButton() == MouseButton.PRIMARY) {
+            betSum += 100;
+        }
+        else if(event.getButton() == MouseButton.SECONDARY){
+            betSum -= 100;
+        }
+        updateBetAmountText(betSum);
     }
 
     public void add50Chip(MouseEvent event) {
-        betSum += 50;
+        if(event.getButton() == MouseButton.PRIMARY) {
+            betSum += 50;
+        }
+        else if(event.getButton() == MouseButton.SECONDARY){
+            betSum -= 50;
+        }
+        updateBetAmountText(betSum);
     }
 
     public void add20Chip(MouseEvent event) {
-        betSum += 20;
+        if(event.getButton() == MouseButton.PRIMARY) {
+            betSum += 20;
+        }
+        else if(event.getButton() == MouseButton.SECONDARY){
+            betSum -= 20;
+        }
+        updateBetAmountText(betSum);
     }
 
     public void add10Chip(MouseEvent event) {
-        betSum += 10;
+        if(event.getButton() == MouseButton.PRIMARY) {
+            betSum += 10;
+        }
+        else if(event.getButton() == MouseButton.SECONDARY){
+            betSum -= 10;
+        }
+        updateBetAmountText(betSum);
     }
 
     public void setStage(Stage stage) {
@@ -152,5 +199,15 @@ public class BaseControllerService {
         for (int i = 0; i < MAX_PLAYERS; i++) {
             currentBetAmount[i].setText("0$");
         }
+    }
+
+    public void updateBetAmountText(int amount){
+        if(amount < 0){
+            betSum = 0;
+            amount = 0;
+        }
+
+        currentBetAmount[currentPlayerIndex].setText(amount + "$");
+
     }
 }
