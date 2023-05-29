@@ -28,7 +28,7 @@ public class BaseControllerService {
     @FXML
     private Text fourthMoneyPlayer;
 
-    private Text[] currentBetAmount;
+    private Text[] currentBet;
 
     private Stage stage;
 
@@ -87,8 +87,7 @@ public class BaseControllerService {
     }
 
     public void hit(MouseEvent event) {
-
-        if(betSum == 0){
+        if (betSum == 0) {
             return;
         }
 
@@ -98,8 +97,18 @@ public class BaseControllerService {
         changePlayerMove();
     }
 
-    public void leaveGame(MouseEvent event) {
-        System.out.println("leaveGame");
+    public void leaveGame(MouseEvent event) throws IOException {
+
+        Player player = baseModelService.returnPlayer(currentPlayerIndex);
+        currentBet[currentPlayerIndex].setText("");
+        player.setPlaying(false);
+
+        if(returnAmountOfPlayingPlayers() == 0){
+            moveToMainStarterView();
+            return;
+        }
+
+        changePlayerMove();
     }
 
     public void stand(MouseEvent event) {
@@ -107,73 +116,66 @@ public class BaseControllerService {
     }
 
     public void add1000Chip(MouseEvent event) {
-        if(event.getButton() == MouseButton.PRIMARY) {
+        if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 1000;
-        }
-        else if(event.getButton() == MouseButton.SECONDARY){
+        } else if (event.getButton() == MouseButton.SECONDARY) {
             betSum -= 1000;
         }
-        updateBetAmountText(betSum);
+        updateBetText(betSum);
     }
 
     public void add500Chip(MouseEvent event) {
-        if(event.getButton() == MouseButton.PRIMARY) {
+        if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 500;
-        }
-        else if(event.getButton() == MouseButton.SECONDARY){
+        } else if (event.getButton() == MouseButton.SECONDARY) {
             betSum -= 500;
         }
-        updateBetAmountText(betSum);
+        updateBetText(betSum);
     }
 
     public void add200Chip(MouseEvent event) {
-        if(event.getButton() == MouseButton.PRIMARY) {
+        if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 200;
-        }
-        else if(event.getButton() == MouseButton.SECONDARY){
+        } else if (event.getButton() == MouseButton.SECONDARY) {
             betSum -= 200;
         }
-        updateBetAmountText(betSum);
+        updateBetText(betSum);
     }
 
     public void add100Chip(MouseEvent event) {
-        if(event.getButton() == MouseButton.PRIMARY) {
+        if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 100;
-        }
-        else if(event.getButton() == MouseButton.SECONDARY){
+        } else if (event.getButton() == MouseButton.SECONDARY) {
             betSum -= 100;
         }
-        updateBetAmountText(betSum);
+        updateBetText(betSum);
     }
 
     public void add50Chip(MouseEvent event) {
-        if(event.getButton() == MouseButton.PRIMARY) {
+        if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 50;
-        }
-        else if(event.getButton() == MouseButton.SECONDARY){
+        } else if (event.getButton() == MouseButton.SECONDARY) {
             betSum -= 50;
         }
-        updateBetAmountText(betSum);
+        updateBetText(betSum);
     }
 
     public void add20Chip(MouseEvent event) {
-        if(event.getButton() == MouseButton.PRIMARY) {
+        if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 20;
-        }
-        else if(event.getButton() == MouseButton.SECONDARY){
+        } else if (event.getButton() == MouseButton.SECONDARY) {
             betSum -= 20;
         }
-        updateBetAmountText(betSum);
+        updateBetText(betSum);
     }
 
     public void add10Chip(MouseEvent event) {
-        if(event.getButton() == MouseButton.PRIMARY) {
+        if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 10;
-        }
-        else if(event.getButton() == MouseButton.SECONDARY){
+        } else if (event.getButton() == MouseButton.SECONDARY) {
             betSum -= 10;
         }
-        updateBetAmountText(betSum);
+        updateBetText(betSum);
     }
 
     public void setStage(Stage stage) {
@@ -181,33 +183,57 @@ public class BaseControllerService {
     }
 
     @FXML
-    public void initialize() {
-        currentBetAmount = new Text[]{firstMoneyPlayer, secondMoneyPlayer, thirdMoneyPlayer, fourthMoneyPlayer};
+    private void initialize() {
+        currentBet = new Text[]{firstMoneyPlayer, secondMoneyPlayer, thirdMoneyPlayer, fourthMoneyPlayer};
     }
 
-    public void changePlayerMove() {
+    private void changePlayerMove() {
         betSum = 0;
-        currentPlayerIndex++;
-
-        if (currentPlayerIndex >= MAX_PLAYERS) {
-            currentPlayerIndex = 0;
-            cleanMoneyFields();
-        }
+        currentPlayerIndex = returnNextPlayingPlayer();
+        System.out.println("Ruch: " + currentPlayerIndex);
     }
 
-    public void cleanMoneyFields() {
+    private void cleanMoneyFields() {
         for (int i = 0; i < MAX_PLAYERS; i++) {
-            currentBetAmount[i].setText("0$");
+            Player player = baseModelService.returnPlayer(i);
+            if(player.isPlaying()){
+                currentBet[i].setText("0$");
+            }
         }
     }
 
-    public void updateBetAmountText(int amount){
-        if(amount < 0){
+    private void updateBetText(int amount) {
+        if (amount < 0) {
             betSum = 0;
             amount = 0;
         }
 
-        currentBetAmount[currentPlayerIndex].setText(amount + "$");
+        currentBet[currentPlayerIndex].setText(amount + "$");
+    }
 
+    private int returnNextPlayingPlayer() {
+        while (true) {
+            currentPlayerIndex++;
+            if (currentPlayerIndex >= MAX_PLAYERS) {
+                currentPlayerIndex = 0;
+                cleanMoneyFields();
+            }
+
+            Player player = baseModelService.returnPlayer(currentPlayerIndex);
+            if (player.isPlaying()) {
+                return currentPlayerIndex;
+            }
+        }
+    }
+
+    private int returnAmountOfPlayingPlayers(){
+        int onlinePlayers = 0;
+        for (int i = 0; i < MAX_PLAYERS; i++){
+            Player player = baseModelService.returnPlayer(i);
+            if(player.isPlaying()){
+                onlinePlayers++;
+            }
+        }
+        return onlinePlayers;
     }
 }

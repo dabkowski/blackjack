@@ -4,6 +4,7 @@ public class Player {
     private int accountBalance;
 
     private int betAmount;
+    private boolean isPlaying = true;
 
     public Player(int accountBalance) {
         this.accountBalance = accountBalance;
@@ -20,5 +21,13 @@ public class Player {
 
         betAmount += amount;
         accountBalance -= amount;
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
     }
 }
