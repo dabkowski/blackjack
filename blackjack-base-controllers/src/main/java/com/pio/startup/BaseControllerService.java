@@ -5,16 +5,34 @@ import com.pio.models.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.control.TextField;
+
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class BaseControllerService {
     public static int MAX_PLAYERS = 4;
+
+    @FXML
+    private Text dataFirstPlayer;
+
+    @FXML
+    private Text dataSecondPlayer;
+
+    @FXML
+    private Text dataThirdPlayer;
+
+    @FXML
+    private Text dataFourthPlayer;
+
 
     @FXML
     private Text firstMoneyPlayer;
@@ -28,6 +46,20 @@ public class BaseControllerService {
     @FXML
     private Text fourthMoneyPlayer;
 
+
+    @FXML
+    private TextField firstUserName;
+
+    @FXML
+    private TextField secondUserName;
+
+    @FXML
+    private TextField fourthUserName;
+
+    @FXML
+    private TextField thirdUserName;
+
+
     private Text[] currentBet;
 
     private Stage stage;
@@ -36,7 +68,14 @@ public class BaseControllerService {
 
     private int betSum = 0;
 
+    @FXML
+    private Label noPlayerName;
+
     private final BaseModelService baseModelService = new BaseModelService();
+
+    private static final String[] userName = new String[MAX_PLAYERS];
+    private static final int[] accountAmount = new int[MAX_PLAYERS];
+    int startAmount = 8000;
 
     public BaseControllerService() {
     }
@@ -55,21 +94,31 @@ public class BaseControllerService {
     }
 
     public void moveToGameView() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/Game-screen.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
-        stage.setTitle("Blackjack!");
-        stage.getIcons().add(new Image("startup/coin.png"));
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.show();
+        int numberOfPlayer = checkNumberOfPlayers();
+        System.out.println(numberOfPlayer);
+        if (numberOfPlayer > 0) {
 
-        BaseControllerService controller = fxmlLoader.getController();
-        controller.setStage(stage);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/game-screen.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
+            stage.setTitle("Blackjack!");
+            stage.getIcons().add(new Image("startup/coin.png"));
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
 
-        initialize();
+            BaseControllerService controller = fxmlLoader.getController();
+            controller.setStage(stage);
+
+            initialize();
+
+        } else {
+            noPlayerName.setText("You must have at least one player name ");
+        }
+
     }
 
     public void moveToInfoView() throws IOException {
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/info-screen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
         stage.setTitle("Blackjack!");
@@ -91,8 +140,11 @@ public class BaseControllerService {
             return;
         }
 
+
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         player.placeBet(betSum);
+
+        assignPlayersNames();
 
         changePlayerMove();
     }
@@ -103,7 +155,7 @@ public class BaseControllerService {
         currentBet[currentPlayerIndex].setText("");
         player.setPlaying(false);
 
-        if(returnAmountOfPlayingPlayers() == 0){
+        if (returnAmountOfPlayingPlayers() == 0) {
             moveToMainStarterView();
             return;
         }
@@ -196,7 +248,7 @@ public class BaseControllerService {
     private void cleanMoneyFields() {
         for (int i = 0; i < MAX_PLAYERS; i++) {
             Player player = baseModelService.returnPlayer(i);
-            if(player.isPlaying()){
+            if (player.isPlaying()) {
                 currentBet[i].setText("0$");
             }
         }
@@ -226,14 +278,47 @@ public class BaseControllerService {
         }
     }
 
-    private int returnAmountOfPlayingPlayers(){
+    private int returnAmountOfPlayingPlayers() {
         int onlinePlayers = 0;
-        for (int i = 0; i < MAX_PLAYERS; i++){
+        for (int i = 0; i < MAX_PLAYERS; i++) {
             Player player = baseModelService.returnPlayer(i);
-            if(player.isPlaying()){
+            if (player.isPlaying()) {
                 onlinePlayers++;
             }
         }
         return onlinePlayers;
     }
+
+    public String getUserName(TextField textField) {
+        return textField.getText();
+    }
+
+    public int checkNumberOfPlayers() {
+        userName[0] = getUserName(firstUserName);
+        userName[1] = getUserName(secondUserName);
+        userName[2] = getUserName(thirdUserName);
+        userName[3] = getUserName(fourthUserName);
+
+
+        int playerCounter = 0;
+        for (int i = 0; i < MAX_PLAYERS; i++) {
+            if (!Objects.equals(userName[i], "")){
+                playerCounter++;
+                accountAmount[i]=startAmount;
+            }
+            System.out.println(userName[i]);
+        }
+        return playerCounter;
+    }
+
+    public void assignPlayersNames() {
+
+        dataFirstPlayer.setText(userName[0]+'\n'+accountAmount[0]);
+        dataSecondPlayer.setText(userName[1]+'\n'+accountAmount[1]);
+        dataThirdPlayer.setText(userName[2]+'\n'+accountAmount[2]);
+        dataFourthPlayer.setText(userName[3]+'\n'+accountAmount[3]);
+
+    }
+
+
 }
