@@ -10,8 +10,9 @@ public enum CardType {
     EIGHT,
     NINE,
     TEN,
+    ACE,
     JACK,
     QUEEN,
     KING,
-    ACE,
+
 }

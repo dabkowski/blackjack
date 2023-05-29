@@ -37,33 +37,8 @@ public class Card {
         setCardValueFromCardType();
     }
     private void setCardValueFromCardType() {
-        if(cardType == CardType.ACE)
-            cardValue = 11;
-        else if(cardType == CardType.TWO) {
-            cardValue = 2;
-        }
-        else if(cardType == CardType.THREE) {
-            cardValue = 3;
-        }
-        else if(cardType == CardType.FOUR) {
-            cardValue = 4;
-        }
-        else if(cardType == CardType.FIVE) {
-            cardValue = 5;
-        }
-        else if(cardType == CardType.SIX) {
-            cardValue = 6;
-        }
-        else if(cardType == CardType.SEVEN) {
-            cardValue = 7;
-        }
-        else if(cardType == CardType.EIGHT) {
-            cardValue = 8;
-        }
-        else if(cardType == CardType.NINE) {
-            cardValue = 9;
-        }
-        else {
+        cardValue = cardType.ordinal() + 2;
+        if (cardValue > 11) {
             cardValue = 10;
         }
     }
