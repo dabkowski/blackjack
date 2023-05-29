@@ -10,9 +10,14 @@ public class Player {
     }
 
     public void placeBet(int amount) {
-        if(amount >= accountBalance) {
+        if (amount >= accountBalance) {
             amount = accountBalance;
         }
+
+        if (amount <= 0) {
+            return;
+        }
+
         betAmount += amount;
         accountBalance -= amount;
     }
