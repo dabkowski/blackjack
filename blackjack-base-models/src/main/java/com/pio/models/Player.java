@@ -4,7 +4,10 @@ public class Player {
     private int accountBalance;
 
     private int betAmount;
+
     private boolean isPlaying = true;
+
+    private boolean isStanding = false;
 
     public Player(int accountBalance) {
         this.accountBalance = accountBalance;
@@ -21,6 +24,14 @@ public class Player {
 
         betAmount += amount;
         accountBalance -= amount;
+    }
+
+    public int getBetAmount() {
+        return betAmount;
+    }
+
+    public void setStanding(boolean standing) {
+        isStanding = standing;
     }
 
     public boolean isPlaying() {

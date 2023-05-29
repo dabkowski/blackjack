@@ -112,7 +112,12 @@ public class BaseControllerService {
     }
 
     public void stand(MouseEvent event) {
-        System.out.println("stand");
+        Player player = baseModelService.returnPlayer(currentPlayerIndex);
+        if(player.getBetAmount() == 0){
+            return;
+        }
+        player.setStanding(true);
+        changePlayerMove();
     }
 
     public void add1000Chip(MouseEvent event) {
