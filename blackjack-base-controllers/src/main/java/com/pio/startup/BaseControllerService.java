@@ -94,6 +94,13 @@ public class BaseControllerService {
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         player.placeBet(betSum);
 
+        if(player.getCardsAmount() == 0) {
+            player.takeCard();
+        }
+        player.takeCard();
+
+        player.showCards();
+
         changePlayerMove();
     }
 
