@@ -82,8 +82,8 @@ public class BaseControllerService {
         controller.setStage(stage);
     }
 
-    public void leaveInfoScreen(MouseEvent event) {
-        System.out.println("Leaving!");
+    public void leaveInfoScreen(MouseEvent event) throws IOException {
+        moveToGameView();
     }
 
     public void hit(MouseEvent event) {
