@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -136,26 +138,35 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="dataFirstPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="65.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Player" textAlignment="CENTER">
+            <Label fx:id="dataFirstPlayer" alignment="CENTER" layoutX="59.0" layoutY="466.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-            </Text>
-            <Text fx:id="dataFourthPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="938.0" layoutY="492.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fourth Player" textAlignment="CENTER">
+            </Label>
+            <Label fx:id="dataFourthPlayer" alignment="CENTER" layoutX="942.0" layoutY="448.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-            </Text>
-            <Text fx:id="dataThirdPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="735.0" layoutY="642.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Third Player" textAlignment="CENTER" wrappingWidth="123.6181640625">
+            </Label>
+            <Label fx:id="dataThirdPlayer" alignment="CENTER" layoutX="748.0" layoutY="607.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-            </Text>
-            <Text fx:id="dataSecondPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="278.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Second Player" textAlignment="CENTER">
+            </Label>
+            <Label fx:id="dataSecondPlayer" alignment="CENTER" layoutX="285.0" layoutY="615.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-            </Text>
+            </Label>
+            <Label fx:id="gameStatus" layoutX="27.0" layoutY="32.0" prefHeight="50.0" prefWidth="275.0" textFill="#f8f8f8">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+            <Circle fx:id="firstPlayerCircle" fill="#1f93ff00" layoutX="110.0" layoutY="498.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+            <Circle fx:id="fourthPlayerCircle" fill="#1f93ff00" layoutX="989.0" layoutY="483.0" radius="60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+            <Circle fx:id="thirdPlayerCircle" fill="#1f93ff00" layoutX="795.0" layoutY="641.0" radius="60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+            <Circle fx:id="secondPlayerCircle" fill="#1f93ff00" layoutX="336.0" layoutY="652.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
          </children>
       </Pane>
    </children>

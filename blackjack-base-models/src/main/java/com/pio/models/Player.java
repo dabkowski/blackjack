@@ -61,4 +61,5 @@ public class Player {
     public void setPlaying(boolean playing) {
         isPlaying = playing;
     }
+    public int getAccountBalance(){return this.accountBalance;}
 }
