@@ -13,7 +13,7 @@
    <children>
       <Pane prefHeight="847.09" prefWidth="1080.0">
          <children>
-            <ImageView fitHeight="847.09" fitWidth="1080.0" layoutX="2.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="858.0" fitWidth="1091.0" layoutX="-4.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@blackjack-starter-view.png" />
                </image>
