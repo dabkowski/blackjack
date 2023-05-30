@@ -16,13 +16,18 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class BaseControllerService {
     public static int MAX_PLAYERS = 4;
+    public static int DECK_CARD_POS_X = 4;
+    public static int DECK_CARD_POS_Y = 4;
+    public static int CARD_HEIGHT = 70;
+    public static int CARD_WIDTH = 50;
 
     @FXML
     private Text dataFirstPlayer;
@@ -62,6 +67,13 @@ public class BaseControllerService {
     @FXML
     private TextField thirdUserName;
 
+    private final List<Point> playerCardPosition = new ArrayList<>() {{
+        add(new Point(250, 350));
+        add(new Point(400, 450));
+        add(new Point(520, 450));
+        add(new Point(650, 350));
+        add(new Point(500, 250));
+    }};
 
     private Text[] currentBet;
 
@@ -77,6 +89,7 @@ public class BaseControllerService {
     private final BaseModelService baseModelService = new BaseModelService();
 
     private static final String[] userName = new String[MAX_PLAYERS];
+
     private static final int[] accountAmount = new int[MAX_PLAYERS];
     int startAmount = 8000;
 
@@ -86,8 +99,6 @@ public class BaseControllerService {
     @FXML
     private AnchorPane gamePane;
 
-    boolean isFrontShowing = true;
-    Image frontImage = new Image("Cards/ace_of_clubs.png");
     Image backImage = new Image("Cards/back.png");
 
     public void moveToMainStarterView() throws IOException {
@@ -105,7 +116,6 @@ public class BaseControllerService {
 
     public void moveToGameView() throws IOException {
         int numberOfPlayer = checkNumberOfPlayers();
-        System.out.println(numberOfPlayer);
         if (numberOfPlayer > 0) {
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/game-screen.fxml"));
@@ -141,27 +151,29 @@ public class BaseControllerService {
         controller.setStage(stage);
     }
 
-    public void moveCardToHand() {
+    public void moveCardToHand(Player player) {
+        final boolean[] isFrontShowing = {true};
 
-        Player player = baseModelService.returnPlayer(currentPlayerIndex);
-
-        isFrontShowing = true;
         ImageView back = new ImageView(backImage);
-        back.setFitWidth(65);
-        back.setFitHeight(95);
+        back.setFitWidth(CARD_WIDTH);
+        back.setFitHeight(CARD_HEIGHT);
 
         gamePane.getChildren().add(back);
 
-        double startX = 203;
-        double startY = 186;
-        double endX = 500;
-        double endY = 250;
+        Point middleTablePos = playerCardPosition.get(4);
+        int middleTablePosX = middleTablePos.getX();
+        int middleTablePosY = middleTablePos.getY();
+
+        Point playerHandPosition = playerCardPosition.get(currentPlayerIndex);
+        int playerHandPositionX = playerHandPosition.getX();
+        int playerHandPositionY = playerHandPosition.getY();
 
         TranslateTransition transition = new TranslateTransition(Duration.millis(500), back);
-        transition.setFromX(startX);
-        transition.setFromY(startY);
-        transition.setToX(endX);
-        transition.setToY(endY);
+        transition.setFromX(DECK_CARD_POS_X);
+        transition.setFromY(DECK_CARD_POS_Y);
+
+        transition.setToX(middleTablePosX);
+        transition.setToY(middleTablePosY);
         transition.play();
 
         RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), back);
@@ -170,38 +182,35 @@ public class BaseControllerService {
         rotateTransition.setToAngle(90);
         rotateTransition.play();
         rotateTransition.setOnFinished(event1 -> {
-            if (isFrontShowing) {
-                back.setImage(frontImage);
+
+            if (isFrontShowing[0]) {
+                String cardName = player.getLastCard().getCardType() + "_OF_" + player.getLastCard().getSuit();
+
+                back.setImage(getCardImage(cardName));
                 rotateTransition.setFromAngle(90);
-                rotateTransition.setToAngle(180);
+                rotateTransition.setToAngle(360);
                 rotateTransition.play();
                 rotateTransition.setOnFinished(event2 -> {
 
-                    back.setFitWidth(50);
-                    back.setFitHeight(70);
-
-                    int lastx = 250;
-                    int lasty = 350;
-
-                    transition.setFromX(endX);
-                    transition.setFromY(endY);
-                    transition.setToX(lastx);
-                    transition.setToY(lasty);
+                    transition.setFromX(middleTablePosX);
+                    transition.setFromY(middleTablePosY);
+                    transition.setToX(playerHandPositionX);
+                    transition.setToY(playerHandPositionY);
                     transition.play();
                 });
-                isFrontShowing = false;
+                isFrontShowing[0] = false;
             }
         });
     }
 
-    public void leaveInfoScreen(MouseEvent event) throws IOException {
+    public void leaveInfoScreen() throws IOException {
         moveToGameView();
     }
 
-    public void hit(MouseEvent event) {
-        /*if (betSum == 0) {
+    public void hit() {
+        if (betSum == 0) {
             return;
-        }*/
+        }
 
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         player.placeBet(betSum);
@@ -209,15 +218,15 @@ public class BaseControllerService {
         if(player.getCardsAmount() == 0) {
             player.takeCard();
         }
-        player.takeCard();
 
-        player.showCards();
+        player.takeCard();
+        moveCardToHand(player);
 
         assignPlayersNames();
         changePlayerMove();
     }
 
-    public void leaveGame(MouseEvent event) throws IOException {
+    public void leaveGame() throws IOException {
 
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         currentBet[currentPlayerIndex].setText("");
@@ -231,7 +240,7 @@ public class BaseControllerService {
         changePlayerMove();
     }
 
-    public void stand(MouseEvent event) {
+    public void stand() {
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         if (player.getBetAmount() == 0) {
             return;
@@ -315,7 +324,6 @@ public class BaseControllerService {
     private void changePlayerMove() {
         betSum = 0;
         currentPlayerIndex = returnNextPlayingPlayer();
-        System.out.println("Ruch: " + currentPlayerIndex);
     }
 
     private void cleanMoneyFields() {
@@ -379,7 +387,6 @@ public class BaseControllerService {
                 playerCounter++;
                 accountAmount[i]=startAmount;
             }
-            System.out.println(userName[i]);
         }
         return playerCounter;
     }
@@ -393,5 +400,10 @@ public class BaseControllerService {
 
     }
 
+    public Image getCardImage(String cardName) {
+        Image cardImage;
+        cardImage = new Image("cards/" + cardName + ".png");
+        return cardImage;
+    }
 
 }
