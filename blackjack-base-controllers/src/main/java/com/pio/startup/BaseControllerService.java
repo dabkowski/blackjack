@@ -5,22 +5,16 @@ import com.pio.models.Player;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 import java.io.IOException;
 
 public class BaseControllerService {
@@ -99,81 +93,43 @@ public class BaseControllerService {
         controller.setStage(stage);
     }
 
-    public void moveCardToHand(){
+    public void moveCardToHand() {
 
         isFrontShowing = true;
         ImageView back = new ImageView(backImage);
         back.setFitWidth(65);
         back.setFitHeight(95);
-        ImageView front = new ImageView(frontImage);
 
-        gamePane.getChildren().add(back); // Dodanie karty do kontenera
+        gamePane.getChildren().add(back);
 
-        double startX = 203; // Współrzędne punktu początkowego
+        double startX = 203;
         double startY = 186;
-        double endX = 500; // Współrzędne punktu docelowego
+        double endX = 500;
         double endY = 250;
 
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(1), back); // Tworzenie animacji
-        transition.setFromX(startX); // Ustawienie punktu początkowego
+        TranslateTransition transition = new TranslateTransition(Duration.millis(500), back);
+        transition.setFromX(startX);
         transition.setFromY(startY);
-        transition.setToX(endX); // Ustawienie punktu docelowego
+        transition.setToX(endX);
         transition.setToY(endY);
         transition.play();
 
         transition.setOnFinished(event -> {
-            System.out.println("obrot do polowy");
-            RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), back);
+            RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), back);
             rotateTransition.setAxis(Rotate.Y_AXIS);
-            rotateTransition.setFromAngle(0); // Początkowy kąt obrotu
-            rotateTransition.setToAngle(90); // Końcowy kąt obrotu
+            rotateTransition.setFromAngle(0);
+            rotateTransition.setToAngle(90);
             rotateTransition.play();
             rotateTransition.setOnFinished(event1 -> {
-                if(isFrontShowing){
-                    System.out.println("Obrot do konca");
+                if (isFrontShowing) {
                     back.setImage(frontImage);
-                    rotateTransition.setFromAngle(90); // Początkowy kąt obrotu
+                    rotateTransition.setFromAngle(90);
                     rotateTransition.setToAngle(180);
                     rotateTransition.play();
                     isFrontShowing = false;
                 }
             });
         });
-    }
-
-    private RotateTransition createRotator(ImageView card) {
-        RotateTransition rotator = new RotateTransition(Duration.millis(1000), card);
-        rotator.setAxis(Rotate.Y_AXIS);
-
-        if (isFrontShowing) {
-            rotator.setFromAngle(0);
-            rotator.setToAngle(180);
-        } else {
-            rotator.setFromAngle(180);
-            rotator.setToAngle(360);
-        }
-        rotator.setInterpolator(Interpolator.LINEAR);
-        rotator.setCycleCount(1);
-
-        return rotator;
-    }
-
-    private PauseTransition changeCardFace(ImageView card) {
-        PauseTransition pause = new PauseTransition(Duration.millis(500));
-
-        if (isFrontShowing) {
-            pause.setOnFinished(
-                    e -> {
-                        card.setImage(backImage);
-                    });
-        } else {
-            pause.setOnFinished(
-                    e -> {
-                        card.setImage(frontImage);
-                    });
-        }
-
-        return pause;
     }
 
     public void leaveInfoScreen(MouseEvent event) throws IOException {
@@ -199,7 +155,7 @@ public class BaseControllerService {
         currentBet[currentPlayerIndex].setText("");
         player.setPlaying(false);
 
-        if(returnAmountOfPlayingPlayers() == 0){
+        if (returnAmountOfPlayingPlayers() == 0) {
             moveToMainStarterView();
             return;
         }
@@ -209,7 +165,7 @@ public class BaseControllerService {
 
     public void stand(MouseEvent event) {
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
-        if(player.getBetAmount() == 0){
+        if (player.getBetAmount() == 0) {
             return;
         }
         player.setStanding(true);
@@ -297,7 +253,7 @@ public class BaseControllerService {
     private void cleanMoneyFields() {
         for (int i = 0; i < MAX_PLAYERS; i++) {
             Player player = baseModelService.returnPlayer(i);
-            if(player.isPlaying()){
+            if (player.isPlaying()) {
                 currentBet[i].setText("0$");
             }
         }
@@ -327,11 +283,11 @@ public class BaseControllerService {
         }
     }
 
-    private int returnAmountOfPlayingPlayers(){
+    private int returnAmountOfPlayingPlayers() {
         int onlinePlayers = 0;
-        for (int i = 0; i < MAX_PLAYERS; i++){
+        for (int i = 0; i < MAX_PLAYERS; i++) {
             Player player = baseModelService.returnPlayer(i);
-            if(player.isPlaying()){
+            if (player.isPlaying()) {
                 onlinePlayers++;
             }
         }
