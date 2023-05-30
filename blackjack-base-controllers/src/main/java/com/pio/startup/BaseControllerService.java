@@ -2,21 +2,24 @@ package com.pio.startup;
 
 import com.pio.models.BaseModelService;
 import com.pio.models.Player;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
-
-
+import javafx.util.Duration;
 import java.io.IOException;
 import java.util.Objects;
+
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class BaseControllerService {
     public static int MAX_PLAYERS = 4;
@@ -80,6 +83,13 @@ public class BaseControllerService {
     public BaseControllerService() {
     }
 
+    @FXML
+    private AnchorPane gamePane;
+
+    boolean isFrontShowing = true;
+    Image frontImage = new Image("Cards/ace_of_clubs.png");
+    Image backImage = new Image("Cards/back.png");
+
     public void moveToMainStarterView() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/blackjack-starter-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
@@ -131,14 +141,67 @@ public class BaseControllerService {
         controller.setStage(stage);
     }
 
+    public void moveCardToHand() {
+
+        Player player = baseModelService.returnPlayer(currentPlayerIndex);
+
+        isFrontShowing = true;
+        ImageView back = new ImageView(backImage);
+        back.setFitWidth(65);
+        back.setFitHeight(95);
+
+        gamePane.getChildren().add(back);
+
+        double startX = 203;
+        double startY = 186;
+        double endX = 500;
+        double endY = 250;
+
+        TranslateTransition transition = new TranslateTransition(Duration.millis(500), back);
+        transition.setFromX(startX);
+        transition.setFromY(startY);
+        transition.setToX(endX);
+        transition.setToY(endY);
+        transition.play();
+
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), back);
+        rotateTransition.setAxis(Rotate.Y_AXIS);
+        rotateTransition.setFromAngle(0);
+        rotateTransition.setToAngle(90);
+        rotateTransition.play();
+        rotateTransition.setOnFinished(event1 -> {
+            if (isFrontShowing) {
+                back.setImage(frontImage);
+                rotateTransition.setFromAngle(90);
+                rotateTransition.setToAngle(180);
+                rotateTransition.play();
+                rotateTransition.setOnFinished(event2 -> {
+
+                    back.setFitWidth(50);
+                    back.setFitHeight(70);
+
+                    int lastx = 250;
+                    int lasty = 350;
+
+                    transition.setFromX(endX);
+                    transition.setFromY(endY);
+                    transition.setToX(lastx);
+                    transition.setToY(lasty);
+                    transition.play();
+                });
+                isFrontShowing = false;
+            }
+        });
+    }
+
     public void leaveInfoScreen(MouseEvent event) throws IOException {
         moveToGameView();
     }
 
     public void hit(MouseEvent event) {
-        if (betSum == 0) {
+        /*if (betSum == 0) {
             return;
-        }
+        }*/
 
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         player.placeBet(betSum);
@@ -170,7 +233,7 @@ public class BaseControllerService {
 
     public void stand(MouseEvent event) {
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
-        if(player.getBetAmount() == 0){
+        if (player.getBetAmount() == 0) {
             return;
         }
         player.setStanding(true);
