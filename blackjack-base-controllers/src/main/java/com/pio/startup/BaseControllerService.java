@@ -5,15 +5,22 @@ import com.pio.models.Player;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,8 +28,18 @@ import java.util.List;
 import java.util.Objects;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
-public class BaseControllerService {
+
+public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
   
     public static int DECK_CARD_POS_X = 4;
@@ -34,16 +51,16 @@ public class BaseControllerService {
     public static int CARD_WIDTH = 50;
 
     @FXML
-    private Text dataFirstPlayer;
+    private Label dataFirstPlayer;
 
     @FXML
-    private Text dataSecondPlayer;
+    private Label dataSecondPlayer;
 
     @FXML
-    private Text dataThirdPlayer;
+    private Label dataThirdPlayer;
 
     @FXML
-    private Text dataFourthPlayer;
+    private Label dataFourthPlayer;
 
 
     @FXML
@@ -96,13 +113,25 @@ public class BaseControllerService {
   
     Image backImage = new Image("Cards/back.png");
 
+    @FXML
+    private Label gameStatus;
+
+    @FXML
+    private Circle firstPlayerCircle;
+
+    @FXML
+    private Circle secondPlayerCircle;
+
+    @FXML
+    private Circle thirdPlayerCircle;
+
+    @FXML
+    private Circle fourthPlayerCircle;
+
     private final BaseModelService baseModelService = new BaseModelService();
 
     private static final String[] userName = new String[MAX_PLAYERS];
 
-    private static final int[] accountAmount = new int[MAX_PLAYERS];
-  
-    int startAmount = 8000;
 
     public BaseControllerService() {
     }
@@ -134,8 +163,6 @@ public class BaseControllerService {
 
             BaseControllerService controller = fxmlLoader.getController();
             controller.setStage(stage);
-
-            initialize();
 
         } else {
             noPlayerName.setText("You must have at least one player name ");
@@ -240,14 +267,16 @@ public class BaseControllerService {
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         player.placeBet(betSum);
 
+      
         if(player.getCardsAmount() == 0) {
+
             player.takeCard();
         }
 
         player.takeCard();
+      
         moveCardToHand(player);
 
-        assignPlayersNames();
         changePlayerMove();
     }
 
@@ -349,6 +378,9 @@ public class BaseControllerService {
     private void changePlayerMove() {
         betSum = 0;
         currentPlayerIndex = returnNextPlayingPlayer();
+        displayIsPlaying(currentPlayerIndex);
+        System.out.println("Ruch: " + currentPlayerIndex);
+
     }
 
     private void cleanMoneyFields() {
@@ -396,7 +428,8 @@ public class BaseControllerService {
     }
 
     public String getUserName(TextField textField) {
-        return textField.getText();
+        if (textField.getText().length() >= 7) return textField.getText().substring(0, 7).toUpperCase();
+        else return textField.getText().toUpperCase();
     }
 
     public int checkNumberOfPlayers() {
@@ -408,9 +441,8 @@ public class BaseControllerService {
 
         int playerCounter = 0;
         for (int i = 0; i < MAX_PLAYERS; i++) {
-            if (!Objects.equals(userName[i], "")){
+            if (!Objects.equals(userName[i], "")) {
                 playerCounter++;
-                accountAmount[i]=startAmount;
             }
         }
         return playerCounter;
@@ -418,17 +450,83 @@ public class BaseControllerService {
 
     public void assignPlayersNames() {
 
-        dataFirstPlayer.setText(userName[0]+'\n'+accountAmount[0]);
-        dataSecondPlayer.setText(userName[1]+'\n'+accountAmount[1]);
-        dataThirdPlayer.setText(userName[2]+'\n'+accountAmount[2]);
-        dataFourthPlayer.setText(userName[3]+'\n'+accountAmount[3]);
+        dataFirstPlayer.setText(userName[0] + '\n' + baseModelService.returnPlayer(0).getAccountBalance() + " $");
+        dataSecondPlayer.setText(userName[1] + '\n' + baseModelService.returnPlayer(1).getAccountBalance() + " $");
+        dataThirdPlayer.setText(userName[2] + '\n' + baseModelService.returnPlayer(2).getAccountBalance() + " $");
+        dataFourthPlayer.setText(userName[3] + '\n' + baseModelService.returnPlayer(3).getAccountBalance() + " $");
+
 
     }
-
-    public Image getCardImage(String cardName) {
+  public Image getCardImage(String cardName) {
         Image cardImage;
         cardImage = new Image("cards/" + cardName + ".png");
         return cardImage;
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (url.getPath().endsWith("startup/game-screen.fxml")) {
+            initialize();
+            assignPlayersNames();
+            displayIsPlaying(currentPlayerIndex);
+            System.out.println("Initializing specific FXML");
+        }
+    }
+
+    public void displayIsPlaying(int currentPlayer) {
+
+        if (currentPlayer < MAX_PLAYERS) {
+            gameStatus.setText(userName[currentPlayer] + " is playing");
+
+            Light.Distant light = new Light.Distant();
+            light.setAzimuth(-135.0);
+
+            Lighting lighting = new Lighting();
+            lighting.setLight(light);
+            lighting.setSurfaceScale(5.0);
+
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setColor(Color.BLACK);
+            dropShadow.setRadius(10.0);
+            dropShadow.setOffsetX(5.0);
+            dropShadow.setOffsetY(5.0);
+
+            if (currentPlayer == 0) {
+                firstPlayerCircle.setStroke(Color.YELLOW);
+                firstPlayerCircle.setEffect(lighting);
+                firstPlayerCircle.setStrokeWidth(3);
+            } else {
+                firstPlayerCircle.setStroke(Color.BLACK);
+                firstPlayerCircle.setStrokeWidth(0);
+            }
+
+            if (currentPlayer == 1) {
+                secondPlayerCircle.setStroke(Color.YELLOW);
+                secondPlayerCircle.setEffect(lighting);
+                secondPlayerCircle.setStrokeWidth(3);
+            } else {
+                secondPlayerCircle.setStroke(Color.BLACK);
+                secondPlayerCircle.setStrokeWidth(0);
+            }
+
+            if (currentPlayer == 2) {
+                thirdPlayerCircle.setStroke(Color.YELLOW);
+                thirdPlayerCircle.setEffect(lighting);
+                thirdPlayerCircle.setStrokeWidth(3);
+            } else {
+                thirdPlayerCircle.setStroke(Color.BLACK);
+                thirdPlayerCircle.setStrokeWidth(0);
+            }
+
+            if (currentPlayer == 3) {
+                fourthPlayerCircle.setStroke(Color.YELLOW);
+                fourthPlayerCircle.setEffect(lighting);
+                fourthPlayerCircle.setStrokeWidth(3);
+            } else {
+                fourthPlayerCircle.setStroke(Color.BLACK);
+                fourthPlayerCircle.setStrokeWidth(0);
+            }
+        }
+
+    }
 }

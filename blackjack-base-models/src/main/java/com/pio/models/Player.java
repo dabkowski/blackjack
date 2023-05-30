@@ -32,8 +32,8 @@ public class Player {
     }
 
     public void showCards() {
-        for(int i=0; i<cardsAmount; i++) {
-            System.out.println(i+". " + cards[i].getCardType() + " " + cards[i].getSuit() + " " + cards[i].getCardValue() + " " + sumOfCardsValue);
+        for (int i = 0; i < cardsAmount; i++) {
+            System.out.println(i + ". " + cards[i].getCardType() + " " + cards[i].getSuit() + " " + cards[i].getCardValue() + " " + sumOfCardsValue);
         }
     }
 
@@ -64,7 +64,13 @@ public class Player {
         isPlaying = playing;
     }
 
+
+    public int getAccountBalance() {
+        return this.accountBalance;
+    }
+
     public Card getLastCard() {
         return cards[cardsAmount-1];
+
     }
 }
