@@ -19,6 +19,4 @@ public class BaseModelService {
     public Player returnPlayer(int index) {
         return players[index];
     }
-
-
 }
