@@ -15,7 +15,6 @@ public class ViewRunner extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader();
         BaseControllerService controller = new BaseControllerService();
         fxmlLoader.setController(controller);
-
         controller.setStage(stage);
         controller.moveToMainStarterView();
     }

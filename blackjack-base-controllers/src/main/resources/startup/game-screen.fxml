@@ -5,14 +5,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.09" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pio.startup.BaseControllerService">
    <children>
       <Pane prefHeight="847.0" prefWidth="1085.0">
          <children>
-            <ImageView fitHeight="858.0" fitWidth="1091.0" layoutX="-7.0" layoutY="-5.0">
+            <ImageView fitHeight="858.0" fitWidth="1091.0" layoutX="-3.0" layoutY="6.0">
                <image>
                   <Image url="@Game-screen.png" />
                </image>
@@ -134,6 +134,26 @@
             <Text fx:id="fourthMoneyPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="842.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="dataFirstPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="65.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Player" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="dataFourthPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="938.0" layoutY="492.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fourth Player" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="dataThirdPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="735.0" layoutY="642.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Third Player" textAlignment="CENTER" wrappingWidth="123.6181640625">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="dataSecondPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="278.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Second Player" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Text>
          </children>
