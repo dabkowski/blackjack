@@ -207,10 +207,10 @@ public class BaseControllerService {
         moveToGameView();
     }
 
-    public void hit() {
-        if (betSum == 0) {
+    public void hit(MouseEvent event) {
+        /*if (betSum == 0) {
             return;
-        }
+        }*/
 
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         player.placeBet(betSum);
