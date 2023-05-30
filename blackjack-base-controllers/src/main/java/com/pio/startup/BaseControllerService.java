@@ -132,7 +132,7 @@ public class BaseControllerService {
     }
 
     public void leaveInfoScreen(MouseEvent event) throws IOException {
-        moveToGameView();
+        moveToMainStarterView();
     }
 
     public void hit(MouseEvent event) {
