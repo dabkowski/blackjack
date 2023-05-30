@@ -95,6 +95,8 @@ public class BaseControllerService {
 
     public void moveCardToHand() {
 
+        Player player = baseModelService.returnPlayer(currentPlayerIndex);
+
         isFrontShowing = true;
         ImageView back = new ImageView(backImage);
         back.setFitWidth(65);
@@ -114,21 +116,33 @@ public class BaseControllerService {
         transition.setToY(endY);
         transition.play();
 
-        transition.setOnFinished(event -> {
-            RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), back);
-            rotateTransition.setAxis(Rotate.Y_AXIS);
-            rotateTransition.setFromAngle(0);
-            rotateTransition.setToAngle(90);
-            rotateTransition.play();
-            rotateTransition.setOnFinished(event1 -> {
-                if (isFrontShowing) {
-                    back.setImage(frontImage);
-                    rotateTransition.setFromAngle(90);
-                    rotateTransition.setToAngle(180);
-                    rotateTransition.play();
-                    isFrontShowing = false;
-                }
-            });
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), back);
+        rotateTransition.setAxis(Rotate.Y_AXIS);
+        rotateTransition.setFromAngle(0);
+        rotateTransition.setToAngle(90);
+        rotateTransition.play();
+        rotateTransition.setOnFinished(event1 -> {
+            if (isFrontShowing) {
+                back.setImage(frontImage);
+                rotateTransition.setFromAngle(90);
+                rotateTransition.setToAngle(180);
+                rotateTransition.play();
+                rotateTransition.setOnFinished(event2 -> {
+
+                    back.setFitWidth(50);
+                    back.setFitHeight(70);
+
+                    int lastx = 250;
+                    int lasty = 350;
+
+                    transition.setFromX(endX);
+                    transition.setFromY(endY);
+                    transition.setToX(lastx);
+                    transition.setToY(lasty);
+                    transition.play();
+                });
+                isFrontShowing = false;
+            }
         });
     }
 
