@@ -82,7 +82,15 @@ public class BaseControllerService {
 
     public void moveToMainStarterView() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/blackjack-starter-view.fxml"));
-        setSceneForView(fxmlLoader);
+        Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
+        stage.setTitle("Blackjack!");
+        stage.getIcons().add(new Image("startup/coin.png"));
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+
+        BaseControllerService controller = fxmlLoader.getController();
+        controller.setStage(stage);
     }
 
     public void moveToGameView() throws IOException {
@@ -91,7 +99,15 @@ public class BaseControllerService {
         if (numberOfPlayer > 0) {
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/game-screen.fxml"));
-            setSceneForView(fxmlLoader);
+            Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
+            stage.setTitle("Blackjack!");
+            stage.getIcons().add(new Image("startup/coin.png"));
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+
+            BaseControllerService controller = fxmlLoader.getController();
+            controller.setStage(stage);
 
             initialize();
 
@@ -104,13 +120,6 @@ public class BaseControllerService {
     public void moveToInfoView() throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/info-screen.fxml"));
-        setSceneForView(fxmlLoader);
-    }
-
-    public void leaveInfoScreen(MouseEvent event) throws IOException {
-        moveToGameView();
-    }
-    private void setSceneForView(FXMLLoader fxmlLoader) throws IOException {
         Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
         stage.setTitle("Blackjack!");
         stage.getIcons().add(new Image("startup/coin.png"));
@@ -121,6 +130,11 @@ public class BaseControllerService {
         BaseControllerService controller = fxmlLoader.getController();
         controller.setStage(stage);
     }
+
+    public void leaveInfoScreen(MouseEvent event) throws IOException {
+        moveToGameView();
+    }
+
     public void hit(MouseEvent event) {
         if (betSum == 0) {
             return;
