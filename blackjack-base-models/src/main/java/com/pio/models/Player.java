@@ -64,7 +64,13 @@ public class Player {
         isPlaying = playing;
     }
 
+
     public int getAccountBalance() {
         return this.accountBalance;
+    }
+
+    public Card getLastCard() {
+        return cards[cardsAmount-1];
+
     }
 }

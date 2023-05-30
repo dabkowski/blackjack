@@ -13,7 +13,7 @@
    <children>
       <Pane prefHeight="847.09" prefWidth="1080.0">
          <children>
-            <ImageView fitHeight="847.09" fitWidth="1080.0" layoutX="2.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="858.0" fitWidth="1091.0" layoutX="-4.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@blackjack-starter-view.png" />
                </image>
@@ -23,9 +23,9 @@
                   <Image url="@blackjack-starter-name.png" />
                </image>
             </ImageView>
-            <TextField fx:id="firstUserName" alignment="CENTER" layoutX="204.0" layoutY="494.0" prefHeight="30.0" prefWidth="131.0" style="-fx-background-color: #00371C; -fx-text-fill: #FFFFFF;">
+            <TextField fx:id="firstUserName" alignment="CENTER" layoutX="204.0" layoutY="494.0" prefHeight="30.0" prefWidth="131.0" style="-fx-background-color: transparent; -fx-text-fill: #FFFFFF;">
                <font>
-                  <Font name="Dubai Regular" size="12.0" />
+                  <Font name="Dubai Regular" size="14.0" />
                </font>
             </TextField>
             <ImageView fitHeight="56.0" fitWidth="191.0" layoutX="719.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true">
@@ -33,9 +33,9 @@
                   <Image url="@blackjack-starter-name.png" />
                </image>
             </ImageView>
-            <TextField fx:id="secondUserName" alignment="CENTER" layoutX="741.0" layoutY="494.0" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: #00371C; -fx-text-fill: #FFFFFF;">
+            <TextField fx:id="secondUserName" alignment="CENTER" layoutX="741.0" layoutY="494.0" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: transparent; -fx-text-fill: #FFFFFF;">
                <font>
-                  <Font name="Dubai Regular" size="12.0" />
+                  <Font name="Dubai Regular" size="14.0" />
                </font>
             </TextField>
             <ImageView fitHeight="56.0" fitWidth="191.0" layoutX="719.0" layoutY="740.0" pickOnBounds="true" preserveRatio="true">
@@ -43,9 +43,9 @@
                   <Image url="@blackjack-starter-name.png" />
                </image>
             </ImageView>
-            <TextField fx:id="thirdUserName" alignment="CENTER" layoutX="741.0" layoutY="756.0" style="-fx-background-color: #00371C; -fx-text-fill: #FFFFFF;">
+            <TextField fx:id="thirdUserName" alignment="CENTER" layoutX="740.0" layoutY="753.0" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: transparent; -fx-text-fill: #FFFFFF;">
                <font>
-                  <Font name="Tahoma" size="12.0" />
+                  <Font name="Dubai Regular" size="14.0" />
                </font>
             </TextField>
             <ImageView fitHeight="56.0" fitWidth="191.0" layoutX="176.0" layoutY="740.0" pickOnBounds="true" preserveRatio="true">
@@ -53,12 +53,12 @@
                   <Image url="@blackjack-starter-name.png" />
                </image>
             </ImageView>
-            <TextField fx:id="fourthUserName" alignment="CENTER" layoutX="197.0" layoutY="753.0" prefHeight="30.0" prefWidth="146.0" style="-fx-background-color: #00371C; -fx-text-fill: #FFFFFF;">
+            <TextField fx:id="fourthUserName" alignment="CENTER" layoutX="197.0" layoutY="753.0" prefHeight="30.0" prefWidth="146.0" style="-fx-background-color: transparent; -fx-text-fill: #FFFFFF;">
                <font>
-                  <Font name="Dubai Regular" size="12.0" />
+                  <Font name="Dubai Regular" size="14.0" />
                </font>
             </TextField>
-            <Button fx:id="startButton" layoutX="447.0" layoutY="587.0" mnemonicParsing="false" onMouseClicked="#moveToGameView" style="-fx-background-color: transparent;">
+            <Button fx:id="startButton" layoutX="447.0" layoutY="565.0" mnemonicParsing="false" onMouseClicked="#moveToGameView" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="58.0" fitWidth="194.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -72,6 +72,15 @@
                   <Font size="12.0" />
                </font>
             </Label>
+            <Button fx:id="Info_Button" layoutX="446.0" layoutY="640.0" mnemonicParsing="false" onMouseClicked="#moveToInfoView" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@Info-Button.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </Pane>
    </children>
