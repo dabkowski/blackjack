@@ -70,9 +70,10 @@ public class BaseControllerService {
     private final List<Point> playerCardPosition = new ArrayList<>() {{
         add(new Point(250, 350));
         add(new Point(400, 450));
-        add(new Point(520, 450));
-        add(new Point(650, 350));
-        add(new Point(500, 250));
+        add(new Point(550, 450));
+        add(new Point(700, 350));
+        add(new Point(500, 200));
+        add(new Point(500, 400));
     }};
 
     private Text[] currentBet;
@@ -151,7 +152,31 @@ public class BaseControllerService {
         controller.setStage(stage);
     }
 
-    public void moveCardToHand(Player player) {
+    public void moveCardToHand(Object player) {
+
+        int playerHandPositionX;
+        int playerHandPositionY;
+        String cardName;
+
+        if (player instanceof Player) {
+            Point playerHandPosition = playerCardPosition.get(currentPlayerIndex);
+            playerHandPositionX = playerHandPosition.getX() + ((Player) player).getCardsAmount() * 10;
+            playerHandPositionY = playerHandPosition.getY() - ((Player) player).getCardsAmount() * 20;
+            cardName = ((Player) player).getLastCard().getCardType() + "_OF_" + ((Player) player).getLastCard().getSuit();
+        }
+        else{
+            cardName = "123";
+            playerHandPositionX = 3;
+            playerHandPositionY = 5;
+        }
+        /*else
+        {
+            Point playerHandPosition = playerCardPosition.get(4);
+            playerHandPositionX = playerHandPosition.getX() + ((Croupier) player).getCardsAmount() * 10;
+            playerHandPositionY = playerHandPosition.getY() - ((Croupier) player).getCardsAmount() * 20;
+            cardName = ((Croupier) player).getLastCard().getCardType() + "_OF_" + ((Croupier) player).getLastCard().getSuit();
+        }*/
+
         final boolean[] isFrontShowing = {true};
 
         ImageView back = new ImageView(backImage);
@@ -160,13 +185,9 @@ public class BaseControllerService {
 
         gamePane.getChildren().add(back);
 
-        Point middleTablePos = playerCardPosition.get(4);
+        Point middleTablePos = playerCardPosition.get(5);
         int middleTablePosX = middleTablePos.getX();
         int middleTablePosY = middleTablePos.getY();
-
-        Point playerHandPosition = playerCardPosition.get(currentPlayerIndex);
-        int playerHandPositionX = playerHandPosition.getX() + player.getCardsAmount() * 10;
-        int playerHandPositionY = playerHandPosition.getY() - player.getCardsAmount() * 20;
 
         TranslateTransition transition = new TranslateTransition(Duration.millis(500), back);
         transition.setFromX(DECK_CARD_POS_X);
@@ -184,7 +205,6 @@ public class BaseControllerService {
         rotateTransition.setOnFinished(event1 -> {
 
             if (isFrontShowing[0]) {
-                String cardName = player.getLastCard().getCardType() + "_OF_" + player.getLastCard().getSuit();
 
                 back.setImage(getCardImage(cardName));
                 rotateTransition.setFromAngle(90);
