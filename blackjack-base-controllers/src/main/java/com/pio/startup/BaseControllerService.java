@@ -34,7 +34,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 
-
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
 
@@ -372,9 +371,9 @@ public class BaseControllerService implements Initializable {
         }
     }
 
-    public void displayIsPlaying (int currentPlayer){
+    public void displayIsPlaying(int currentPlayer) {
 
-        if(currentPlayer<MAX_PLAYERS){
+        if (currentPlayer < MAX_PLAYERS) {
             gameStatus.setText(userName[currentPlayer] + " is playing");
 
             Light.Distant light = new Light.Distant();
@@ -390,42 +389,38 @@ public class BaseControllerService implements Initializable {
             dropShadow.setOffsetX(5.0);
             dropShadow.setOffsetY(5.0);
 
-            if(currentPlayer==0){
+            if (currentPlayer == 0) {
                 firstPlayerCircle.setStroke(Color.YELLOW);
                 firstPlayerCircle.setEffect(lighting);
                 firstPlayerCircle.setStrokeWidth(3);
-            }
-            else {
+            } else {
                 firstPlayerCircle.setStroke(Color.BLACK);
                 firstPlayerCircle.setStrokeWidth(0);
             }
 
-            if(currentPlayer==1){
+            if (currentPlayer == 1) {
                 secondPlayerCircle.setStroke(Color.YELLOW);
                 secondPlayerCircle.setEffect(lighting);
                 secondPlayerCircle.setStrokeWidth(3);
-            }
-            else {
+            } else {
                 secondPlayerCircle.setStroke(Color.BLACK);
                 secondPlayerCircle.setStrokeWidth(0);
             }
 
-            if(currentPlayer==2){
+            if (currentPlayer == 2) {
                 thirdPlayerCircle.setStroke(Color.YELLOW);
                 thirdPlayerCircle.setEffect(lighting);
                 thirdPlayerCircle.setStrokeWidth(3);
-            }
-            else {
+            } else {
                 thirdPlayerCircle.setStroke(Color.BLACK);
                 thirdPlayerCircle.setStrokeWidth(0);
             }
 
-            if(currentPlayer==3){
+            if (currentPlayer == 3) {
                 fourthPlayerCircle.setStroke(Color.YELLOW);
                 fourthPlayerCircle.setEffect(lighting);
                 fourthPlayerCircle.setStrokeWidth(3);
-            }
-            else {
+            } else {
                 fourthPlayerCircle.setStroke(Color.BLACK);
                 fourthPlayerCircle.setStrokeWidth(0);
             }

@@ -30,11 +30,13 @@ public class Player {
         betAmount += amount;
         accountBalance -= amount;
     }
+
     public void showCards() {
-        for(int i=0; i<cardsAmount; i++) {
-            System.out.println(i+". " + cards[i].getCardType() + " " + cards[i].getSuit() + " " + cards[i].getCardValue() + " " + sumOfCardsValue);
+        for (int i = 0; i < cardsAmount; i++) {
+            System.out.println(i + ". " + cards[i].getCardType() + " " + cards[i].getSuit() + " " + cards[i].getCardValue() + " " + sumOfCardsValue);
         }
     }
+
     public void takeCard() {
 
         Card card = new Card();
@@ -61,5 +63,8 @@ public class Player {
     public void setPlaying(boolean playing) {
         isPlaying = playing;
     }
-    public int getAccountBalance(){return this.accountBalance;}
+
+    public int getAccountBalance() {
+        return this.accountBalance;
+    }
 }
