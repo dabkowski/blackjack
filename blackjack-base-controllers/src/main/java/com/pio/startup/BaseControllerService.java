@@ -165,8 +165,8 @@ public class BaseControllerService {
         int middleTablePosY = middleTablePos.getY();
 
         Point playerHandPosition = playerCardPosition.get(currentPlayerIndex);
-        int playerHandPositionX = playerHandPosition.getX();
-        int playerHandPositionY = playerHandPosition.getY();
+        int playerHandPositionX = playerHandPosition.getX() + player.getCardsAmount() * 10;
+        int playerHandPositionY = playerHandPosition.getY() - player.getCardsAmount() * 20;
 
         TranslateTransition transition = new TranslateTransition(Duration.millis(500), back);
         transition.setFromX(DECK_CARD_POS_X);
