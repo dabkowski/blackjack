@@ -26,20 +26,11 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="Leave_Button" layoutX="861.0" layoutY="770.0" mnemonicParsing="false" onMouseClicked="#leaveGame" style="-fx-background-color: transparent;">
+            <Button fx:id="Leave_Button" layoutX="861.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#leaveGame" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="65.0" fitWidth="204.0">
                      <image>
                         <Image url="@Leave-Button.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="Info_Button" layoutX="867.0" layoutY="700.0" mnemonicParsing="false" onMouseClicked="#moveToInfoView" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView>
-                     <image>
-                        <Image url="@Info-Button.png" />
                      </image>
                   </ImageView>
                </graphic>

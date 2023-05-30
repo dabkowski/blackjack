@@ -24,9 +24,13 @@ import javafx.scene.control.TextField;
 
 public class BaseControllerService {
     public static int MAX_PLAYERS = 4;
+  
     public static int DECK_CARD_POS_X = 4;
+  
     public static int DECK_CARD_POS_Y = 4;
+  
     public static int CARD_HEIGHT = 70;
+  
     public static int CARD_WIDTH = 50;
 
     @FXML
@@ -86,21 +90,22 @@ public class BaseControllerService {
 
     @FXML
     private Label noPlayerName;
+  
+    @FXML
+    private AnchorPane gamePane;
+  
+    Image backImage = new Image("Cards/back.png");
 
     private final BaseModelService baseModelService = new BaseModelService();
 
     private static final String[] userName = new String[MAX_PLAYERS];
 
     private static final int[] accountAmount = new int[MAX_PLAYERS];
+  
     int startAmount = 8000;
 
     public BaseControllerService() {
     }
-
-    @FXML
-    private AnchorPane gamePane;
-
-    Image backImage = new Image("Cards/back.png");
 
     public void moveToMainStarterView() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/blackjack-starter-view.fxml"));
@@ -164,8 +169,8 @@ public class BaseControllerService {
             playerHandPositionY = playerHandPosition.getY() - ((Player) player).getCardsAmount() * 20;
             cardName = ((Player) player).getLastCard().getCardType() + "_OF_" + ((Player) player).getLastCard().getSuit();
         }
-        else{
-            cardName = "123";
+        else{                 //TODO:
+            cardName = "123"; // tu wywalic pozniej za tego else nizej, bo implementacji krupiera jeszcze nie ma ;))
             playerHandPositionX = 3;
             playerHandPositionY = 5;
         }
@@ -222,15 +227,15 @@ public class BaseControllerService {
             }
         });
     }
-
-    public void leaveInfoScreen() throws IOException {
-        moveToGameView();
+  
+    public void leaveInfoScreen(MouseEvent event) throws IOException {
+        moveToMainStarterView();
     }
 
     public void hit(MouseEvent event) {
-        /*if (betSum == 0) {
+        if (betSum == 0) {
             return;
-        }*/
+        }
 
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         player.placeBet(betSum);
