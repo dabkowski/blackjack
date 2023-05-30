@@ -131,8 +131,8 @@ public class BaseControllerService {
         controller.setStage(stage);
     }
 
-    public void leaveInfoScreen(MouseEvent event) {
-        System.out.println("Leaving!");
+    public void leaveInfoScreen(MouseEvent event) throws IOException {
+        moveToGameView();
     }
 
     public void hit(MouseEvent event) {
@@ -144,8 +144,17 @@ public class BaseControllerService {
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         player.placeBet(betSum);
 
-        assignPlayersNames();
 
+       
+
+        if(player.getCardsAmount() == 0) {
+            player.takeCard();
+        }
+        player.takeCard();
+
+        player.showCards();
+
+        assignPlayersNames();
         changePlayerMove();
     }
 
@@ -164,7 +173,12 @@ public class BaseControllerService {
     }
 
     public void stand(MouseEvent event) {
-        System.out.println("stand");
+        Player player = baseModelService.returnPlayer(currentPlayerIndex);
+        if(player.getBetAmount() == 0){
+            return;
+        }
+        player.setStanding(true);
+        changePlayerMove();
     }
 
     public void add1000Chip(MouseEvent event) {
