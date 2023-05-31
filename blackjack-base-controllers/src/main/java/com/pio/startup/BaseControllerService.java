@@ -305,6 +305,7 @@ public class BaseControllerService implements Initializable {
 
         if (checkIfPlayerLost(player)) {
             player.setStanding(true);
+            player.setBetAmount(0);
             changePlayerMove();
         }
     }
@@ -423,6 +424,9 @@ public class BaseControllerService implements Initializable {
             if (player.isPlaying()) {
                 currentBet[i].setText("0$");
             }
+            else{
+                currentBet[i].setText("");
+            }
         }
     }
 
@@ -435,6 +439,10 @@ public class BaseControllerService implements Initializable {
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         if (player.getBetAmount() > 0) {
             return;
+        }
+        if(player.getAccountBalance() < amount){
+            amount = player.getAccountBalance();
+            betSum = amount;
         }
 
         currentBet[currentPlayerIndex].setText(amount + "$");
@@ -477,7 +485,9 @@ public class BaseControllerService implements Initializable {
         verifyRoundResults();
 
         for (Player player : baseModelService.getPlayers()) {
-            System.out.println(player.getCardsAmount());
+            if(player.getAccountBalance() == 0){
+                player.setPlaying(false);
+            }
             player.clearCards();
             player.setStanding(false);
         }
