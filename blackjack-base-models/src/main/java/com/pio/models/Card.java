@@ -36,6 +36,7 @@ public class Card {
         setSuit(generateRandomSuit(rand));
         setCardValueFromCardType();
     }
+
     private void setCardValueFromCardType() {
         cardValue = cardType.ordinal() + 2;
         if (cardValue > 11) {

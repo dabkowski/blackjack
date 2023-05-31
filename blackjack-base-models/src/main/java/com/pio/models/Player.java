@@ -31,12 +31,6 @@ public class Player {
         accountBalance -= amount;
     }
 
-    public void showCards() {
-        for (int i = 0; i < cardsAmount; i++) {
-            System.out.println(i + ". " + cards[i].getCardType() + " " + cards[i].getSuit() + " " + cards[i].getCardValue() + " " + sumOfCardsValue);
-        }
-    }
-
     public void takeCard() {
 
         Card card = new Card();
@@ -46,6 +40,10 @@ public class Player {
         cards[cardsAmount++] = card;
 
         sumOfCardsValue += card.getCardValue();
+
+        if (sumOfCardsValue > 21) {
+            sumOfCardsValue = 0;
+        }
     }
 
     public int getBetAmount() {
@@ -64,13 +62,27 @@ public class Player {
         isPlaying = playing;
     }
 
-
-    public int getAccountBalance() {
-        return this.accountBalance;
+    public Card getLastCard() {
+        return cards[cardsAmount - 1];
     }
 
-    public Card getLastCard() {
-        return cards[cardsAmount-1];
+    public int getAccountBalance() {
+        return accountBalance;
+    }
 
+    public void setAccountBalance(int accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
+    public void setBetAmount(int betAmount) {
+        this.betAmount = betAmount;
+    }
+
+    public int getSumOfCardsValue() {
+        return sumOfCardsValue;
+    }
+
+    public void setSumOfCardsValue(int sumOfCardsValue) {
+        this.sumOfCardsValue = sumOfCardsValue;
     }
 }

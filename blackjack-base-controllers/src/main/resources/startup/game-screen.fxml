@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.09"
+<AnchorPane fx:id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.09"
             prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.pio.startup.BaseControllerService">
     <children>
@@ -132,25 +132,25 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Text fx:id="firstMoneyPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="295.0" layoutY="388.0"
+                <Text fx:id="firstPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="295.0" layoutY="388.0"
                       strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="18.0"/>
                     </font>
                 </Text>
-                <Text fx:id="secondMoneyPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="435.0" layoutY="465.0"
+                <Text fx:id="secondPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="435.0" layoutY="465.0"
                       strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="18.0"/>
                     </font>
                 </Text>
-                <Text fx:id="thirdMoneyPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="735.0" layoutY="431.0"
+                <Text fx:id="thirdPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="735.0" layoutY="431.0"
                       strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="18.0"/>
                     </font>
                 </Text>
-                <Text fx:id="fourthMoneyPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="842.0" layoutY="309.0"
+                <Text fx:id="fourthPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="842.0" layoutY="309.0"
                       strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="18.0"/>
@@ -198,148 +198,3 @@
         </Pane>
     </children>
 </AnchorPane>
-=======
-<AnchorPane fx:id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.09" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pio.startup.BaseControllerService">
-   <children>
-      <Pane prefHeight="847.0" prefWidth="1085.0">
-         <children>
-            <ImageView fitHeight="858.0" fitWidth="1091.0" layoutX="-7.0" layoutY="-5.0">
-               <image>
-                  <Image url="@Game-screen.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="Hit_Button" layoutX="5.0" layoutY="700.0" mnemonicParsing="false" onMouseClicked="#hit" prefHeight="29.0" prefWidth="158.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView>
-                     <image>
-                        <Image url="@Hit-Button.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="Leave_Button" layoutX="861.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#leaveGame" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="65.0" fitWidth="204.0">
-                     <image>
-                        <Image url="@Leave-Button.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="Stand_Button" layoutX="5.0" layoutY="770.0" mnemonicParsing="false" onMouseClicked="#stand" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView>
-                     <image>
-                        <Image url="@Stand-Button.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="chip_1000_button" layoutX="766.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add1000Chip" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView>
-                     <image>
-                        <Image url="@1000-chip.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="chip_500_Button" layoutX="676.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add500Chip" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView>
-                     <image>
-                        <Image url="@500-chip.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="chip_200_Button" layoutX="586.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add200Chip" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView>
-                     <image>
-                        <Image url="@200-chip.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="chip_100_Button" layoutX="496.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add100Chip" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView>
-                     <image>
-                        <Image url="@100-chip.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="chip_20_Button" layoutX="316.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add20Chip" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView>
-                     <image>
-                        <Image url="@20-chip.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="chip_50_Button" layoutX="406.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add50Chip" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView>
-                     <image>
-                        <Image url="@50-chip.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="chip_10_Button" layoutX="226.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add10Chip" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView>
-                     <image>
-                        <Image url="@10-chip.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Text fx:id="firstMoneyPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="295.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text fx:id="secondMoneyPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="435.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text fx:id="thirdMoneyPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="735.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text fx:id="fourthMoneyPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="842.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text fx:id="dataFirstPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="65.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Player" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Text>
-            <Text fx:id="dataFourthPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="938.0" layoutY="492.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fourth Player" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Text>
-            <Text fx:id="dataThirdPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="735.0" layoutY="642.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Third Player" textAlignment="CENTER" wrappingWidth="123.6181640625">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Text>
-            <Text fx:id="dataSecondPlayer" fill="WHITE" fontSmoothingType="LCD" layoutX="278.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Second Player" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Text>
-         </children>
-      </Pane>
-   </children>
-</AnchorPane>
-

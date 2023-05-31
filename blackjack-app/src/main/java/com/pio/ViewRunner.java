@@ -1,6 +1,5 @@
 package com.pio;
 
-import com.pio.models.BaseModelService;
 import com.pio.startup.BaseControllerService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

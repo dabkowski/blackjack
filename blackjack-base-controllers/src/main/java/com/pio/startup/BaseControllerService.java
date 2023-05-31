@@ -2,52 +2,46 @@ package com.pio.startup;
 
 import com.pio.models.BaseModelService;
 import com.pio.models.Player;
-import javafx.animation.*;
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
-import javafx.fxml.Initializable;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.util.Duration;
+
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
+import java.util.ResourceBundle;
 
 
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
-  
+
     public static int DECK_CARD_POS_X = 4;
-  
+
     public static int DECK_CARD_POS_Y = 4;
-  
+
     public static int CARD_HEIGHT = 70;
-  
+
     public static int CARD_WIDTH = 50;
 
     @FXML
@@ -62,18 +56,17 @@ public class BaseControllerService implements Initializable {
     @FXML
     private Label dataFourthPlayer;
 
+    @FXML
+    private Text firstPlayerBet;
 
     @FXML
-    private Text firstMoneyPlayer;
+    private Text secondPlayerBet;
 
     @FXML
-    private Text secondMoneyPlayer;
+    private Text thirdPlayerBet;
 
     @FXML
-    private Text thirdMoneyPlayer;
-
-    @FXML
-    private Text fourthMoneyPlayer;
+    private Text fourthPlayerBet;
 
 
     @FXML
@@ -107,10 +100,10 @@ public class BaseControllerService implements Initializable {
 
     @FXML
     private Label noPlayerName;
-  
+
     @FXML
     private AnchorPane gamePane;
-  
+
     Image backImage = new Image("Cards/back.png");
 
     @FXML
@@ -129,7 +122,6 @@ public class BaseControllerService implements Initializable {
     private Circle fourthPlayerCircle;
 
     private final BaseModelService baseModelService = new BaseModelService();
-
     private static final String[] userName = new String[MAX_PLAYERS];
 
 
@@ -137,51 +129,22 @@ public class BaseControllerService implements Initializable {
     }
 
     public void moveToMainStarterView() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/blackjack-starter-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
-        stage.setTitle("Blackjack!");
-        stage.getIcons().add(new Image("startup/coin.png"));
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.show();
-
-        BaseControllerService controller = fxmlLoader.getController();
-        controller.setStage(stage);
+        initializeView("startup/blackjack-starter-view.fxml");
     }
 
     public void moveToGameView() throws IOException {
         int numberOfPlayer = checkNumberOfPlayers();
         if (numberOfPlayer > 0) {
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/game-screen.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
-            stage.setTitle("Blackjack!");
-            stage.getIcons().add(new Image("startup/coin.png"));
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-
-            BaseControllerService controller = fxmlLoader.getController();
-            controller.setStage(stage);
+            initializeView("startup/game-screen.fxml");
 
         } else {
             noPlayerName.setText("You must have at least one player name ");
         }
-
     }
 
     public void moveToInfoView() throws IOException {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("startup/info-screen.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
-        stage.setTitle("Blackjack!");
-        stage.getIcons().add(new Image("startup/coin.png"));
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.show();
-
-        BaseControllerService controller = fxmlLoader.getController();
-        controller.setStage(stage);
+        initializeView("startup/info-screen.fxml");
     }
 
     public void moveCardToHand(Object player) {
@@ -195,8 +158,7 @@ public class BaseControllerService implements Initializable {
             playerHandPositionX = playerHandPosition.getX() + ((Player) player).getCardsAmount() * 10;
             playerHandPositionY = playerHandPosition.getY() - ((Player) player).getCardsAmount() * 20;
             cardName = ((Player) player).getLastCard().getCardType() + "_OF_" + ((Player) player).getLastCard().getSuit();
-        }
-        else{                 //TODO:
+        } else {                 //TODO:
             cardName = "123"; // tu wywalic pozniej za tego else nizej, bo implementacji krupiera jeszcze nie ma ;))
             playerHandPositionX = 3;
             playerHandPositionY = 5;
@@ -254,7 +216,7 @@ public class BaseControllerService implements Initializable {
             }
         });
     }
-  
+
     public void leaveInfoScreen(MouseEvent event) throws IOException {
         moveToMainStarterView();
     }
@@ -267,16 +229,13 @@ public class BaseControllerService implements Initializable {
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         player.placeBet(betSum);
 
-      
-        if(player.getCardsAmount() == 0) {
 
+        if (player.getCardsAmount() == 0) {
             player.takeCard();
         }
 
         player.takeCard();
-      
         moveCardToHand(player);
-
         changePlayerMove();
     }
 
@@ -372,12 +331,13 @@ public class BaseControllerService implements Initializable {
 
     @FXML
     private void initialize() {
-        currentBet = new Text[]{firstMoneyPlayer, secondMoneyPlayer, thirdMoneyPlayer, fourthMoneyPlayer};
+        currentBet = new Text[]{firstPlayerBet, secondPlayerBet, thirdPlayerBet, fourthPlayerBet};
+        baseModelService.getCroupier().takeCard();
     }
 
     private void changePlayerMove() {
         betSum = 0;
-        currentPlayerIndex = returnNextPlayingPlayer();
+        currentPlayerIndex = returnNextPlayingPlayersIndex();
         displayIsPlaying(currentPlayerIndex);
         System.out.println("Ruch: " + currentPlayerIndex);
 
@@ -397,16 +357,15 @@ public class BaseControllerService implements Initializable {
             betSum = 0;
             amount = 0;
         }
-
         currentBet[currentPlayerIndex].setText(amount + "$");
     }
 
-    private int returnNextPlayingPlayer() {
+    private int returnNextPlayingPlayersIndex() {
         while (true) {
             currentPlayerIndex++;
             if (currentPlayerIndex >= MAX_PLAYERS) {
                 currentPlayerIndex = 0;
-                cleanMoneyFields();
+                prepareNextRound();
             }
 
             Player player = baseModelService.returnPlayer(currentPlayerIndex);
@@ -414,6 +373,16 @@ public class BaseControllerService implements Initializable {
                 return currentPlayerIndex;
             }
         }
+    }
+
+    private void prepareNextRound() {
+        drawCroupierCardsWhenLessThanSixteen();
+        verifyRoundResults();
+        System.out.println("Croupier hands value: " + baseModelService.getCroupier().getSumOfCardsValue());
+        for (Player player : baseModelService.getPlayers()) {
+            System.out.println("Players account balance: " + player.getAccountBalance() + " | Players hands value " + player.getSumOfCardsValue());
+        }
+        cleanMoneyFields();
     }
 
     private int returnAmountOfPlayingPlayers() {
@@ -432,6 +401,18 @@ public class BaseControllerService implements Initializable {
         else return textField.getText().toUpperCase();
     }
 
+    private void initializeView(String fileName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(fileName));
+        Scene scene = new Scene(fxmlLoader.load(), 1080, 847.09);
+        stage.setTitle("Blackjack!");
+        stage.getIcons().add(new Image("startup/coin.png"));
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+        BaseControllerService controller = fxmlLoader.getController();
+        controller.setStage(stage);
+    }
+
     public int checkNumberOfPlayers() {
         userName[0] = getUserName(firstUserName);
         userName[1] = getUserName(secondUserName);
@@ -448,16 +429,27 @@ public class BaseControllerService implements Initializable {
         return playerCounter;
     }
 
-    public void assignPlayersNames() {
+    public void verifyRoundResults() {
+        var croupierHandValue = baseModelService.getCroupier().getSumOfCardsValue();
 
+        for (Player player : baseModelService.getPlayers()) {
+            if (croupierHandValue < player.getSumOfCardsValue()) {
+                player.setAccountBalance(player.getAccountBalance() + player.getBetAmount() * BaseModelService.WIN_MULTIPLIER);
+            } else if (croupierHandValue == player.getSumOfCardsValue()) {
+                player.setAccountBalance(player.getAccountBalance() + player.getBetAmount());
+            }
+            player.setBetAmount(0);
+        }
+    }
+
+    public void assignPlayersNames() {
         dataFirstPlayer.setText(userName[0] + '\n' + baseModelService.returnPlayer(0).getAccountBalance() + " $");
         dataSecondPlayer.setText(userName[1] + '\n' + baseModelService.returnPlayer(1).getAccountBalance() + " $");
         dataThirdPlayer.setText(userName[2] + '\n' + baseModelService.returnPlayer(2).getAccountBalance() + " $");
         dataFourthPlayer.setText(userName[3] + '\n' + baseModelService.returnPlayer(3).getAccountBalance() + " $");
-
-
     }
-  public Image getCardImage(String cardName) {
+
+    public Image getCardImage(String cardName) {
         Image cardImage;
         cardImage = new Image("cards/" + cardName + ".png");
         return cardImage;
@@ -528,5 +520,9 @@ public class BaseControllerService implements Initializable {
             }
         }
 
+    }
+
+    public void drawCroupierCardsWhenLessThanSixteen() {
+        baseModelService.getCroupier().keepDrawingIfsumOfCardsValueIsLessThanSixteen();
     }
 }
