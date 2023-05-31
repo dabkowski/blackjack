@@ -24,7 +24,6 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,14 +31,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
+  
+    public static int DECK_CARD_POS_X = 326;
 
-    public static int DECK_CARD_POS_X = 4;
-
-    public static int DECK_CARD_POS_Y = 4;
-
+    public static int DECK_CARD_POS_Y = 185;
+  
     public static int CARD_HEIGHT = 70;
 
     public static int CARD_WIDTH = 50;
@@ -82,13 +80,15 @@ public class BaseControllerService implements Initializable {
     private TextField thirdUserName;
 
     private final List<Point> playerCardPosition = new ArrayList<>() {{
-        add(new Point(250, 350));
-        add(new Point(400, 450));
-        add(new Point(550, 450));
-        add(new Point(700, 350));
+        add(new Point(226, 357));
+        add(new Point(367, 460));
+        add(new Point(667, 460));
+        add(new Point(808, 357));
         add(new Point(500, 200));
-        add(new Point(500, 400));
+        add(new Point(535, 440));
     }};
+
+    private final List<ImageView> imageCards = new ArrayList<>();
 
     private Text[] currentBet;
 
@@ -107,9 +107,6 @@ public class BaseControllerService implements Initializable {
     Image backImage = new Image("Cards/back.png");
 
     @FXML
-    private Label gameStatus;
-
-    @FXML
     private Circle firstPlayerCircle;
 
     @FXML
@@ -122,6 +119,7 @@ public class BaseControllerService implements Initializable {
     private Circle fourthPlayerCircle;
 
     private final BaseModelService baseModelService = new BaseModelService();
+
     private static final String[] userName = new String[MAX_PLAYERS];
 
 
@@ -149,6 +147,9 @@ public class BaseControllerService implements Initializable {
 
     public void moveCardToHand(Object player) {
 
+        ImageView back = new ImageView(backImage);
+        imageCards.add(back);
+
         int playerHandPositionX;
         int playerHandPositionY;
         String cardName;
@@ -166,14 +167,14 @@ public class BaseControllerService implements Initializable {
         /*else
         {
             Point playerHandPosition = playerCardPosition.get(4);
-            playerHandPositionX = playerHandPosition.getX() + ((Croupier) player).getCardsAmount() * 10;
-            playerHandPositionY = playerHandPosition.getY() - ((Croupier) player).getCardsAmount() * 20;
+            playerHandPositionX = playerHandPosition.getX() + ((Croupier) player).getCardsAmount() * 50;
+            playerHandPositionY = playerHandPosition.getY();
             cardName = ((Croupier) player).getLastCard().getCardType() + "_OF_" + ((Croupier) player).getLastCard().getSuit();
+            ((Croupier) player).addCardImages(back);
         }*/
 
         final boolean[] isFrontShowing = {true};
 
-        ImageView back = new ImageView(backImage);
         back.setFitWidth(CARD_WIDTH);
         back.setFitHeight(CARD_HEIGHT);
 
@@ -221,6 +222,33 @@ public class BaseControllerService implements Initializable {
         moveToMainStarterView();
     }
 
+    public void clearAllCards(){
+        for (int i = 0; i < imageCards.size(); i++){
+            ImageView imageView = imageCards.get(i);
+            gamePane.getChildren().remove(imageView);
+        }
+    }
+
+    public void clearCardsForSpecificPlayer(Object player) {
+        List<ImageView> playerCards;
+        if (player instanceof Player) {
+            playerCards = ((Player) player).getCardImages();
+        }
+        else{
+            return;
+        }
+
+        // jak bedzie krupier to podmienic else ;))
+        /* else {
+            playerCards = ((Croupier) player).getCardImages();
+        }*/
+
+        for (int i = 0; i < playerCards.size(); i++) {
+            ImageView imageView = playerCards.get(i);
+            gamePane.getChildren().remove(imageView);
+        }
+    }
+
     public void hit(MouseEvent event) {
         if (betSum == 0) {
             return;
@@ -229,9 +257,9 @@ public class BaseControllerService implements Initializable {
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         player.placeBet(betSum);
 
-
         if (player.getCardsAmount() == 0) {
             player.takeCard();
+            moveCardToHand(player);
         }
 
         player.takeCard();
@@ -240,6 +268,8 @@ public class BaseControllerService implements Initializable {
     }
 
     public void leaveGame() throws IOException {
+
+        clearCardsForSpecificPlayer(baseModelService.returnPlayer(currentPlayerIndex));
 
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         currentBet[currentPlayerIndex].setText("");
@@ -468,7 +498,6 @@ public class BaseControllerService implements Initializable {
     public void displayIsPlaying(int currentPlayer) {
 
         if (currentPlayer < MAX_PLAYERS) {
-            gameStatus.setText(userName[currentPlayer] + " is playing");
 
             Light.Distant light = new Light.Distant();
             light.setAzimuth(-135.0);
