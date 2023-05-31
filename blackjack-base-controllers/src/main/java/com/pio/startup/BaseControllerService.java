@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
@@ -33,6 +32,8 @@ import java.util.ResourceBundle;
 import java.util.Random;
 
 import javafx.scene.input.MouseEvent;
+
+import java.lang.Thread;
 
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
@@ -448,10 +449,8 @@ public class BaseControllerService implements Initializable {
     }
 
     public int checkNumberOfPlayers() {
-        userName[0] = getUserName(firstUserName);
-        userName[1] = getUserName(secondUserName);
-        userName[2] = getUserName(thirdUserName);
-        userName[3] = getUserName(fourthUserName);
+        TextField[] names = {firstUserName, secondUserName, thirdUserName, fourthUserName};
+        for (int i = 0; i < MAX_PLAYERS; i++) userName[i] = getUserName(names[i]);
 
         Random random = new Random();
         int[] pickedNumbers = new int[MAX_PLAYERS];
@@ -501,10 +500,10 @@ public class BaseControllerService implements Initializable {
     }
 
     public void assignPlayersNames() {
-        dataFirstPlayer.setText(userName[0] + '\n' + baseModelService.returnPlayer(0).getAccountBalance() + " $");
-        dataSecondPlayer.setText(userName[1] + '\n' + baseModelService.returnPlayer(1).getAccountBalance() + " $");
-        dataThirdPlayer.setText(userName[2] + '\n' + baseModelService.returnPlayer(2).getAccountBalance() + " $");
-        dataFourthPlayer.setText(userName[3] + '\n' + baseModelService.returnPlayer(3).getAccountBalance() + " $");
+        Label[] dataPlayers = {dataFirstPlayer,dataSecondPlayer,dataThirdPlayer,dataFourthPlayer};
+        for(int i = 0;i<MAX_PLAYERS;i++)
+            dataPlayers[i].setText(userName[i] + '\n' + baseModelService.returnPlayer(i).getAccountBalance() + " $");
+
     }
 
     public Image getCardImage(String cardName) {
