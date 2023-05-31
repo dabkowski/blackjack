@@ -8,12 +8,12 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
 import javafx.scene.control.*;
-
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
@@ -33,9 +33,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Random;
-
 import javafx.scene.input.MouseEvent;
-
 import java.lang.Thread;
 
 public class BaseControllerService implements Initializable {
@@ -100,6 +98,7 @@ public class BaseControllerService implements Initializable {
     private ImageView warningImage;
 
     String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry", "Lebron", "Naruto", "Cena"};
+    private Button Hit_Button;
 
     private final List<Point> playerCardPosition = new ArrayList<>() {{
         add(new Point(226, 357));
@@ -295,6 +294,10 @@ public class BaseControllerService implements Initializable {
         for (ImageView imageView : playerCards) {
             gamePane.getChildren().remove(imageView);
         }
+    }
+
+    public void cursorChange(MouseEvent me) {
+        Hit_Button.setCursor(Cursor.HAND);
     }
 
     public void hit(MouseEvent event) {
