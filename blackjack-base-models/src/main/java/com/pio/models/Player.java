@@ -1,11 +1,18 @@
 package com.pio.models;
 
+import javafx.scene.image.ImageView;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     private final int MAX_CARDS = 11;
     private int accountBalance;
     private int betAmount;
     private boolean isPlaying = true;
     private final Card[] cards = new Card[MAX_CARDS];
+    private List<ImageView> cardImages = new ArrayList<>();
     private int cardsAmount = 0;
     private int sumOfCardsValue = 0;
     private boolean isStanding = false;
@@ -84,5 +91,13 @@ public class Player {
 
     public void setSumOfCardsValue(int sumOfCardsValue) {
         this.sumOfCardsValue = sumOfCardsValue;
+    }
+
+    public List<ImageView> getCardImages() {
+        return cardImages;
+    }
+
+    public void addCardImages(ImageView newCardImages) {
+        cardImages.add(newCardImages);
     }
 }
