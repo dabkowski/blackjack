@@ -82,6 +82,9 @@ public class BaseControllerService implements Initializable {
 
     @FXML
     private TextField thirdUserName;
+    
+    @FXML
+    private ImageView warningImage;
 
     String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry", "Lebron", "Naruto", "Cena"};
 
@@ -144,6 +147,8 @@ public class BaseControllerService implements Initializable {
 
         } else {
             noPlayerName.setText("You must have at least one player name ");
+            Image warning = new Image("startup/warning.png");
+            warningImage.setImage(warning);
         }
     }
 
@@ -518,7 +523,7 @@ public class BaseControllerService implements Initializable {
             initialize();
             assignPlayersNames();
             displayIsPlaying(currentPlayerIndex);
-            System.out.println("Initializing specific FXML");
+            System.out.println("Initializing startup/game-screen.fxml");
         }
     }
 
