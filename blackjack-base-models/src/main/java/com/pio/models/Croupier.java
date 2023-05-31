@@ -28,10 +28,6 @@ public class Croupier {
         }
     }
 
-    public void setCardsAmount(int cardsAmount) {
-        this.cardsAmount = cardsAmount;
-    }
-
     public int getSumOfCardsValue() {
         return sumOfCardsValue;
     }
@@ -52,13 +48,10 @@ public class Croupier {
         return cardImages;
     }
 
-    public void addCardImages(ImageView newCardImages) {
-        cardImages.add(newCardImages);
-    }
-
     public void clearCards(){
         cardsAmount = 0;
         cardImages.clear();
+        cards.clear();
         sumOfCardsValue = 0;
     }
 

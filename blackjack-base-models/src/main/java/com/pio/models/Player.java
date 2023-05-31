@@ -83,16 +83,8 @@ public class Player {
         return sumOfCardsValue;
     }
 
-    public void setSumOfCardsValue(int sumOfCardsValue) {
-        this.sumOfCardsValue = sumOfCardsValue;
-    }
-
     public List<ImageView> getCardImages() {
         return cardImages;
-    }
-
-    public void addCardImages(ImageView newCardImages) {
-        cardImages.add(newCardImages);
     }
 
     public boolean isStanding() {
@@ -102,6 +94,7 @@ public class Player {
     public void clearCards(){
         cardsAmount = 0;
         cardImages.clear();
+        cards.clear();
         sumOfCardsValue = 0;
     }
 }

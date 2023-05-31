@@ -178,7 +178,6 @@ public class BaseControllerService implements Initializable {
         else
         {
             Point playerHandPosition = playerCardPosition.get(CROUPIER_HAND_ID);
-            System.out.println(((Croupier) player).getCardsAmount());
             playerHandPositionX = playerHandPosition.getX() + ((Croupier) player).getCardsAmount() * DIFF_BETWEEN_CROUPIER_CARDS;
             playerHandPositionY = playerHandPosition.getY();
             if (((Croupier) player).getCardsAmount() == 1) {
@@ -247,11 +246,7 @@ public class BaseControllerService implements Initializable {
         rotateTransition.setOnFinished(event1 -> {
 
             if (isFrontShowing[0]) {
-                System.out.println("===========");
-                croupier.showCards();
-                System.out.println("===========");
                 String cardName = croupier.getCard(0).getCardType() + "_of_" + croupier.getCard(0).getSuit();
-                System.out.println(cardName.toLowerCase());
                 backCard.setImage(getCardImage(cardName));
                 rotateTransition.setFromAngle(90);
                 rotateTransition.setToAngle(360);
@@ -482,6 +477,7 @@ public class BaseControllerService implements Initializable {
         verifyRoundResults();
 
         for (Player player : baseModelService.getPlayers()) {
+            System.out.println(player.getCardsAmount());
             player.clearCards();
             player.setStanding(false);
         }
@@ -489,6 +485,11 @@ public class BaseControllerService implements Initializable {
 
         cleanMoneyFields();
         clearAllCardImages();
+
+        for (int i = 0; i < 2; i++){
+            croupier.takeCard();
+            moveCardToHand(croupier);
+        }
     }
 
     private int returnAmountOfPlayingPlayers() {
@@ -589,7 +590,6 @@ public class BaseControllerService implements Initializable {
             initialize();
             assignPlayersNames();
             displayIsPlaying(currentPlayerIndex);
-            System.out.println("Initializing specific FXML");
         }
     }
 
@@ -625,7 +625,6 @@ public class BaseControllerService implements Initializable {
 
 
     private boolean checkIfPlayerLost(Player player) {
-        System.out.println("SUMA: " + player.getSumOfCardsValue());
         return player.getSumOfCardsValue() > 21;
     }
 
