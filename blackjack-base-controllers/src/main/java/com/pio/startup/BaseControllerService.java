@@ -9,13 +9,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
 import javafx.scene.control.*;
+
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -30,6 +33,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Random;
+
+import javafx.scene.input.MouseEvent;
+
+import java.lang.Thread;
 
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
@@ -89,7 +96,10 @@ public class BaseControllerService implements Initializable {
     @FXML
     private TextField thirdUserName;
 
-    String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry","Lebron","Naruto","Cena"};
+    @FXML
+    private ImageView warningImage;
+
+    String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry", "Lebron", "Naruto", "Cena"};
 
     private final List<Point> playerCardPosition = new ArrayList<>() {{
         add(new Point(226, 357));
@@ -150,6 +160,8 @@ public class BaseControllerService implements Initializable {
         }
         else {
             noPlayerName.setText("You must have at least one player name ");
+            Image warning = new Image("startup/warning.png");
+            warningImage.setImage(warning);
         }
     }
 
@@ -531,10 +543,8 @@ public class BaseControllerService implements Initializable {
     }
 
     public int checkNumberOfPlayers() {
-        userName[0] = getUserName(firstUserName);
-        userName[1] = getUserName(secondUserName);
-        userName[2] = getUserName(thirdUserName);
-        userName[3] = getUserName(fourthUserName);
+        TextField[] names = {firstUserName, secondUserName, thirdUserName, fourthUserName};
+        for (int i = 0; i < MAX_PLAYERS; i++) userName[i] = getUserName(names[i]);
 
         Random random = new Random();
         int[] pickedNumbers = new int[MAX_PLAYERS];
@@ -582,10 +592,10 @@ public class BaseControllerService implements Initializable {
     }
 
     public void assignPlayersNames() {
-        dataFirstPlayer.setText(userName[0] + '\n' + baseModelService.returnPlayer(0).getAccountBalance() + " $");
-        dataSecondPlayer.setText(userName[1] + '\n' + baseModelService.returnPlayer(1).getAccountBalance() + " $");
-        dataThirdPlayer.setText(userName[2] + '\n' + baseModelService.returnPlayer(2).getAccountBalance() + " $");
-        dataFourthPlayer.setText(userName[3] + '\n' + baseModelService.returnPlayer(3).getAccountBalance() + " $");
+        Label[] dataPlayers = {dataFirstPlayer, dataSecondPlayer, dataThirdPlayer, dataFourthPlayer};
+        for (int i = 0; i < MAX_PLAYERS; i++)
+            dataPlayers[i].setText(userName[i] + '\n' + baseModelService.returnPlayer(i).getAccountBalance() + " $");
+
     }
 
     public Image getCardImage(String cardName) {
@@ -600,6 +610,8 @@ public class BaseControllerService implements Initializable {
             initialize();
             assignPlayersNames();
             displayIsPlaying(currentPlayerIndex);
+            System.out.println("Initializing startup/game-screen.fxml");
+
         }
     }
 
@@ -647,4 +659,15 @@ public class BaseControllerService implements Initializable {
             croupier.setSumOfCardsValue(0);
         }
     }
+
+    @FXML
+    private void enter(KeyEvent event) throws IOException {
+
+        if (event.getCode() == KeyCode.ENTER) {
+            moveToGameView();
+        }
+
+    }
 }
+
+
