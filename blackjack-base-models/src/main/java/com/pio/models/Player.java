@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private final int MAX_CARDS = 11;
     private int accountBalance;
     private int betAmount;
     private boolean isPlaying = true;
-    private final Card[] cards = new Card[MAX_CARDS];
+    private List<Card> cards = new ArrayList<>();
     private List<ImageView> cardImages = new ArrayList<>();
     private int cardsAmount = 0;
     private int sumOfCardsValue = 0;
@@ -39,18 +38,13 @@ public class Player {
     }
 
     public void takeCard() {
-
         Card card = new Card();
-
         card.generateRandomCard();
 
-        cards[cardsAmount++] = card;
+        cards.add(card);
+        cardsAmount++;
 
         sumOfCardsValue += card.getCardValue();
-
-        if (sumOfCardsValue > 21) {
-            sumOfCardsValue = 0;
-        }
     }
 
     public int getBetAmount() {
@@ -70,7 +64,7 @@ public class Player {
     }
 
     public Card getLastCard() {
-        return cards[cardsAmount - 1];
+        return cards.get(cardsAmount - 1);
     }
 
     public int getAccountBalance() {
@@ -99,5 +93,15 @@ public class Player {
 
     public void addCardImages(ImageView newCardImages) {
         cardImages.add(newCardImages);
+    }
+
+    public boolean isStanding() {
+        return isStanding;
+    }
+
+    public void clearCards(){
+        cardsAmount = 0;
+        cardImages.clear();
+        sumOfCardsValue = 0;
     }
 }
