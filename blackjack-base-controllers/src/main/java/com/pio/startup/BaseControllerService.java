@@ -1,6 +1,7 @@
 package com.pio.startup;
 
 import com.pio.models.BaseModelService;
+import com.pio.models.Croupier;
 import com.pio.models.Player;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
@@ -8,9 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
+import javafx.scene.control.*;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
@@ -24,7 +23,6 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,6 +33,16 @@ import java.util.Random;
 
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
+
+    public static int CROUPIER_HAND_ID = 4;
+
+    public static int TABLE_CENTER_ID = 5;
+
+    public static int DIFF_BETWEEN_CROUPIER_CARDS = 50;
+
+    public static int DIFF_BETWEEN_PLAYER_CARDS_X = 10;
+
+    public static int DIFF_BETWEEN_PLAYER_CARDS_Y = 20;
 
     public static int DECK_CARD_POS_X = 326;
 
@@ -88,7 +96,7 @@ public class BaseControllerService implements Initializable {
         add(new Point(367, 460));
         add(new Point(667, 460));
         add(new Point(808, 357));
-        add(new Point(500, 200));
+        add(new Point(440, 260));
         add(new Point(535, 440));
     }};
 
@@ -108,7 +116,9 @@ public class BaseControllerService implements Initializable {
     @FXML
     private AnchorPane gamePane;
 
-    Image backImage = new Image("cards/back.png");
+    private final Image backImage = new Image("Cards/back.png");
+
+    private ImageView backCard = new ImageView(backImage);
 
     @FXML
     private Circle firstPlayerCircle;
@@ -126,7 +136,6 @@ public class BaseControllerService implements Initializable {
 
     private static final String[] userName = new String[MAX_PLAYERS];
 
-
     public BaseControllerService() {
     }
 
@@ -137,10 +146,9 @@ public class BaseControllerService implements Initializable {
     public void moveToGameView() throws IOException {
         int numberOfPlayer = checkNumberOfPlayers();
         if (numberOfPlayer > 0) {
-
             initializeView("startup/game-screen.fxml");
-
-        } else {
+        }
+        else {
             noPlayerName.setText("You must have at least one player name ");
         }
     }
@@ -151,8 +159,11 @@ public class BaseControllerService implements Initializable {
 
     public void moveCardToHand(Object player) {
 
-        ImageView back = new ImageView(backImage);
-        imageCards.add(back);
+        ImageView newCard = new ImageView(backImage);
+        newCard.setFitWidth(CARD_WIDTH);
+        newCard.setFitHeight(CARD_HEIGHT);
+
+        imageCards.add(newCard);
 
         int playerHandPositionX;
         int playerHandPositionY;
@@ -160,62 +171,59 @@ public class BaseControllerService implements Initializable {
 
         if (player instanceof Player) {
             Point playerHandPosition = playerCardPosition.get(currentPlayerIndex);
-            playerHandPositionX = playerHandPosition.getX() + ((Player) player).getCardsAmount() * 10;
-            playerHandPositionY = playerHandPosition.getY() - ((Player) player).getCardsAmount() * 20;
-            cardName = ((Player) player).getLastCard().getCardType() + "_OF_" + ((Player) player).getLastCard().getSuit();
-        } else {                 //TODO:
-            cardName = "123"; // tu wywalic pozniej za tego else nizej, bo implementacji krupiera jeszcze nie ma ;))
-            playerHandPositionX = 3;
-            playerHandPositionY = 5;
+            playerHandPositionX = playerHandPosition.getX() + ((Player) player).getCardsAmount() * DIFF_BETWEEN_PLAYER_CARDS_X;
+            playerHandPositionY = playerHandPosition.getY() - ((Player) player).getCardsAmount() * DIFF_BETWEEN_PLAYER_CARDS_Y;
+            cardName = (((Player) player).getLastCard().getCardType() + "_OF_" + ((Player) player).getLastCard().getSuit()).toLowerCase();
         }
-        /*else
+        else
         {
-            Point playerHandPosition = playerCardPosition.get(4);
-            playerHandPositionX = playerHandPosition.getX() + ((Croupier) player).getCardsAmount() * 50;
+            Point playerHandPosition = playerCardPosition.get(CROUPIER_HAND_ID);
+            playerHandPositionX = playerHandPosition.getX() + ((Croupier) player).getCardsAmount() * DIFF_BETWEEN_CROUPIER_CARDS;
             playerHandPositionY = playerHandPosition.getY();
-            cardName = ((Croupier) player).getLastCard().getCardType() + "_OF_" + ((Croupier) player).getLastCard().getSuit();
-            ((Croupier) player).addCardImages(back);
-        }*/
-
+            if (((Croupier) player).getCardsAmount() == 1) {
+                cardName = "back";
+                backCard = newCard;
+            }
+            else {
+                cardName = (((Croupier) player).getLastCard().getCardType() + "_OF_" + ((Croupier) player).getLastCard().getSuit()).toLowerCase();
+            }
+        }
         final boolean[] isFrontShowing = {true};
 
-        back.setFitWidth(CARD_WIDTH);
-        back.setFitHeight(CARD_HEIGHT);
+        gamePane.getChildren().add(newCard);
 
-        gamePane.getChildren().add(back);
-
-        Point middleTablePos = playerCardPosition.get(5);
+        Point middleTablePos = playerCardPosition.get(TABLE_CENTER_ID);
         int middleTablePosX = middleTablePos.getX();
         int middleTablePosY = middleTablePos.getY();
 
-        TranslateTransition transition = new TranslateTransition(Duration.millis(500), back);
-        transition.setFromX(DECK_CARD_POS_X);
-        transition.setFromY(DECK_CARD_POS_Y);
+        TranslateTransition moveCard = new TranslateTransition(Duration.millis(500), newCard);
+        moveCard.setFromX(DECK_CARD_POS_X);
+        moveCard.setFromY(DECK_CARD_POS_Y);
 
-        transition.setToX(middleTablePosX);
-        transition.setToY(middleTablePosY);
-        transition.play();
+        moveCard.setToX(middleTablePosX);
+        moveCard.setToY(middleTablePosY);
+        moveCard.play();
 
-        RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), back);
-        rotateTransition.setAxis(Rotate.Y_AXIS);
-        rotateTransition.setFromAngle(0);
-        rotateTransition.setToAngle(90);
-        rotateTransition.play();
-        rotateTransition.setOnFinished(event1 -> {
+        RotateTransition rotateCard = new RotateTransition(Duration.millis(500), newCard);
+        rotateCard.setAxis(Rotate.Y_AXIS);
+        rotateCard.setFromAngle(0);
+        rotateCard.setToAngle(90);
+        rotateCard.play();
+        rotateCard.setOnFinished(event1 -> {
 
             if (isFrontShowing[0]) {
 
-                back.setImage(getCardImage(cardName));
-                rotateTransition.setFromAngle(90);
-                rotateTransition.setToAngle(360);
-                rotateTransition.play();
-                rotateTransition.setOnFinished(event2 -> {
+                newCard.setImage(getCardImage(cardName));
+                rotateCard.setFromAngle(90);
+                rotateCard.setToAngle(360);
+                rotateCard.play();
+                rotateCard.setOnFinished(event2 -> {
 
-                    transition.setFromX(middleTablePosX);
-                    transition.setFromY(middleTablePosY);
-                    transition.setToX(playerHandPositionX);
-                    transition.setToY(playerHandPositionY);
-                    transition.play();
+                    moveCard.setFromX(middleTablePosX);
+                    moveCard.setFromY(middleTablePosY);
+                    moveCard.setToX(playerHandPositionX);
+                    moveCard.setToY(playerHandPositionY);
+                    moveCard.play();
                 });
                 isFrontShowing[0] = false;
             }
@@ -226,55 +234,86 @@ public class BaseControllerService implements Initializable {
         moveToMainStarterView();
     }
 
-    public void clearAllCards() {
-        for (int i = 0; i < imageCards.size(); i++) {
-            ImageView imageView = imageCards.get(i);
-            gamePane.getChildren().remove(imageView);
-        }
+    public void turnAroundInvisibleCroupierCard(Croupier croupier) {
+
+        final boolean[] isFrontShowing = {true};
+
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), backCard);
+        rotateTransition.setAxis(Rotate.Y_AXIS);
+        rotateTransition.setFromAngle(0);
+        rotateTransition.setToAngle(90);
+        rotateTransition.play();
+        rotateTransition.setOnFinished(event1 -> {
+
+            if (isFrontShowing[0]) {
+                String cardName = croupier.getCard(0).getCardType() + "_of_" + croupier.getCard(0).getSuit();
+                backCard.setImage(getCardImage(cardName));
+                rotateTransition.setFromAngle(90);
+                rotateTransition.setToAngle(360);
+                rotateTransition.play();
+                isFrontShowing[0] = false;
+            }
+        });
+
     }
 
-    public void clearCardsForSpecificPlayer(Object player) {
+    public void clearAllCardImages() {
+        for (ImageView imageView : imageCards) {
+            gamePane.getChildren().remove(imageView);
+        }
+        gamePane.getChildren().remove(backCard);
+        imageCards.clear();
+    }
+
+    public void clearCardImagesForSpecificPlayer(Object player) {
         List<ImageView> playerCards;
+
         if (player instanceof Player) {
             playerCards = ((Player) player).getCardImages();
         } else {
-            return;
+            playerCards = ((Croupier) player).getCardImages();
         }
 
-        // jak bedzie krupier to podmienic else ;))
-        /* else {
-            playerCards = ((Croupier) player).getCardImages();
-        }*/
-
-        for (int i = 0; i < playerCards.size(); i++) {
-            ImageView imageView = playerCards.get(i);
+        for (ImageView imageView : playerCards) {
             gamePane.getChildren().remove(imageView);
         }
     }
 
     public void hit(MouseEvent event) {
-        if (betSum == 0) {
+
+        Player player = baseModelService.returnPlayer(currentPlayerIndex);
+
+        if (betSum == 0 && player.getBetAmount() == 0) {
             return;
         }
 
-        Player player = baseModelService.returnPlayer(currentPlayerIndex);
-        player.placeBet(betSum);
+        if (player.getBetAmount() == 0) {
+            player.placeBet(betSum);
+        }
 
         if (player.getCardsAmount() == 0) {
-            player.takeCard();
-            moveCardToHand(player);
+            for (int i = 0; i < 2; i++) {
+                player.takeCard();
+                moveCardToHand(player);
+            }
+            changePlayerMove();
+            return;
         }
 
         player.takeCard();
         moveCardToHand(player);
-        changePlayerMove();
+
+        if (checkIfPlayerLost(player)) {
+            player.setStanding(true);
+            changePlayerMove();
+        }
     }
 
     public void leaveGame() throws IOException {
 
-        clearCardsForSpecificPlayer(baseModelService.returnPlayer(currentPlayerIndex));
-
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
+        clearCardImagesForSpecificPlayer(player);
+
         currentBet[currentPlayerIndex].setText("");
         player.setPlaying(false);
 
@@ -282,7 +321,6 @@ public class BaseControllerService implements Initializable {
             moveToMainStarterView();
             return;
         }
-
         changePlayerMove();
     }
 
@@ -365,15 +403,18 @@ public class BaseControllerService implements Initializable {
     @FXML
     private void initialize() {
         currentBet = new Text[]{firstPlayerBet, secondPlayerBet, thirdPlayerBet, fourthPlayerBet};
-        baseModelService.getCroupier().takeCard();
+        Croupier croupier = baseModelService.getCroupier();
+        croupier.takeCard();
+        moveCardToHand(croupier);
+        croupier.takeCard();
+        moveCardToHand(croupier);
+
     }
 
     private void changePlayerMove() {
         betSum = 0;
         currentPlayerIndex = returnNextPlayingPlayersIndex();
         displayIsPlaying(currentPlayerIndex);
-        System.out.println("Ruch: " + currentPlayerIndex);
-
     }
 
     private void cleanMoneyFields() {
@@ -390,6 +431,12 @@ public class BaseControllerService implements Initializable {
             betSum = 0;
             amount = 0;
         }
+
+        Player player = baseModelService.returnPlayer(currentPlayerIndex);
+        if (player.getBetAmount() > 0) {
+            return;
+        }
+
         currentBet[currentPlayerIndex].setText(amount + "$");
     }
 
@@ -398,24 +445,51 @@ public class BaseControllerService implements Initializable {
             currentPlayerIndex++;
             if (currentPlayerIndex >= MAX_PLAYERS) {
                 currentPlayerIndex = 0;
-                prepareNextRound();
+                if (checkIfAllPlayersFinishedRound()) {
+                    prepareNextRound();
+                }
             }
 
             Player player = baseModelService.returnPlayer(currentPlayerIndex);
-            if (player.isPlaying()) {
+            if (player.isPlaying() && !player.isStanding()) {
                 return currentPlayerIndex;
             }
         }
     }
 
-    private void prepareNextRound() {
-        drawCroupierCardsWhenLessThanSixteen();
-        verifyRoundResults();
-        System.out.println("Croupier hands value: " + baseModelService.getCroupier().getSumOfCardsValue());
-        for (Player player : baseModelService.getPlayers()) {
-            System.out.println("Players account balance: " + player.getAccountBalance() + " | Players hands value " + player.getSumOfCardsValue());
+    private boolean checkIfAllPlayersFinishedRound() {
+        for (int i = 0; i < MAX_PLAYERS; i++) {
+            Player player = baseModelService.returnPlayer(i);
+            if (!player.isStanding()) {
+                return false;
+            }
         }
+
+        return true;
+    }
+
+    private void prepareNextRound() {
+        Croupier croupier = baseModelService.getCroupier();
+        turnAroundInvisibleCroupierCard(croupier);
+
+        keepDrawingIfsumOfCardsValueIsLessThanSixteen(croupier);
+
+        verifyRoundResults();
+
+        for (Player player : baseModelService.getPlayers()) {
+            System.out.println(player.getCardsAmount());
+            player.clearCards();
+            player.setStanding(false);
+        }
+        croupier.clearCards();
+
         cleanMoneyFields();
+        clearAllCardImages();
+
+        for (int i = 0; i < 2; i++){
+            croupier.takeCard();
+            moveCardToHand(croupier);
+        }
     }
 
     private int returnAmountOfPlayingPlayers() {
@@ -481,10 +555,8 @@ public class BaseControllerService implements Initializable {
                 userName[i] = samplesNames[pickedNumber].toUpperCase();
             }
         }
-
         return playerCounter;
     }
-
 
     public void verifyRoundResults() {
         var croupierHandValue = baseModelService.getCroupier().getSumOfCardsValue();
@@ -518,7 +590,6 @@ public class BaseControllerService implements Initializable {
             initialize();
             assignPlayersNames();
             displayIsPlaying(currentPlayerIndex);
-            System.out.println("Initializing specific FXML");
         }
     }
 
@@ -553,7 +624,17 @@ public class BaseControllerService implements Initializable {
     }
 
 
-    public void drawCroupierCardsWhenLessThanSixteen() {
-        baseModelService.getCroupier().keepDrawingIfsumOfCardsValueIsLessThanSixteen();
+    private boolean checkIfPlayerLost(Player player) {
+        return player.getSumOfCardsValue() > 21;
+    }
+
+    public void keepDrawingIfsumOfCardsValueIsLessThanSixteen(Croupier croupier) {
+        while (croupier.getSumOfCardsValue() < 16) {
+            croupier.takeCard();
+            moveCardToHand(croupier);
+        }
+        if (croupier.getSumOfCardsValue() > 21) {
+            croupier.setSumOfCardsValue(0);
+        }
     }
 }

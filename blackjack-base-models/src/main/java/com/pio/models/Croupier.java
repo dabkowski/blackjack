@@ -1,34 +1,31 @@
 package com.pio.models;
 
-public class Croupier {
+import javafx.scene.image.ImageView;
 
-    private final int MAX_CARDS = 11;
-    private final Card[] cards = new Card[MAX_CARDS];
+import java.util.ArrayList;
+import java.util.List;
+
+public class Croupier {
+    private List<Card> cards = new ArrayList<>();
+    private List<ImageView> cardImages = new ArrayList<>();
     private int cardsAmount = 0;
     private int sumOfCardsValue = 0;
 
     public void takeCard() {
         Card card = new Card();
         card.generateRandomCard();
-        cards[cardsAmount++] = card;
+
+        cards.add(card);
+        cardsAmount++;
+
         sumOfCardsValue += card.getCardValue();
     }
 
-    public void keepDrawingIfsumOfCardsValueIsLessThanSixteen() {
-        while (sumOfCardsValue < 16) {
-            takeCard();
+    public void showCards(){
+        for (int i = 0; i < cards.size(); i++){
+            Card card = cards.get(i);
+            System.out.println(card.getCardType() + " | " + card.getCardValue());
         }
-        if (sumOfCardsValue > 21) {
-            sumOfCardsValue = 0;
-        }
-    }
-
-    public Card[] getCards() {
-        return cards;
-    }
-
-    public void setCardsAmount(int cardsAmount) {
-        this.cardsAmount = cardsAmount;
     }
 
     public int getSumOfCardsValue() {
@@ -37,5 +34,28 @@ public class Croupier {
 
     public void setSumOfCardsValue(int sumOfCardsValue) {
         this.sumOfCardsValue = sumOfCardsValue;
+    }
+
+    public int getCardsAmount() {
+        return cardsAmount;
+    }
+
+    public Card getLastCard() {
+        return cards.get(cardsAmount - 1);
+    }
+
+    public List<ImageView> getCardImages() {
+        return cardImages;
+    }
+
+    public void clearCards(){
+        cardsAmount = 0;
+        cardImages.clear();
+        cards.clear();
+        sumOfCardsValue = 0;
+    }
+
+    public Card getCard(int index){
+        return cards.get(index);
     }
 }
