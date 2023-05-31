@@ -24,20 +24,22 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Random;
 
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
-  
+
     public static int DECK_CARD_POS_X = 326;
 
     public static int DECK_CARD_POS_Y = 185;
-  
+
     public static int CARD_HEIGHT = 70;
 
     public static int CARD_WIDTH = 50;
@@ -79,6 +81,8 @@ public class BaseControllerService implements Initializable {
     @FXML
     private TextField thirdUserName;
 
+    String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry","Lebron","Naruto","Cena"};
+
     private final List<Point> playerCardPosition = new ArrayList<>() {{
         add(new Point(226, 357));
         add(new Point(367, 460));
@@ -104,7 +108,7 @@ public class BaseControllerService implements Initializable {
     @FXML
     private AnchorPane gamePane;
 
-    Image backImage = new Image("Cards/back.png");
+    Image backImage = new Image("cards/back.png");
 
     @FXML
     private Circle firstPlayerCircle;
@@ -222,8 +226,8 @@ public class BaseControllerService implements Initializable {
         moveToMainStarterView();
     }
 
-    public void clearAllCards(){
-        for (int i = 0; i < imageCards.size(); i++){
+    public void clearAllCards() {
+        for (int i = 0; i < imageCards.size(); i++) {
             ImageView imageView = imageCards.get(i);
             gamePane.getChildren().remove(imageView);
         }
@@ -233,8 +237,7 @@ public class BaseControllerService implements Initializable {
         List<ImageView> playerCards;
         if (player instanceof Player) {
             playerCards = ((Player) player).getCardImages();
-        }
-        else{
+        } else {
             return;
         }
 
@@ -449,15 +452,39 @@ public class BaseControllerService implements Initializable {
         userName[2] = getUserName(thirdUserName);
         userName[3] = getUserName(fourthUserName);
 
-
+        Random random = new Random();
+        int[] pickedNumbers = new int[MAX_PLAYERS];
         int playerCounter = 0;
+        int count = 0;
+
         for (int i = 0; i < MAX_PLAYERS; i++) {
             if (!Objects.equals(userName[i], "")) {
                 playerCounter++;
+            } else {
+                int pickedNumber;
+                boolean isDuplicate;
+
+                do {
+                    pickedNumber = random.nextInt(samplesNames.length);
+                    isDuplicate = false;
+
+                    for (int j = 0; j < count; j++) {
+                        if (pickedNumbers[j] == pickedNumber) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+                } while (isDuplicate);
+
+                pickedNumbers[count] = pickedNumber;
+                count++;
+                userName[i] = samplesNames[pickedNumber].toUpperCase();
             }
         }
+
         return playerCounter;
     }
+
 
     public void verifyRoundResults() {
         var croupierHandValue = baseModelService.getCroupier().getSumOfCardsValue();
@@ -481,7 +508,7 @@ public class BaseControllerService implements Initializable {
 
     public Image getCardImage(String cardName) {
         Image cardImage;
-        cardImage = new Image("cards/" + cardName + ".png");
+        cardImage = new Image("cards/" + cardName.toLowerCase() + ".png");
         return cardImage;
     }
 
@@ -496,60 +523,35 @@ public class BaseControllerService implements Initializable {
     }
 
     public void displayIsPlaying(int currentPlayer) {
-
         if (currentPlayer < MAX_PLAYERS) {
+            String playerColors = "YELLOW";
+            Circle[] playerCircles = {firstPlayerCircle, secondPlayerCircle, thirdPlayerCircle, fourthPlayerCircle};
 
-            Light.Distant light = new Light.Distant();
-            light.setAzimuth(-135.0);
-
-            Lighting lighting = new Lighting();
-            lighting.setLight(light);
-            lighting.setSurfaceScale(5.0);
-
-            DropShadow dropShadow = new DropShadow();
-            dropShadow.setColor(Color.BLACK);
-            dropShadow.setRadius(10.0);
-            dropShadow.setOffsetX(5.0);
-            dropShadow.setOffsetY(5.0);
-
-            if (currentPlayer == 0) {
-                firstPlayerCircle.setStroke(Color.YELLOW);
-                firstPlayerCircle.setEffect(lighting);
-                firstPlayerCircle.setStrokeWidth(3);
-            } else {
-                firstPlayerCircle.setStroke(Color.BLACK);
-                firstPlayerCircle.setStrokeWidth(0);
-            }
-
-            if (currentPlayer == 1) {
-                secondPlayerCircle.setStroke(Color.YELLOW);
-                secondPlayerCircle.setEffect(lighting);
-                secondPlayerCircle.setStrokeWidth(3);
-            } else {
-                secondPlayerCircle.setStroke(Color.BLACK);
-                secondPlayerCircle.setStrokeWidth(0);
-            }
-
-            if (currentPlayer == 2) {
-                thirdPlayerCircle.setStroke(Color.YELLOW);
-                thirdPlayerCircle.setEffect(lighting);
-                thirdPlayerCircle.setStrokeWidth(3);
-            } else {
-                thirdPlayerCircle.setStroke(Color.BLACK);
-                thirdPlayerCircle.setStrokeWidth(0);
-            }
-
-            if (currentPlayer == 3) {
-                fourthPlayerCircle.setStroke(Color.YELLOW);
-                fourthPlayerCircle.setEffect(lighting);
-                fourthPlayerCircle.setStrokeWidth(3);
-            } else {
-                fourthPlayerCircle.setStroke(Color.BLACK);
-                fourthPlayerCircle.setStrokeWidth(0);
+            for (int i = 0; i < MAX_PLAYERS; i++) {
+                if (currentPlayer == i) {
+                    playerCircles[i].setStroke(Color.valueOf(playerColors));
+                    playerCircles[i].setEffect(createLightingEffect());
+                    playerCircles[i].setStrokeWidth(3);
+                } else {
+                    playerCircles[i].setStroke(Color.BLACK);
+                    playerCircles[i].setStrokeWidth(0);
+                }
             }
         }
-
+        assignPlayersNames();
     }
+
+    private Lighting createLightingEffect() {
+        Light.Distant light = new Light.Distant();
+        light.setAzimuth(-135.0);
+
+        Lighting lighting = new Lighting();
+        lighting.setLight(light);
+        lighting.setSurfaceScale(5.0);
+
+        return lighting;
+    }
+
 
     public void drawCroupierCardsWhenLessThanSixteen() {
         baseModelService.getCroupier().keepDrawingIfsumOfCardsValueIsLessThanSixteen();
