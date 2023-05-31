@@ -82,7 +82,7 @@ public class BaseControllerService implements Initializable {
 
     @FXML
     private TextField thirdUserName;
-    
+
     @FXML
     private ImageView warningImage;
 
@@ -505,8 +505,8 @@ public class BaseControllerService implements Initializable {
     }
 
     public void assignPlayersNames() {
-        Label[] dataPlayers = {dataFirstPlayer,dataSecondPlayer,dataThirdPlayer,dataFourthPlayer};
-        for(int i = 0;i<MAX_PLAYERS;i++)
+        Label[] dataPlayers = {dataFirstPlayer, dataSecondPlayer, dataThirdPlayer, dataFourthPlayer};
+        for (int i = 0; i < MAX_PLAYERS; i++)
             dataPlayers[i].setText(userName[i] + '\n' + baseModelService.returnPlayer(i).getAccountBalance() + " $");
 
     }
