@@ -108,6 +108,12 @@ public class BaseControllerService implements Initializable {
         add(new Point(808, 357));
         add(new Point(440, 260));
         add(new Point(535, 440));
+        add(new Point(222, 346));
+        add(new Point(363, 449));
+        add(new Point(663, 449));
+        add(new Point(804, 346));
+        add(new Point(440, 260));
+        add(new Point(535, 440));
     }};
 
     private final List<ImageView> imageCards = new ArrayList<>();

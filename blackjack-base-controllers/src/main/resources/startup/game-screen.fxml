@@ -17,7 +17,7 @@
     <children>
         <Pane prefHeight="847.0" prefWidth="1085.0">
             <children>
-                <ImageView fitHeight="858.0" fitWidth="1091.0" layoutX="-3.0" layoutY="6.0">
+                <ImageView fitHeight="858.0" fitWidth="1091.0" layoutX="-7.0" layoutY="-5.0">
                     <image>
                         <Image url="@Game-screen.png"/>
                     </image>
@@ -32,22 +32,12 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="Leave_Button" layoutX="861.0" layoutY="770.0" mnemonicParsing="false"
+                <Button fx:id="Leave_Button" layoutX="861.0" layoutY="720.0" mnemonicParsing="false"
                         onMouseClicked="#leaveGame" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView fitHeight="65.0" fitWidth="204.0">
                             <image>
                                 <Image url="@Leave-Button.png"/>
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="Info_Button" layoutX="867.0" layoutY="700.0" mnemonicParsing="false"
-                        onMouseClicked="#moveToInfoView" style="-fx-background-color: transparent;">
-                    <graphic>
-                        <ImageView>
-                            <image>
-                                <Image url="@Info-Button.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -67,7 +57,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@1000-chip.png"/>
+                                <Image url="@1000$-chip.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -77,7 +67,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@500-chip.png"/>
+                                <Image url="@500$-chip.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -87,7 +77,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@200-chip.png"/>
+                                <Image url="@200$-chip.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -97,7 +87,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@100-chip.png"/>
+                                <Image url="@100$-chip.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -107,7 +97,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@20-chip.png"/>
+                                <Image url="@20$-chip.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -117,7 +107,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@50-chip.png"/>
+                                <Image url="@50$-chip.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -127,7 +117,7 @@
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@10-chip.png"/>
+                                <Image url="@10$-chip.png"/>
                             </image>
                         </ImageView>
                     </graphic>
@@ -186,13 +176,13 @@
                         <Font name="System Bold" size="21.0"/>
                     </font>
                 </Label>
-                <Circle fx:id="firstPlayerCircle" fill="#1f93ff00" layoutX="110.0" layoutY="498.0" radius="57.0"
+                <Circle fx:id="firstPlayerCircle" fill="#1f93ff00" layoutX="109.0" layoutY="489.0" radius="59.0"
                         stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0"/>
-                <Circle fx:id="fourthPlayerCircle" fill="#1f93ff00" layoutX="989.0" layoutY="483.0" radius="60.0"
+                <Circle fx:id="secondPlayerCircle" fill="#1f93ff00" layoutX="331.0" layoutY="639.0" radius="59.0"
                         stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0"/>
-                <Circle fx:id="thirdPlayerCircle" fill="#1f93ff00" layoutX="795.0" layoutY="641.0" radius="60.0"
+                <Circle fx:id="thirdPlayerCircle" fill="#1f93ff00" layoutX="792.0" layoutY="630.0" radius="59.0"
                         stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0"/>
-                <Circle fx:id="secondPlayerCircle" fill="#1f93ff00" layoutX="336.0" layoutY="652.0" radius="57.0"
+                <Circle fx:id="fourthPlayerCircle" fill="#1f93ff00" layoutX="985.0" layoutY="472.0" radius="59.0"
                         stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0"/>
             </children>
         </Pane>
