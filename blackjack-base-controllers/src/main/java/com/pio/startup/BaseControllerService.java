@@ -15,8 +15,7 @@ import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -32,6 +31,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Random;
+
+import javafx.scene.input.MouseEvent;
 
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
@@ -81,7 +82,7 @@ public class BaseControllerService implements Initializable {
     @FXML
     private TextField thirdUserName;
 
-    String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry","Lebron","Naruto","Cena"};
+    String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry", "Lebron", "Naruto", "Cena"};
 
     private final List<Point> playerCardPosition = new ArrayList<>() {{
         add(new Point(226, 357));
@@ -556,4 +557,15 @@ public class BaseControllerService implements Initializable {
     public void drawCroupierCardsWhenLessThanSixteen() {
         baseModelService.getCroupier().keepDrawingIfsumOfCardsValueIsLessThanSixteen();
     }
+
+    @FXML
+    private void enter(KeyEvent event) throws IOException {
+
+        if (event.getCode() == KeyCode.ENTER) {
+            moveToGameView();
+        }
+
+    }
 }
+
+
