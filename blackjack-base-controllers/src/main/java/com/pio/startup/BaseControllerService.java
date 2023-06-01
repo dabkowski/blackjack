@@ -3,7 +3,6 @@ package com.pio.startup;
 import com.pio.models.BaseModelService;
 import com.pio.models.Croupier;
 import com.pio.models.Player;
-import com.sun.javafx.scene.text.TextLayout;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -60,7 +59,7 @@ public class BaseControllerService implements Initializable {
 
     public static int MIN_CROUPIER_DECK_AMOUNT = 16;
 
-    public static int AMOUNT_OF_CARDS_ON_START = 16;
+    public static int AMOUNT_OF_CARDS_ON_START = 2;
 
     public static int NICKNAME_LENGTH_SIZE = 7;
     public static int HIDDEN_KART = 0;
