@@ -129,22 +129,22 @@
                         <Font name="System Bold" size="18.0" />
                     </font>
                 </Text>
-                <Label fx:id="dataFirstPlayer" alignment="CENTER" layoutX="59.0" layoutY="466.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dataFirstPlayer" alignment="CENTER" layoutX="55.0" layoutY="455.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="dataFourthPlayer" alignment="CENTER" layoutX="942.0" layoutY="448.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dataFourthPlayer" alignment="CENTER" layoutX="938.0" layoutY="437.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="dataThirdPlayer" alignment="CENTER" layoutX="748.0" layoutY="607.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dataThirdPlayer" alignment="CENTER" layoutX="744.0" layoutY="596.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="dataSecondPlayer" alignment="CENTER" layoutX="285.0" layoutY="615.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dataSecondPlayer" alignment="CENTER" layoutX="281.0" layoutY="604.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
