@@ -15,7 +15,7 @@
                   <Image url="@Info.png" />
                </image>
             </ImageView>
-            <Button fx:id="Leave_Arrow_Button" layoutX="20.0" layoutY="55.0" mnemonicParsing="false" onMouseClicked="#leaveInfoScreen" onMouseEntered="#cursorChangeInfoScreen" prefHeight="52.0" prefWidth="104.0" style="-fx-background-color: transparent;">
+            <Button fx:id="Leave_Arrow_Button" layoutX="20.0" layoutY="55.0" mnemonicParsing="false" onMouseClicked="#leaveInfoScreen" onMouseEntered="#cursorChangeToHandIfEntered" prefHeight="52.0" prefWidth="104.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="90.0">
                      <image>
