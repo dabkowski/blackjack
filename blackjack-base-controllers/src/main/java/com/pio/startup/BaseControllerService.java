@@ -63,6 +63,7 @@ public class BaseControllerService implements Initializable {
     public static int AMOUNT_OF_CARDS_ON_START = 16;
 
     public static int NICKNAME_LENGTH_SIZE = 7;
+    public static int HIDDEN_KART = 0;
 
     public static String EMPTY_FIELD = "";
 
@@ -305,7 +306,7 @@ public class BaseControllerService implements Initializable {
         rotateTransition.setOnFinished(event1 -> {
 
             if (isFrontShowing[0]) {
-                String cardName = croupier.getCard(0).getCardType() + "_of_" + croupier.getCard(0).getSuit();
+                String cardName = croupier.getCard(HIDDEN_KART).getCardType() + "_of_" + croupier.getCard(HIDDEN_KART).getSuit();
                 backCard.setImage(getCardImage(cardName));
                 rotateTransition.setFromAngle(90);
                 rotateTransition.setToAngle(360);
