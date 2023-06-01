@@ -58,7 +58,7 @@
                   <Font name="Dubai Regular" size="14.0" />
                </font>
             </TextField>
-            <Button fx:id="startButton" layoutX="447.0" layoutY="565.0" mnemonicParsing="false" onMouseClicked="#moveToGameView" style="-fx-background-color: transparent;">
+            <Button fx:id="Start_Button" layoutX="447.0" layoutY="565.0" mnemonicParsing="false" onMouseClicked="#moveToGameView" onMouseEntered="#cursorChangeStartUpScreen" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="58.0" fitWidth="194.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -72,7 +72,7 @@
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="Info_Button" layoutX="446.0" layoutY="640.0" mnemonicParsing="false" onMouseClicked="#moveToInfoView" style="-fx-background-color: transparent;">
+            <Button fx:id="Info_Button" layoutX="446.0" layoutY="640.0" mnemonicParsing="false" onMouseClicked="#moveToInfoView" onMouseEntered="#cursorChangeStartUpScreen" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView>
                      <image>
