@@ -3,17 +3,17 @@ package com.pio.startup;
 import com.pio.models.BaseModelService;
 import com.pio.models.Croupier;
 import com.pio.models.Player;
+import com.sun.javafx.scene.text.TextLayout;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import javafx.scene.control.*;
-
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
@@ -33,10 +33,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Random;
-
 import javafx.scene.input.MouseEvent;
-
-import java.lang.Thread;
 
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
@@ -101,11 +98,39 @@ public class BaseControllerService implements Initializable {
 
     String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry", "Lebron", "Naruto", "Cena"};
 
+    @FXML
+    private Button Hit_Button;
+    @FXML
+    private Button Stand_Button;
+    @FXML
+    private Button Leave_Button;
+    @FXML
+    private Button chip_1000_Button;
+    @FXML
+    private Button chip_500_Button;
+    @FXML
+    private Button chip_200_Button;
+    @FXML
+    private Button chip_100_Button;
+    @FXML
+    private Button chip_50_Button;
+    @FXML
+    private Button chip_20_Button;
+    @FXML
+    private Button chip_10_Button;
+
+    @FXML
+    private Button Leave_Arrow_Button;
+    @FXML
+    private Button Start_Button;
+    @FXML
+    private Button Info_Button;
+
     private final List<Point> playerCardPosition = new ArrayList<>() {{
-        add(new Point(226, 357));
-        add(new Point(367, 460));
-        add(new Point(667, 460));
-        add(new Point(808, 357));
+        add(new Point(222, 346));
+        add(new Point(363, 449));
+        add(new Point(663, 449));
+        add(new Point(804, 346));
         add(new Point(440, 260));
         add(new Point(535, 440));
     }};
@@ -289,6 +314,26 @@ public class BaseControllerService implements Initializable {
         for (ImageView imageView : playerCards) {
             gamePane.getChildren().remove(imageView);
         }
+    }
+
+    public void cursorChangeGameScreen(MouseEvent me) {
+        Hit_Button.setCursor(Cursor.HAND);
+        Stand_Button.setCursor(Cursor.HAND);
+        Leave_Button.setCursor(Cursor.HAND);
+        chip_1000_Button.setCursor(Cursor.HAND);
+        chip_500_Button.setCursor(Cursor.HAND);
+        chip_200_Button.setCursor(Cursor.HAND);
+        chip_100_Button.setCursor(Cursor.HAND);
+        chip_50_Button.setCursor(Cursor.HAND);
+        chip_20_Button.setCursor(Cursor.HAND);
+        chip_10_Button.setCursor(Cursor.HAND);
+    }
+    public void cursorChangeStartUpScreen(MouseEvent me) {
+        Start_Button.setCursor(Cursor.HAND);
+        Info_Button.setCursor(Cursor.HAND);
+    }
+    public void cursorChangeInfoScreen(MouseEvent me) {
+        Leave_Arrow_Button.setCursor(Cursor.HAND);
     }
 
     public void hit(MouseEvent event) {
