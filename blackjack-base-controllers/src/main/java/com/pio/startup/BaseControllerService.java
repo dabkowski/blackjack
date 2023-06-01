@@ -3,8 +3,7 @@ package com.pio.startup;
 import com.pio.models.BaseModelService;
 import com.pio.models.Croupier;
 import com.pio.models.Player;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -32,6 +31,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Random;
+import java.util.*;
 import javafx.scene.input.MouseEvent;
 
 public class BaseControllerService implements Initializable {
@@ -191,6 +191,42 @@ public class BaseControllerService implements Initializable {
 
     @FXML
     private Circle fourthPlayerCircle;
+
+    @FXML
+    private ImageView playerOneWin;
+
+    @FXML
+    private ImageView playerTwoWin;
+
+    @FXML
+    private ImageView playerThreeWin;
+
+    @FXML
+    private ImageView playerFourWin;
+
+    @FXML
+    private ImageView playerOneLoss;
+
+    @FXML
+    private ImageView playerTwoLoss;
+
+    @FXML
+    private ImageView playerThreeLoss;
+
+    @FXML
+    private ImageView playerFourLoss;
+
+    @FXML
+    private ImageView playerOneDraw;
+
+    @FXML
+    private ImageView playerTwoDraw;
+
+    @FXML
+    private ImageView playerThreeDraw;
+
+    @FXML
+    private ImageView playerFourDraw;
 
     private final BaseModelService baseModelService = new BaseModelService();
 
@@ -490,7 +526,22 @@ public class BaseControllerService implements Initializable {
         moveCardToHand(croupier);
         croupier.takeCard();
         moveCardToHand(croupier);
+        fadeInAllWinLossViewsImmediately();
+    }
 
+    private void fadeInAllWinLossViewsImmediately() {
+        fadeInViewImmediately(playerOneWin);
+        fadeInViewImmediately(playerTwoWin);
+        fadeInViewImmediately(playerThreeWin);
+        fadeInViewImmediately(playerFourWin);
+        fadeInViewImmediately(playerOneLoss);
+        fadeInViewImmediately(playerTwoLoss);
+        fadeInViewImmediately(playerThreeLoss);
+        fadeInViewImmediately(playerFourLoss);
+        fadeInViewImmediately(playerOneDraw);
+        fadeInViewImmediately(playerTwoDraw);
+        fadeInViewImmediately(playerThreeDraw);
+        fadeInViewImmediately(playerFourDraw);
     }
 
     private void changePlayerMove() {
@@ -652,15 +703,46 @@ public class BaseControllerService implements Initializable {
 
     public void verifyRoundResults() {
         var croupierHandValue = baseModelService.getCroupier().getSumOfCardsValue();
-
         for (Player player : baseModelService.getPlayers()) {
+            var playerIndex = findPlayerIndex(player);
             if (croupierHandValue < player.getSumOfCardsValue()) {
                 player.setAccountBalance(player.getAccountBalance() + player.getBetAmount() * BaseModelService.WIN_MULTIPLIER);
+                triggerFadeInAnimation(playerIndex, RoundStatus.WIN);
             } else if (croupierHandValue == player.getSumOfCardsValue()) {
                 player.setAccountBalance(player.getAccountBalance() + player.getBetAmount());
+                triggerFadeInAnimation(playerIndex, RoundStatus.DRAW);
+            } else {
+                triggerFadeInAnimation(playerIndex, RoundStatus.LOSS);
             }
             player.setBetAmount(0);
         }
+    }
+
+    private void triggerFadeInAnimation(int playerIndex, RoundStatus roundStatus) {
+        switch (playerIndex) {
+            case 0 -> fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerOneWin : RoundStatus.LOSS.equals(roundStatus) ? playerOneLoss : playerOneDraw);
+            case 1 -> fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerTwoWin : RoundStatus.LOSS.equals(roundStatus) ? playerTwoLoss : playerTwoDraw);
+            case 2 -> fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerThreeWin : RoundStatus.LOSS.equals(roundStatus) ? playerThreeLoss : playerThreeDraw);
+            case 3 -> fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerFourWin : RoundStatus.LOSS.equals(roundStatus) ? playerFourLoss : playerFourDraw);
+        }
+    }
+
+    private enum RoundStatus {
+        WIN,
+        LOSS,
+        DRAW
+    }
+
+    private int findPlayerIndex(Player player) {
+        var players = baseModelService.getPlayers();
+        int index = 0;
+        for (Player foundPlayer: players) {
+            if (foundPlayer.equals(player)) {
+                break;
+            }
+            index++;
+        }
+        return index;
     }
 
     public void assignPlayersNames() {
@@ -736,6 +818,38 @@ public class BaseControllerService implements Initializable {
             moveToGameView();
         }
 
+    }
+
+    private void fadeInView(ImageView view) {
+        FadeTransition ft = new FadeTransition(Duration.millis(1500), view);
+
+        Path path = new Path();
+        path.getElements().add(new MoveTo(40f, 40f));
+        path.getElements().add(new LineTo(60, -100));
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.millis(4000));
+        pathTransition.setPath(path);
+        pathTransition.setNode(view);
+        pathTransition.setOrientation(PathTransition.OrientationType.NONE);
+        pathTransition.setCycleCount(1);
+        pathTransition.setAutoReverse(false);
+        pathTransition.play();
+
+        ft.setFromValue(1.0);
+        ft.setToValue(0);
+        ft.setCycleCount(1);
+        ft.setAutoReverse(false);
+        ft.play();
+    }
+
+    private void fadeInViewImmediately(ImageView view) {
+        FadeTransition ft = new FadeTransition(Duration.millis(1), view);
+
+        ft.setFromValue(1.0);
+        ft.setToValue(0);
+        ft.setCycleCount(1);
+        ft.setAutoReverse(false);
+        ft.play();
     }
 }
 

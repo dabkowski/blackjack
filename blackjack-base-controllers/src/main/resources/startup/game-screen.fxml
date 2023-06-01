@@ -19,7 +19,11 @@
                         <Image url="@Game-screen.png" />
                     </image>
                 </ImageView>
+<<<<<<< HEAD
                 <Button fx:id="Hit_Button" layoutX="5.0" layoutY="700.0" mnemonicParsing="false" onMouseClicked="#hit" onMouseEntered="#cursorChangeGameScreen" prefHeight="29.0" prefWidth="158.0" style="-fx-background-color: transparent;">
+=======
+                <Button fx:id="Hit_Button" layoutX="5.0" layoutY="700.0" mnemonicParsing="false" onMouseClicked="#hit" prefHeight="29.0" prefWidth="158.0" style="-fx-background-color: transparent;">
+>>>>>>> 4078b8f (Add round summary animations)
                     <graphic>
                         <ImageView>
                             <image>
@@ -28,7 +32,11 @@
                         </ImageView>
                     </graphic>
                 </Button>
+<<<<<<< HEAD
                 <Button fx:id="Leave_Button" layoutX="861.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#leaveGame" onMouseEntered="#cursorChangeGameScreen" style="-fx-background-color: transparent;">
+=======
+                <Button fx:id="Leave_Button" layoutX="861.0" layoutY="770.0" mnemonicParsing="false" onMouseClicked="#leaveGame" style="-fx-background-color: transparent;">
+>>>>>>> 4078b8f (Add round summary animations)
                     <graphic>
                         <ImageView fitHeight="65.0" fitWidth="204.0">
                             <image>
@@ -37,78 +45,154 @@
                         </ImageView>
                     </graphic>
                 </Button>
+<<<<<<< HEAD
                 <Button fx:id="Stand_Button" layoutX="5.0" layoutY="770.0" mnemonicParsing="false" onMouseClicked="#stand" onMouseEntered="#cursorChangeGameScreen" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
                                 <Image url="@Stand-Button.png" />
+=======
+                <Button fx:id="Info_Button" layoutX="867.0" layoutY="700.0" mnemonicParsing="false" onMouseClicked="#moveToInfoView" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@Info-Button.png" />
+>>>>>>> 4078b8f (Add round summary animations)
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
+<<<<<<< HEAD
                 <Button fx:id="chip_1000_Button" layoutX="766.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add1000Chip" onMouseEntered="#cursorChangeGameScreen" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
                                 <Image url="@1000$-chip.png" />
+=======
+                <Button fx:id="Stand_Button" layoutX="5.0" layoutY="770.0" mnemonicParsing="false" onMouseClicked="#stand" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@Stand-Button.png" />
+>>>>>>> 4078b8f (Add round summary animations)
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
+<<<<<<< HEAD
                 <Button fx:id="chip_500_Button" layoutX="676.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add500Chip" onMouseEntered="#cursorChangeGameScreen" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
                                 <Image url="@500$-chip.png" />
+=======
+                <Button fx:id="chip_1000_button" layoutX="766.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add1000Chip" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@1000-chip.png" />
+>>>>>>> 4078b8f (Add round summary animations)
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
+<<<<<<< HEAD
                 <Button fx:id="chip_200_Button" layoutX="586.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add200Chip" onMouseEntered="#cursorChangeGameScreen" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
                                 <Image url="@200$-chip.png" />
+=======
+                <Button fx:id="chip_500_Button" layoutX="676.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add500Chip" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@500-chip.png" />
+>>>>>>> 4078b8f (Add round summary animations)
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
+<<<<<<< HEAD
                 <Button fx:id="chip_100_Button" layoutX="496.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add100Chip" onMouseEntered="#cursorChangeGameScreen" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
                                 <Image url="@100$-chip.png" />
+=======
+                <Button fx:id="chip_200_Button" layoutX="586.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add200Chip" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@200-chip.png" />
+>>>>>>> 4078b8f (Add round summary animations)
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
+<<<<<<< HEAD
                 <Button fx:id="chip_20_Button" layoutX="316.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add20Chip" onMouseEntered="#cursorChangeGameScreen" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
                                 <Image url="@20$-chip.png" />
+=======
+                <Button fx:id="chip_100_Button" layoutX="496.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add100Chip" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@100-chip.png" />
+>>>>>>> 4078b8f (Add round summary animations)
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
+<<<<<<< HEAD
                 <Button fx:id="chip_50_Button" layoutX="406.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add50Chip" onMouseEntered="#cursorChangeGameScreen" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
                                 <Image url="@50$-chip.png" />
+=======
+                <Button fx:id="chip_20_Button" layoutX="316.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add20Chip" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@20-chip.png" />
+>>>>>>> 4078b8f (Add round summary animations)
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
+<<<<<<< HEAD
                 <Button fx:id="chip_10_Button" layoutX="226.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add10Chip" onMouseEntered="#cursorChangeGameScreen" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
                                 <Image url="@10$-chip.png" />
+=======
+                <Button fx:id="chip_50_Button" layoutX="406.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add50Chip" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@50-chip.png" />
+>>>>>>> 4078b8f (Add round summary animations)
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
+<<<<<<< HEAD
+=======
+                <Button fx:id="chip_10_Button" layoutX="226.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add10Chip" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@10-chip.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+>>>>>>> 4078b8f (Add round summary animations)
                 <Text fx:id="firstPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="295.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="18.0" />
@@ -129,22 +213,38 @@
                         <Font name="System Bold" size="18.0" />
                     </font>
                 </Text>
+<<<<<<< HEAD
                 <Label fx:id="dataFirstPlayer" alignment="CENTER" layoutX="55.0" layoutY="455.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+=======
+                <Label fx:id="dataFirstPlayer" alignment="CENTER" layoutX="59.0" layoutY="466.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+>>>>>>> 4078b8f (Add round summary animations)
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
+<<<<<<< HEAD
                 <Label fx:id="dataFourthPlayer" alignment="CENTER" layoutX="938.0" layoutY="437.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+=======
+                <Label fx:id="dataFourthPlayer" alignment="CENTER" layoutX="942.0" layoutY="448.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+>>>>>>> 4078b8f (Add round summary animations)
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
+<<<<<<< HEAD
                 <Label fx:id="dataThirdPlayer" alignment="CENTER" layoutX="744.0" layoutY="596.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+=======
+                <Label fx:id="dataThirdPlayer" alignment="CENTER" layoutX="748.0" layoutY="607.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+>>>>>>> 4078b8f (Add round summary animations)
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
+<<<<<<< HEAD
                 <Label fx:id="dataSecondPlayer" alignment="CENTER" layoutX="281.0" layoutY="604.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+=======
+                <Label fx:id="dataSecondPlayer" alignment="CENTER" layoutX="285.0" layoutY="615.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+>>>>>>> 4078b8f (Add round summary animations)
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -154,10 +254,77 @@
                         <Font name="System Bold" size="21.0" />
                     </font>
                 </Label>
+<<<<<<< HEAD
                 <Circle fx:id="firstPlayerCircle" fill="#1f93ff00" layoutX="109.0" layoutY="489.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
                 <Circle fx:id="secondPlayerCircle" fill="#1f93ff00" layoutX="331.0" layoutY="639.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
                 <Circle fx:id="thirdPlayerCircle" fill="#1f93ff00" layoutX="792.0" layoutY="630.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
                 <Circle fx:id="fourthPlayerCircle" fill="#1f93ff00" layoutX="985.0" layoutY="472.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+=======
+                <Circle fx:id="firstPlayerCircle" fill="#1f93ff00" layoutX="110.0" layoutY="498.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                <Circle fx:id="fourthPlayerCircle" fill="#1f93ff00" layoutX="989.0" layoutY="483.0" radius="60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                <Circle fx:id="thirdPlayerCircle" fill="#1f93ff00" layoutX="795.0" layoutY="641.0" radius="60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                <Circle fx:id="secondPlayerCircle" fill="#1f93ff00" layoutX="336.0" layoutY="652.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+            <ImageView fx:id="playerOneWin" fitHeight="90.0" fitWidth="134.0" layoutX="252.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@green-win.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerTwoWin" fitHeight="90.0" fitWidth="134.0" layoutX="391.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@green-win.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerThreeWin" fitHeight="90.0" fitWidth="134.0" layoutX="681.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@green-win.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerFourWin" fitHeight="90.0" fitWidth="134.0" layoutX="824.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@green-win.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerOneLoss" fitHeight="90.0" fitWidth="134.0" layoutX="251.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@red-loss.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerTwoLoss" fitHeight="90.0" fitWidth="134.0" layoutX="390.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@red-loss.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerThreeLoss" fitHeight="90.0" fitWidth="134.0" layoutX="680.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@red-loss.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerFourLoss" fitHeight="90.0" fitWidth="134.0" layoutX="823.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@red-loss.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerOneDraw" fitHeight="90.0" fitWidth="134.0" layoutX="252.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@yellow-draw.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerTwoDraw" fitHeight="90.0" fitWidth="134.0" layoutX="391.0" layoutY="391.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@yellow-draw.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerThreeDraw" fitHeight="90.0" fitWidth="134.0" layoutX="681.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@yellow-draw.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerFourDraw" fitHeight="90.0" fitWidth="134.0" layoutX="824.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@yellow-draw.png" />
+               </image>
+            </ImageView>
+>>>>>>> 4078b8f (Add round summary animations)
             </children>
         </Pane>
     </children>
