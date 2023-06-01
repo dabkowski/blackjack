@@ -584,7 +584,7 @@ public class BaseControllerService implements Initializable {
         Croupier croupier = baseModelService.getCroupier();
         turnAroundInvisibleCroupierCard(croupier);
 
-        keepDrawingIfsumOfCardsValueIsLessThanSixteen(croupier);
+        keepDrawingIfSumOfCardsValueIsLessThanSixteen(croupier);
 
         verifyRoundResults();
 
@@ -775,7 +775,7 @@ public class BaseControllerService implements Initializable {
         return player.getSumOfCardsValue() > WINNING_AMOUNT;
     }
 
-    public void keepDrawingIfsumOfCardsValueIsLessThanSixteen(Croupier croupier) {
+    public void keepDrawingIfSumOfCardsValueIsLessThanSixteen(Croupier croupier) {
         while (croupier.getSumOfCardsValue() < MIN_CROUPIER_DECK_AMOUNT) {
             croupier.takeCard();
             moveCardToHand(croupier);
