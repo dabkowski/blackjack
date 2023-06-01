@@ -22,7 +22,7 @@
                     </image>
                 </ImageView>
                 <Button fx:id="Hit_Button" layoutX="5.0" layoutY="700.0" mnemonicParsing="false" onMouseClicked="#hit"
-                        onMouseEntered="#cursorChangeGameScreen" prefHeight="29.0" prefWidth="158.0"
+                        onMouseEntered="#cursorChangeToHandIfEntered" prefHeight="29.0" prefWidth="158.0"
                         style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
@@ -33,7 +33,7 @@
                     </graphic>
                 </Button>
                 <Button fx:id="Leave_Button" layoutX="861.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#leaveGame" onMouseEntered="#cursorChangeGameScreen"
+                        onMouseClicked="#leaveGame" onMouseEntered="#cursorChangeToHandIfEntered"
                         style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView fitHeight="65.0" fitWidth="204.0">
@@ -44,7 +44,7 @@
                     </graphic>
                 </Button>
                 <Button fx:id="Stand_Button" layoutX="5.0" layoutY="770.0" mnemonicParsing="false"
-                        onMouseClicked="#stand" onMouseEntered="#cursorChangeGameScreen"
+                        onMouseClicked="#stand" onMouseEntered="#cursorChangeToHandIfEntered"
                         style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
@@ -55,7 +55,7 @@
                     </graphic>
                 </Button>
                 <Button fx:id="chip_1000_Button" layoutX="766.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add1000Chip" onMouseEntered="#cursorChangeGameScreen"
+                        onMouseClicked="#add1000Chip" onMouseEntered="#cursorChangeToHandIfEntered"
                         style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
@@ -66,7 +66,7 @@
                     </graphic>
                 </Button>
                 <Button fx:id="chip_500_Button" layoutX="676.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add500Chip" onMouseEntered="#cursorChangeGameScreen"
+                        onMouseClicked="#add500Chip" onMouseEntered="#cursorChangeToHandIfEntered"
                         style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
@@ -77,7 +77,7 @@
                     </graphic>
                 </Button>
                 <Button fx:id="chip_200_Button" layoutX="586.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add200Chip" onMouseEntered="#cursorChangeGameScreen"
+                        onMouseClicked="#add200Chip" onMouseEntered="#cursorChangeToHandIfEntered"
                         style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
@@ -88,7 +88,7 @@
                     </graphic>
                 </Button>
                 <Button fx:id="chip_100_Button" layoutX="496.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add100Chip" onMouseEntered="#cursorChangeGameScreen"
+                        onMouseClicked="#add100Chip" onMouseEntered="#cursorChangeToHandIfEntered"
                         style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
@@ -99,7 +99,7 @@
                     </graphic>
                 </Button>
                 <Button fx:id="chip_20_Button" layoutX="316.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add20Chip" onMouseEntered="#cursorChangeGameScreen"
+                        onMouseClicked="#add20Chip" onMouseEntered="#cursorChangeToHandIfEntered"
                         style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
@@ -110,7 +110,7 @@
                     </graphic>
                 </Button>
                 <Button fx:id="chip_50_Button" layoutX="406.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add50Chip" onMouseEntered="#cursorChangeGameScreen"
+                        onMouseClicked="#add50Chip" onMouseEntered="#cursorChangeToHandIfEntered"
                         style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
@@ -121,7 +121,7 @@
                     </graphic>
                 </Button>
                 <Button fx:id="chip_10_Button" layoutX="226.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add10Chip" onMouseEntered="#cursorChangeGameScreen"
+                        onMouseClicked="#add10Chip" onMouseEntered="#cursorChangeToHandIfEntered"
                         style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>

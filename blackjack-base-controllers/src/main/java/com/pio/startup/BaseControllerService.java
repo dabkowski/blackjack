@@ -4,6 +4,9 @@ import com.pio.models.BaseModelService;
 import com.pio.models.Croupier;
 import com.pio.models.Player;
 import javafx.animation.*;
+import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +27,6 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,8 +34,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Random;
-import java.util.*;
-
 import javafx.scene.input.MouseEvent;
 
 public class BaseControllerService implements Initializable {
@@ -124,34 +124,6 @@ public class BaseControllerService implements Initializable {
     private ImageView warningImage;
 
     String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry", "Lebron", "Naruto", "Cena"};
-
-    @FXML
-    private Button Hit_Button;
-    @FXML
-    private Button Stand_Button;
-    @FXML
-    private Button Leave_Button;
-    @FXML
-    private Button chip_1000_Button;
-    @FXML
-    private Button chip_500_Button;
-    @FXML
-    private Button chip_200_Button;
-    @FXML
-    private Button chip_100_Button;
-    @FXML
-    private Button chip_50_Button;
-    @FXML
-    private Button chip_20_Button;
-    @FXML
-    private Button chip_10_Button;
-
-    @FXML
-    private Button Leave_Arrow_Button;
-    @FXML
-    private Button Start_Button;
-    @FXML
-    private Button Info_Button;
 
     private final List<Point> playerCardPosition = new ArrayList<>() {{
         add(new Point(222, 346));
@@ -326,8 +298,28 @@ public class BaseControllerService implements Initializable {
         });
     }
 
-    public void leaveInfoScreen(MouseEvent event) throws IOException {
+    public void leaveInfoScreen() throws IOException {
         moveToMainStarterView();
+    }
+
+    public void cursorChangeToHandIfEntered(MouseEvent event) {
+        Button button = (Button) event.getSource();
+        button.setCursor(Cursor.HAND);
+
+        scaleButtonIfEntered(button);
+    }
+
+    private void scaleButtonIfEntered(Button button) {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(50), button);
+        scaleTransition.setToX(1.1);
+        scaleTransition.setToY(1.1);
+        scaleTransition.play();
+
+        button.setOnMouseExited(exitedEvent -> {
+            scaleTransition.stop();
+            button.setScaleX(1.0);
+            button.setScaleY(1.0);
+        });
     }
 
     public void turnAroundInvisibleCroupierCard(Croupier croupier) {
@@ -375,30 +367,7 @@ public class BaseControllerService implements Initializable {
         }
     }
 
-    public void cursorChangeGameScreen(MouseEvent me) {
-        Hit_Button.setCursor(Cursor.HAND);
-        Stand_Button.setCursor(Cursor.HAND);
-        Leave_Button.setCursor(Cursor.HAND);
-        chip_1000_Button.setCursor(Cursor.HAND);
-        chip_500_Button.setCursor(Cursor.HAND);
-        chip_200_Button.setCursor(Cursor.HAND);
-        chip_100_Button.setCursor(Cursor.HAND);
-        chip_50_Button.setCursor(Cursor.HAND);
-        chip_20_Button.setCursor(Cursor.HAND);
-        chip_10_Button.setCursor(Cursor.HAND);
-    }
-
-    public void cursorChangeStartUpScreen(MouseEvent me) {
-        Start_Button.setCursor(Cursor.HAND);
-        Info_Button.setCursor(Cursor.HAND);
-    }
-
-    public void cursorChangeInfoScreen(MouseEvent me) {
-        Leave_Arrow_Button.setCursor(Cursor.HAND);
-    }
-
-    public void hit(MouseEvent event) {
-
+    public void hit() {
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
 
         if (betSum == 0 && player.getBetAmount() == 0) {
@@ -615,7 +584,7 @@ public class BaseControllerService implements Initializable {
         Croupier croupier = baseModelService.getCroupier();
         turnAroundInvisibleCroupierCard(croupier);
 
-        keepDrawingIfsumOfCardsValueIsLessThanSixteen(croupier);
+        keepDrawingIfSumOfCardsValueIsLessThanSixteen(croupier);
 
         verifyRoundResults();
 
@@ -806,7 +775,7 @@ public class BaseControllerService implements Initializable {
         return player.getSumOfCardsValue() > WINNING_AMOUNT;
     }
 
-    public void keepDrawingIfsumOfCardsValueIsLessThanSixteen(Croupier croupier) {
+    public void keepDrawingIfSumOfCardsValueIsLessThanSixteen(Croupier croupier) {
         while (croupier.getSumOfCardsValue() < MIN_CROUPIER_DECK_AMOUNT) {
             croupier.takeCard();
             moveCardToHand(croupier);
