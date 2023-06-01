@@ -11,9 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import javafx.scene.control.*;
-
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
@@ -33,10 +30,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Random;
-
 import javafx.scene.input.MouseEvent;
-
-import java.lang.Thread;
 
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
@@ -58,6 +52,29 @@ public class BaseControllerService implements Initializable {
     public static int CARD_HEIGHT = 70;
 
     public static int CARD_WIDTH = 50;
+
+    public static int WINNING_AMOUNT = 21;
+
+    public static int MIN_CROUPIER_DECK_AMOUNT = 16;
+
+    public static int AMOUNT_OF_CARDS_ON_START = 16;
+
+    public static int NICKNAME_LENGTH_SIZE = 7;
+
+    public static String EMPTY_FIELD = "";
+
+    public static String BACK_OF_CARD_NAME = "back";
+
+    public static String INFO_SCREEN_PATH = "startup/info-screen.fxml";
+
+    public static String GAME_SCREEN_PATH = "startup/game-screen.fxml";
+
+    public static String START_SCREEN_PATH ="startup/blackjack-starter-view.fxml";
+
+    public static String WARNING_IMAGE_PATH = "startup/warning.png";
+
+    public static String COLOR_OF_THE_CIRCLE_MOVE = "YELLOW";
+    public static String WARNING_MESSAGE = "You must have at least one player name ";
 
     @FXML
     private Label dataFirstPlayer;
@@ -146,27 +163,26 @@ public class BaseControllerService implements Initializable {
 
     private static final String[] userName = new String[MAX_PLAYERS];
 
-    public BaseControllerService() {
-    }
+    public BaseControllerService() {}
 
     public void moveToMainStarterView() throws IOException {
-        initializeView("startup/blackjack-starter-view.fxml");
+        initializeView(START_SCREEN_PATH);
     }
 
     public void moveToGameView() throws IOException {
         int numberOfPlayer = checkNumberOfPlayers();
         if (numberOfPlayer > 0) {
-            initializeView("startup/game-screen.fxml");
+            initializeView(GAME_SCREEN_PATH);
         }
         else {
-            noPlayerName.setText("You must have at least one player name ");
-            Image warning = new Image("startup/warning.png");
+            noPlayerName.setText(WARNING_MESSAGE);
+            Image warning = new Image(WARNING_IMAGE_PATH);
             warningImage.setImage(warning);
         }
     }
 
     public void moveToInfoView() throws IOException {
-        initializeView("startup/info-screen.fxml");
+        initializeView(INFO_SCREEN_PATH);
     }
 
     public void moveCardToHand(Object player) {
@@ -193,7 +209,7 @@ public class BaseControllerService implements Initializable {
             playerHandPositionX = playerHandPosition.getX() + ((Croupier) player).getCardsAmount() * DIFF_BETWEEN_CROUPIER_CARDS;
             playerHandPositionY = playerHandPosition.getY();
             if (((Croupier) player).getCardsAmount() == 1) {
-                cardName = "back";
+                cardName = BACK_OF_CARD_NAME;
                 backCard = newCard;
             }
             else {
@@ -304,7 +320,7 @@ public class BaseControllerService implements Initializable {
         }
 
         if (player.getCardsAmount() == 0) {
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < AMOUNT_OF_CARDS_ON_START; i++) {
                 player.takeCard();
                 moveCardToHand(player);
             }
@@ -327,7 +343,7 @@ public class BaseControllerService implements Initializable {
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         clearCardImagesForSpecificPlayer(player);
 
-        currentBet[currentPlayerIndex].setText("");
+        currentBet[currentPlayerIndex].setText(EMPTY_FIELD);
         player.setPlaying(false);
 
         if (returnAmountOfPlayingPlayers() == 0) {
@@ -437,7 +453,7 @@ public class BaseControllerService implements Initializable {
                 currentBet[i].setText("0$");
             }
             else{
-                currentBet[i].setText("");
+                currentBet[i].setText(EMPTY_FIELD);
             }
         }
     }
@@ -511,7 +527,7 @@ public class BaseControllerService implements Initializable {
         cleanMoneyFields();
         clearAllCardImages();
 
-        for (int i = 0; i < 2; i++){
+        for (int i = 0; i < AMOUNT_OF_CARDS_ON_START; i++){
             croupier.takeCard();
             moveCardToHand(croupier);
         }
@@ -529,7 +545,7 @@ public class BaseControllerService implements Initializable {
     }
 
     public String getUserName(TextField textField) {
-        if (textField.getText().length() >= 7) return textField.getText().substring(0, 7).toUpperCase();
+        if (textField.getText().length() >= NICKNAME_LENGTH_SIZE) return textField.getText().substring(0, NICKNAME_LENGTH_SIZE).toUpperCase();
         else return textField.getText().toUpperCase();
     }
 
@@ -555,7 +571,7 @@ public class BaseControllerService implements Initializable {
         int count = 0;
 
         for (int i = 0; i < MAX_PLAYERS; i++) {
-            if (!Objects.equals(userName[i], "")) {
+            if (!Objects.equals(userName[i], EMPTY_FIELD)) {
                 playerCounter++;
             } else {
                 int pickedNumber;
@@ -609,23 +625,20 @@ public class BaseControllerService implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (url.getPath().endsWith("startup/game-screen.fxml")) {
+        if (url.getPath().endsWith(GAME_SCREEN_PATH)) {
             initialize();
             assignPlayersNames();
             displayIsPlaying(currentPlayerIndex);
-            System.out.println("Initializing startup/game-screen.fxml");
-
         }
     }
 
     public void displayIsPlaying(int currentPlayer) {
         if (currentPlayer < MAX_PLAYERS) {
-            String playerColors = "YELLOW";
             Circle[] playerCircles = {firstPlayerCircle, secondPlayerCircle, thirdPlayerCircle, fourthPlayerCircle};
 
             for (int i = 0; i < MAX_PLAYERS; i++) {
                 if (currentPlayer == i) {
-                    playerCircles[i].setStroke(Color.valueOf(playerColors));
+                    playerCircles[i].setStroke(Color.valueOf(COLOR_OF_THE_CIRCLE_MOVE));
                     playerCircles[i].setEffect(createLightingEffect());
                     playerCircles[i].setStrokeWidth(3);
                 } else {
@@ -650,15 +663,15 @@ public class BaseControllerService implements Initializable {
 
 
     private boolean checkIfPlayerLost(Player player) {
-        return player.getSumOfCardsValue() > 21;
+        return player.getSumOfCardsValue() > WINNING_AMOUNT;
     }
 
     public void keepDrawingIfsumOfCardsValueIsLessThanSixteen(Croupier croupier) {
-        while (croupier.getSumOfCardsValue() < 16) {
+        while (croupier.getSumOfCardsValue() < MIN_CROUPIER_DECK_AMOUNT) {
             croupier.takeCard();
             moveCardToHand(croupier);
         }
-        if (croupier.getSumOfCardsValue() > 21) {
+        if (croupier.getSumOfCardsValue() > WINNING_AMOUNT) {
             croupier.setSumOfCardsValue(0);
         }
     }
