@@ -24,6 +24,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Random;
 import java.util.*;
+
 import javafx.scene.input.MouseEvent;
 
 public class BaseControllerService implements Initializable {
@@ -73,7 +75,7 @@ public class BaseControllerService implements Initializable {
 
     public static String GAME_SCREEN_PATH = "startup/game-screen.fxml";
 
-    public static String START_SCREEN_PATH ="startup/blackjack-starter-view.fxml";
+    public static String START_SCREEN_PATH = "startup/blackjack-starter-view.fxml";
 
     public static String WARNING_IMAGE_PATH = "startup/warning.png";
 
@@ -232,7 +234,8 @@ public class BaseControllerService implements Initializable {
 
     private static final String[] userName = new String[MAX_PLAYERS];
 
-    public BaseControllerService() {}
+    public BaseControllerService() {
+    }
 
     public void moveToMainStarterView() throws IOException {
         initializeView(START_SCREEN_PATH);
@@ -242,8 +245,7 @@ public class BaseControllerService implements Initializable {
         int numberOfPlayer = checkNumberOfPlayers();
         if (numberOfPlayer > 0) {
             initializeView(GAME_SCREEN_PATH);
-        }
-        else {
+        } else {
             noPlayerName.setText(WARNING_MESSAGE);
             Image warning = new Image(WARNING_IMAGE_PATH);
             warningImage.setImage(warning);
@@ -271,17 +273,14 @@ public class BaseControllerService implements Initializable {
             playerHandPositionX = playerHandPosition.getX() + ((Player) player).getCardsAmount() * DIFF_BETWEEN_PLAYER_CARDS_X;
             playerHandPositionY = playerHandPosition.getY() - ((Player) player).getCardsAmount() * DIFF_BETWEEN_PLAYER_CARDS_Y;
             cardName = (((Player) player).getLastCard().getCardType() + "_OF_" + ((Player) player).getLastCard().getSuit()).toLowerCase();
-        }
-        else
-        {
+        } else {
             Point playerHandPosition = playerCardPosition.get(CROUPIER_HAND_ID);
             playerHandPositionX = playerHandPosition.getX() + ((Croupier) player).getCardsAmount() * DIFF_BETWEEN_CROUPIER_CARDS;
             playerHandPositionY = playerHandPosition.getY();
             if (((Croupier) player).getCardsAmount() == 1) {
                 cardName = BACK_OF_CARD_NAME;
                 backCard = newCard;
-            }
-            else {
+            } else {
                 cardName = (((Croupier) player).getLastCard().getCardType() + "_OF_" + ((Croupier) player).getLastCard().getSuit()).toLowerCase();
             }
         }
@@ -388,10 +387,12 @@ public class BaseControllerService implements Initializable {
         chip_20_Button.setCursor(Cursor.HAND);
         chip_10_Button.setCursor(Cursor.HAND);
     }
+
     public void cursorChangeStartUpScreen(MouseEvent me) {
         Start_Button.setCursor(Cursor.HAND);
         Info_Button.setCursor(Cursor.HAND);
     }
+
     public void cursorChangeInfoScreen(MouseEvent me) {
         Leave_Arrow_Button.setCursor(Cursor.HAND);
     }
@@ -555,8 +556,7 @@ public class BaseControllerService implements Initializable {
             Player player = baseModelService.returnPlayer(i);
             if (player.isPlaying()) {
                 currentBet[i].setText("0$");
-            }
-            else{
+            } else {
                 currentBet[i].setText(EMPTY_FIELD);
             }
         }
@@ -572,7 +572,7 @@ public class BaseControllerService implements Initializable {
         if (player.getBetAmount() > 0) {
             return;
         }
-        if(player.getAccountBalance() < amount){
+        if (player.getAccountBalance() < amount) {
             amount = player.getAccountBalance();
             betSum = amount;
         }
@@ -620,7 +620,7 @@ public class BaseControllerService implements Initializable {
         verifyRoundResults();
 
         for (Player player : baseModelService.getPlayers()) {
-            if(player.getAccountBalance() == 0){
+            if (player.getAccountBalance() == 0) {
                 player.setPlaying(false);
             }
             player.clearCards();
@@ -631,7 +631,7 @@ public class BaseControllerService implements Initializable {
         cleanMoneyFields();
         clearAllCardImages();
 
-        for (int i = 0; i < AMOUNT_OF_CARDS_ON_START; i++){
+        for (int i = 0; i < AMOUNT_OF_CARDS_ON_START; i++) {
             croupier.takeCard();
             moveCardToHand(croupier);
         }
@@ -649,7 +649,8 @@ public class BaseControllerService implements Initializable {
     }
 
     public String getUserName(TextField textField) {
-        if (textField.getText().length() >= NICKNAME_LENGTH_SIZE) return textField.getText().substring(0, NICKNAME_LENGTH_SIZE).toUpperCase();
+        if (textField.getText().length() >= NICKNAME_LENGTH_SIZE)
+            return textField.getText().substring(0, NICKNAME_LENGTH_SIZE).toUpperCase();
         else return textField.getText().toUpperCase();
     }
 
@@ -720,10 +721,14 @@ public class BaseControllerService implements Initializable {
 
     private void triggerFadeInAnimation(int playerIndex, RoundStatus roundStatus) {
         switch (playerIndex) {
-            case 0 -> fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerOneWin : RoundStatus.LOSS.equals(roundStatus) ? playerOneLoss : playerOneDraw);
-            case 1 -> fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerTwoWin : RoundStatus.LOSS.equals(roundStatus) ? playerTwoLoss : playerTwoDraw);
-            case 2 -> fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerThreeWin : RoundStatus.LOSS.equals(roundStatus) ? playerThreeLoss : playerThreeDraw);
-            case 3 -> fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerFourWin : RoundStatus.LOSS.equals(roundStatus) ? playerFourLoss : playerFourDraw);
+            case 0 ->
+                    fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerOneWin : RoundStatus.LOSS.equals(roundStatus) ? playerOneLoss : playerOneDraw);
+            case 1 ->
+                    fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerTwoWin : RoundStatus.LOSS.equals(roundStatus) ? playerTwoLoss : playerTwoDraw);
+            case 2 ->
+                    fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerThreeWin : RoundStatus.LOSS.equals(roundStatus) ? playerThreeLoss : playerThreeDraw);
+            case 3 ->
+                    fadeInView(RoundStatus.WIN.equals(roundStatus) ? playerFourWin : RoundStatus.LOSS.equals(roundStatus) ? playerFourLoss : playerFourDraw);
         }
     }
 
@@ -736,7 +741,7 @@ public class BaseControllerService implements Initializable {
     private int findPlayerIndex(Player player) {
         var players = baseModelService.getPlayers();
         int index = 0;
-        for (Player foundPlayer: players) {
+        for (Player foundPlayer : players) {
             if (foundPlayer.equals(player)) {
                 break;
             }
