@@ -465,9 +465,10 @@ public class BaseControllerService implements Initializable {
             currentPlayerIndex++;
             if (currentPlayerIndex >= MAX_PLAYERS) {
                 currentPlayerIndex = 0;
-                if (checkIfAllPlayersFinishedRound()) {
-                    prepareNextRound();
-                }
+            }
+
+            if (checkIfAllPlayersFinishedRound()) {
+                prepareNextRound();
             }
 
             Player player = baseModelService.returnPlayer(currentPlayerIndex);
@@ -480,8 +481,10 @@ public class BaseControllerService implements Initializable {
     private boolean checkIfAllPlayersFinishedRound() {
         for (int i = 0; i < MAX_PLAYERS; i++) {
             Player player = baseModelService.returnPlayer(i);
-            if (!player.isStanding()) {
-                return false;
+            if (player.isPlaying()) {
+                if (!player.isStanding()) {
+                    return false;
+                }
             }
         }
 
