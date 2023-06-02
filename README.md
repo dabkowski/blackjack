@@ -30,7 +30,11 @@ Welcome to the Blackjack Game! This is a multiplayer version of the popular casi
 5. Enjoy the excitement of playing Blackjack!
 
 ## Screenshots
-
-
+### 1. Starter screen
+   ![GamePlayScreenShot2.png](blackjack-base-controllers%2Fsrc%2Fmain%2Fresources%2Fstartup%2FGamePlayScreenShot2.png)
+### 2. Gameplay screen
+   ![StartScreenShot.png](blackjack-base-controllers%2Fsrc%2Fmain%2Fresources%2Fstartup%2FStartScreenShot.png)
+### 3. Info screen
+   ![InfoScreenShot.png](blackjack-base-controllers%2Fsrc%2Fmain%2Fresources%2Fstartup%2FInfoScreenShot.png)
 
 ## Have fun playing Blackjack and may the odds be in your favor!
