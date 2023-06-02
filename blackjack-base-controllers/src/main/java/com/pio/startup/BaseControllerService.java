@@ -123,7 +123,7 @@ public class BaseControllerService implements Initializable {
     @FXML
     private ImageView warningImage;
 
-    String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry", "Lebron", "Naruto", "Cena"};
+    private final String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry", "Lebron", "Naruto", "Cena"};
 
     private final List<Point> playerCardPosition = new ArrayList<>() {{
         add(new Point(222, 346));
@@ -205,6 +205,8 @@ public class BaseControllerService implements Initializable {
     private final BaseModelService baseModelService = new BaseModelService();
 
     private static final String[] userName = new String[MAX_PLAYERS];
+
+    private boolean canIClickButtons = true;
 
     public BaseControllerService() {
     }
@@ -370,7 +372,11 @@ public class BaseControllerService implements Initializable {
         }
     }
 
-    public void hit() {
+    public void hit(MouseEvent event) {
+        if(!canIClickButtons){
+            return;
+        }
+        
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
 
         if (betSum == 0 && player.getBetAmount() == 0) {
@@ -399,6 +405,7 @@ public class BaseControllerService implements Initializable {
 
             if (checkIfAllPlayersFinishedRound()) {
                 prepareNextRound();
+                canIClickButtons = false;
             } else {
                 changePlayerMove();
             }
@@ -423,6 +430,10 @@ public class BaseControllerService implements Initializable {
     }
 
     public void stand() {
+        if(!canIClickButtons){
+            return;
+        }
+
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         if (player.getBetAmount() == 0) {
             return;
@@ -430,6 +441,7 @@ public class BaseControllerService implements Initializable {
         player.setStanding(true);
 
         if (checkIfAllPlayersFinishedRound()) {
+            canIClickButtons = false;
             prepareNextRound();
         } else {
             changePlayerMove();
@@ -839,6 +851,7 @@ public class BaseControllerService implements Initializable {
                 }
             }
             displayIsPlaying(currentPlayerIndex);
+            canIClickButtons = true;
         });
 
         ft.setFromValue(1.0);
