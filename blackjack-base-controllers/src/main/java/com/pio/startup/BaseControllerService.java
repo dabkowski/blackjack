@@ -27,6 +27,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Random;
+
 import javafx.scene.input.MouseEvent;
 
 public class BaseControllerService implements Initializable {
@@ -368,19 +370,16 @@ public class BaseControllerService implements Initializable {
             playerCards = ((Croupier) player).getCardImages();
         }
 
-        System.out.println("ILOSC KART DO USUNIECIA: " + playerCards.size());
-
         for (ImageView imageView : playerCards) {
-            System.out.println("USUWAM!");
             gamePane.getChildren().remove(imageView);
         }
     }
 
     public void hit(MouseEvent event) {
-        if(!canIClickButtons){
+        if (!canIClickButtons) {
             return;
         }
-        
+
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
 
         if (betSum == 0 && player.getBetAmount() == 0) {
@@ -430,11 +429,17 @@ public class BaseControllerService implements Initializable {
             moveToMainStarterView();
             return;
         }
-        changePlayerMove();
+
+        if (checkIfAllPlayersFinishedRound()) {
+            prepareNextRound();
+            canIClickButtons = false;
+        } else {
+            changePlayerMove();
+        }
     }
 
     public void stand() {
-        if(!canIClickButtons){
+        if (!canIClickButtons) {
             return;
         }
 
@@ -454,7 +459,7 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add1000Chip(MouseEvent event) {
-        if(!canIClickButtons){
+        if (!canIClickButtons) {
             return;
         }
 
@@ -467,7 +472,7 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add500Chip(MouseEvent event) {
-        if(!canIClickButtons){
+        if (!canIClickButtons) {
             return;
         }
 
@@ -480,7 +485,7 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add200Chip(MouseEvent event) {
-        if(!canIClickButtons){
+        if (!canIClickButtons) {
             return;
         }
 
@@ -493,7 +498,7 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add100Chip(MouseEvent event) {
-        if(!canIClickButtons){
+        if (!canIClickButtons) {
             return;
         }
 
@@ -506,7 +511,7 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add50Chip(MouseEvent event) {
-        if(!canIClickButtons){
+        if (!canIClickButtons) {
             return;
         }
 
@@ -519,7 +524,7 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add20Chip(MouseEvent event) {
-        if(!canIClickButtons){
+        if (!canIClickButtons) {
             return;
         }
 
@@ -532,10 +537,10 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add10Chip(MouseEvent event) {
-        if(!canIClickButtons){
+        if (!canIClickButtons) {
             return;
         }
-        
+
         if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 10;
         } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -718,7 +723,7 @@ public class BaseControllerService implements Initializable {
                 player.setAccountBalance(player.getAccountBalance() + player.getBetAmount());
                 triggerFadeInAnimation(playerIndex, RoundStatus.DRAW);
             } else {
-                if(player.isPlaying()){
+                if (player.isPlaying()) {
                     triggerFadeInAnimation(playerIndex, RoundStatus.LOSS);
                 }
             }
@@ -761,10 +766,9 @@ public class BaseControllerService implements Initializable {
         Label[] dataPlayers = {dataFirstPlayer, dataSecondPlayer, dataThirdPlayer, dataFourthPlayer};
         for (int i = 0; i < MAX_PLAYERS; i++) {
             Player player = baseModelService.returnPlayer(i);
-            if(player.isPlaying()){
+            if (player.isPlaying()) {
                 dataPlayers[i].setText(userName[i] + '\n' + baseModelService.returnPlayer(i).getAccountBalance() + " $");
-            }
-            else{
+            } else {
                 dataPlayers[i].setText("PLAYER LEFT");
             }
         }
