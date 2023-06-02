@@ -10,261 +10,224 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="847.09" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pio.startup.BaseControllerService">
+<AnchorPane fx:id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.09" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pio.startup.BaseControllerService">
     <children>
         <Pane prefHeight="847.0" prefWidth="1085.0">
             <children>
                 <ImageView fitHeight="858.0" fitWidth="1091.0" layoutX="-7.0" layoutY="-5.0">
                     <image>
-                        <Image url="@Game-screen.png"/>
+                        <Image url="@Game-screen.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="Hit_Button" layoutX="5.0" layoutY="700.0" mnemonicParsing="false" onMouseClicked="#hit"
-                        onMouseEntered="#cursorChangeToHandIfEntered" prefHeight="29.0" prefWidth="158.0"
-                        style="-fx-background-color: transparent;">
+                <Button fx:id="Hit_Button" layoutX="5.0" layoutY="700.0" mnemonicParsing="false" onMouseClicked="#hit" onMouseEntered="#cursorChangeToHandIfEntered" prefHeight="29.0" prefWidth="158.0" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@Hit-Button.png"/>
+                                <Image url="@Hit-Button.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="Leave_Button" layoutX="861.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#leaveGame" onMouseEntered="#cursorChangeToHandIfEntered"
-                        style="-fx-background-color: transparent;">
+                <Button fx:id="Leave_Button" layoutX="867.0" layoutY="762.0" mnemonicParsing="false" onMouseClicked="#leaveGame" onMouseEntered="#cursorChangeToHandIfEntered" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView fitHeight="65.0" fitWidth="204.0">
                             <image>
-                                <Image url="@Leave-Button.png"/>
+                                <Image url="@Leave-Button.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="Stand_Button" layoutX="5.0" layoutY="770.0" mnemonicParsing="false"
-                        onMouseClicked="#stand" onMouseEntered="#cursorChangeToHandIfEntered"
-                        style="-fx-background-color: transparent;">
+                <Button fx:id="Stand_Button" layoutX="5.0" layoutY="770.0" mnemonicParsing="false" onMouseClicked="#stand" onMouseEntered="#cursorChangeToHandIfEntered" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@Stand-Button.png"/>
+                                <Image url="@Stand-Button.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="chip_1000_Button" layoutX="766.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add1000Chip" onMouseEntered="#cursorChangeToHandIfEntered"
-                        style="-fx-background-color: transparent;">
+                <Button fx:id="chip_1000_Button" layoutX="766.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add1000Chip" onMouseEntered="#cursorChangeToHandIfEntered" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@1000$-chip.png"/>
+                                <Image url="@1000$-chip.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="chip_500_Button" layoutX="676.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add500Chip" onMouseEntered="#cursorChangeToHandIfEntered"
-                        style="-fx-background-color: transparent;">
+                <Button fx:id="chip_500_Button" layoutX="676.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add500Chip" onMouseEntered="#cursorChangeToHandIfEntered" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@500$-chip.png"/>
+                                <Image url="@500$-chip.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="chip_200_Button" layoutX="586.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add200Chip" onMouseEntered="#cursorChangeToHandIfEntered"
-                        style="-fx-background-color: transparent;">
+                <Button fx:id="chip_200_Button" layoutX="586.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add200Chip" onMouseEntered="#cursorChangeToHandIfEntered" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@200$-chip.png"/>
+                                <Image url="@200$-chip.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="chip_100_Button" layoutX="496.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add100Chip" onMouseEntered="#cursorChangeToHandIfEntered"
-                        style="-fx-background-color: transparent;">
+                <Button fx:id="chip_100_Button" layoutX="496.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add100Chip" onMouseEntered="#cursorChangeToHandIfEntered" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@100$-chip.png"/>
+                                <Image url="@100$-chip.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="chip_20_Button" layoutX="316.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add20Chip" onMouseEntered="#cursorChangeToHandIfEntered"
-                        style="-fx-background-color: transparent;">
+                <Button fx:id="chip_20_Button" layoutX="316.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add20Chip" onMouseEntered="#cursorChangeToHandIfEntered" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@20$-chip.png"/>
+                                <Image url="@20$-chip.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="chip_50_Button" layoutX="406.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add50Chip" onMouseEntered="#cursorChangeToHandIfEntered"
-                        style="-fx-background-color: transparent;">
+                <Button fx:id="chip_50_Button" layoutX="406.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add50Chip" onMouseEntered="#cursorChangeToHandIfEntered" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@50$-chip.png"/>
+                                <Image url="@50$-chip.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="chip_10_Button" layoutX="226.0" layoutY="735.0" mnemonicParsing="false"
-                        onMouseClicked="#add10Chip" onMouseEntered="#cursorChangeToHandIfEntered"
-                        style="-fx-background-color: transparent;">
+                <Button fx:id="chip_10_Button" layoutX="226.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#add10Chip" onMouseEntered="#cursorChangeToHandIfEntered" style="-fx-background-color: transparent;">
                     <graphic>
                         <ImageView>
                             <image>
-                                <Image url="@10$-chip.png"/>
+                                <Image url="@10$-chip.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Text fx:id="firstPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="295.0" layoutY="388.0"
-                      strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
+                <Text fx:id="firstPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="295.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="18.0"/>
+                        <Font name="System Bold" size="18.0" />
                     </font>
                 </Text>
-                <Text fx:id="secondPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="435.0" layoutY="465.0"
-                      strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
+                <Text fx:id="secondPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="435.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="18.0"/>
+                        <Font name="System Bold" size="18.0" />
                     </font>
                 </Text>
-                <Text fx:id="thirdPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="735.0" layoutY="431.0"
-                      strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
+                <Text fx:id="thirdPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="735.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="18.0"/>
+                        <Font name="System Bold" size="18.0" />
                     </font>
                 </Text>
-                <Text fx:id="fourthPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="842.0" layoutY="309.0"
-                      strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
+                <Text fx:id="fourthPlayerBet" fill="WHITE" fontSmoothingType="LCD" layoutX="842.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0$" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="18.0"/>
+                        <Font name="System Bold" size="18.0" />
                     </font>
                 </Text>
-                <Label fx:id="dataFirstPlayer" alignment="CENTER" layoutX="55.0" layoutY="455.0" prefHeight="73.0"
-                       prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dataFirstPlayer" alignment="CENTER" layoutX="55.0" layoutY="455.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="dataFourthPlayer" alignment="CENTER" layoutX="938.0" layoutY="437.0" prefHeight="73.0"
-                       prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dataFourthPlayer" alignment="CENTER" layoutX="938.0" layoutY="437.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="dataThirdPlayer" alignment="CENTER" layoutX="744.0" layoutY="596.0" prefHeight="73.0"
-                       prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dataThirdPlayer" alignment="CENTER" layoutX="744.0" layoutY="596.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="dataSecondPlayer" alignment="CENTER" layoutX="281.0" layoutY="604.0" prefHeight="73.0"
-                       prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dataSecondPlayer" alignment="CENTER" layoutX="281.0" layoutY="604.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="gameStatus" layoutX="27.0" layoutY="32.0" prefHeight="50.0" prefWidth="275.0"
-                       textFill="#f8f8f8">
+                <Label fx:id="gameStatus" layoutX="27.0" layoutY="32.0" prefHeight="50.0" prefWidth="275.0" textFill="#f8f8f8">
                     <font>
-                        <Font name="System Bold" size="21.0"/>
+                        <Font name="System Bold" size="21.0" />
                     </font>
                 </Label>
-                <Circle fx:id="firstPlayerCircle" fill="#1f93ff00" layoutX="109.0" layoutY="489.0" radius="59.0"
-                        stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0"/>
-                <Circle fx:id="secondPlayerCircle" fill="#1f93ff00" layoutX="331.0" layoutY="639.0" radius="59.0"
-                        stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0"/>
-                <Circle fx:id="thirdPlayerCircle" fill="#1f93ff00" layoutX="792.0" layoutY="630.0" radius="59.0"
-                        stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0"/>
-                <Circle fx:id="fourthPlayerCircle" fill="#1f93ff00" layoutX="985.0" layoutY="472.0" radius="59.0"
-                        stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0"/>
-                <ImageView fx:id="playerOneWin" fitHeight="90.0" fitWidth="134.0" layoutX="252.0" layoutY="302.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <Circle fx:id="firstPlayerCircle" fill="#1f93ff00" layoutX="109.0" layoutY="489.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                <Circle fx:id="secondPlayerCircle" fill="#1f93ff00" layoutX="331.0" layoutY="639.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                <Circle fx:id="thirdPlayerCircle" fill="#1f93ff00" layoutX="792.0" layoutY="630.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                <Circle fx:id="fourthPlayerCircle" fill="#1f93ff00" layoutX="985.0" layoutY="472.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                <ImageView fx:id="playerOneWin" fitHeight="90.0" fitWidth="134.0" layoutX="252.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@green-win.png"/>
+                        <Image url="@green-win.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="playerTwoWin" fitHeight="90.0" fitWidth="134.0" layoutX="391.0" layoutY="390.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playerTwoWin" fitHeight="90.0" fitWidth="134.0" layoutX="391.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@green-win.png"/>
+                        <Image url="@green-win.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="playerThreeWin" fitHeight="90.0" fitWidth="134.0" layoutX="681.0" layoutY="378.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playerThreeWin" fitHeight="90.0" fitWidth="134.0" layoutX="681.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@green-win.png"/>
+                        <Image url="@green-win.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="playerFourWin" fitHeight="90.0" fitWidth="134.0" layoutX="824.0" layoutY="279.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playerFourWin" fitHeight="90.0" fitWidth="134.0" layoutX="824.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@green-win.png"/>
+                        <Image url="@green-win.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="playerOneLoss" fitHeight="90.0" fitWidth="134.0" layoutX="251.0" layoutY="302.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playerOneLoss" fitHeight="90.0" fitWidth="134.0" layoutX="251.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@red-loss.png"/>
+                        <Image url="@red-loss.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="playerTwoLoss" fitHeight="90.0" fitWidth="134.0" layoutX="390.0" layoutY="390.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playerTwoLoss" fitHeight="90.0" fitWidth="134.0" layoutX="390.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@red-loss.png"/>
+                        <Image url="@red-loss.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="playerThreeLoss" fitHeight="90.0" fitWidth="134.0" layoutX="680.0" layoutY="378.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playerThreeLoss" fitHeight="90.0" fitWidth="134.0" layoutX="680.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@red-loss.png"/>
+                        <Image url="@red-loss.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="playerFourLoss" fitHeight="90.0" fitWidth="134.0" layoutX="823.0" layoutY="279.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playerFourLoss" fitHeight="90.0" fitWidth="134.0" layoutX="823.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@red-loss.png"/>
+                        <Image url="@red-loss.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="playerOneDraw" fitHeight="90.0" fitWidth="134.0" layoutX="252.0" layoutY="302.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playerOneDraw" fitHeight="90.0" fitWidth="134.0" layoutX="252.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@yellow-draw.png"/>
+                        <Image url="@yellow-draw.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="playerTwoDraw" fitHeight="90.0" fitWidth="134.0" layoutX="391.0" layoutY="391.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playerTwoDraw" fitHeight="90.0" fitWidth="134.0" layoutX="391.0" layoutY="391.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@yellow-draw.png"/>
+                        <Image url="@yellow-draw.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="playerThreeDraw" fitHeight="90.0" fitWidth="134.0" layoutX="681.0" layoutY="378.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playerThreeDraw" fitHeight="90.0" fitWidth="134.0" layoutX="681.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@yellow-draw.png"/>
+                        <Image url="@yellow-draw.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="playerFourDraw" fitHeight="90.0" fitWidth="134.0" layoutX="824.0" layoutY="279.0"
-                           pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playerFourDraw" fitHeight="90.0" fitWidth="134.0" layoutX="824.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@yellow-draw.png"/>
+                        <Image url="@yellow-draw.png" />
                     </image>
                 </ImageView>
+            <Label layoutX="9.0" layoutY="14.0" prefHeight="99.0" prefWidth="397.0" />
+            <Pane fx:id="helpArea" layoutX="990.0" layoutY="2.0" onMouseClicked="#clickOnTipButton" onMouseEntered="#tipsOnMouseEntered" onMouseExited="#tipsOnMouseExited" prefHeight="79.0" prefWidth="79.0">
+               <children>
+                  <ImageView fx:id="tips" fitHeight="77.0" fitWidth="76.0" layoutX="-1.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@tips.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
             </children>
         </Pane>
     </children>

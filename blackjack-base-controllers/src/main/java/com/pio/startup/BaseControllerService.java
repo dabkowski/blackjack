@@ -20,7 +20,7 @@ import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
@@ -37,6 +37,8 @@ import java.util.ResourceBundle;
 import java.util.Random;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
+
 
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
@@ -152,7 +154,7 @@ public class BaseControllerService implements Initializable {
     @FXML
     private AnchorPane gamePane;
 
-    private final Image backImage = new Image("Cards/back.png");
+    private final Image backImage = new Image("cards/back.png");
 
     private ImageView backCard = new ImageView(backImage);
 
@@ -204,6 +206,8 @@ public class BaseControllerService implements Initializable {
     @FXML
     private ImageView playerFourDraw;
 
+    @FXML
+    private Pane helpArea;
     private final BaseModelService baseModelService = new BaseModelService();
 
     private static final String[] userName = new String[MAX_PLAYERS];
@@ -786,6 +790,7 @@ public class BaseControllerService implements Initializable {
             initialize();
             assignPlayersNames();
             displayIsPlaying(currentPlayerIndex);
+
         }
     }
 
@@ -915,6 +920,34 @@ public class BaseControllerService implements Initializable {
             }
         }
         return -1;
+    }
+
+    @FXML
+    void tipsOnMouseEntered(MouseEvent event) {
+
+        Circle clipCircle = new Circle();
+        double radius = 36; // Set the desired radius
+        clipCircle.setRadius(radius);
+        clipCircle.setCenterX(radius);
+        clipCircle.setCenterY(radius);
+        helpArea.setClip(clipCircle);
+        helpArea.setStyle("-fx-background-color: yellow;");
+
+    }
+
+    @FXML
+    void tipsOnMouseExited(MouseEvent event) {
+        helpArea.setStyle("-fx-background-color: transparent;");
+    }
+
+    @FXML
+    void clickOnTipButton(MouseEvent event) {
+        if(event.getButton()==MouseButton.PRIMARY){
+            System.out.println("primary");
+        }
+        if(event.getButton()==MouseButton.SECONDARY){
+            System.out.println("Secondary");
+        }
     }
 }
 
