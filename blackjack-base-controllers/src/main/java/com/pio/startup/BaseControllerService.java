@@ -715,9 +715,15 @@ public class BaseControllerService implements Initializable {
 
     public void assignPlayersNames() {
         Label[] dataPlayers = {dataFirstPlayer, dataSecondPlayer, dataThirdPlayer, dataFourthPlayer};
-        for (int i = 0; i < MAX_PLAYERS; i++)
-            dataPlayers[i].setText(userName[i] + '\n' + baseModelService.returnPlayer(i).getAccountBalance() + " $");
-
+        for (int i = 0; i < MAX_PLAYERS; i++) {
+            Player player = baseModelService.returnPlayer(i);
+            if(player.isPlaying()){
+                dataPlayers[i].setText(userName[i] + '\n' + baseModelService.returnPlayer(i).getAccountBalance() + " $");
+            }
+            else{
+                dataPlayers[i].setText("PLAYER LEFT");
+            }
+        }
     }
 
     public Image getCardImage(String cardName) {
