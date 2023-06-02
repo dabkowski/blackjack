@@ -1,9 +1,7 @@
 # Blackjack
-
 Welcome to the Blackjack Game! This is a multiplayer version of the popular casino card game, designed for four players. In this game, you will have the opportunity to test your luck and skills in the ultimate battle against the dealer.
 
 ## How to play
-
 1. Start the game by running the 'App.java' file.
 2. Upon starting the game, players are prompted to enter their names.
 3. The objective of the game is to obtain a hand value equal to or as close to 21 points without exceeding it.
@@ -31,10 +29,10 @@ Welcome to the Blackjack Game! This is a multiplayer version of the popular casi
 
 ## Screenshots
 ### 1. Starter screen
-   ![GamePlayScreenShot2.png](blackjack-base-controllers%2Fsrc%2Fmain%2Fresources%2Fstartup%2FGamePlayScreenShot2.png)
+   ![GamePlayScreenShot2.png](blackjack-base-controllers/src/main/resources/startup/GamePlayScreenShot2.png)
 ### 2. Gameplay screen
-   ![StartScreenShot.png](blackjack-base-controllers%2Fsrc%2Fmain%2Fresources%2Fstartup%2FStartScreenShot.png)
+   ![StartScreenShot.png](blackjack-base-controllers/src/main/resources/startup/StartScreenShot.png)
 ### 3. Info screen
-   ![InfoScreenShot.png](blackjack-base-controllers%2Fsrc%2Fmain%2Fresources%2Fstartup%2FInfoScreenShot.png)
+   ![InfoScreenShot.png](blackjack-base-controllers/src/main/resources/startup/InfoScreenShot.png)
 
 ## Have fun playing Blackjack and may the odds be in your favor!
