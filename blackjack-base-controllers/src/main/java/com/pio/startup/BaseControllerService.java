@@ -326,7 +326,7 @@ public class BaseControllerService implements Initializable {
 
         final boolean[] isFrontShowing = {true};
 
-        RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), backCard);
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(1500), backCard);
         rotateTransition.setAxis(Rotate.Y_AXIS);
         rotateTransition.setFromAngle(0);
         rotateTransition.setToAngle(90);
@@ -340,6 +340,9 @@ public class BaseControllerService implements Initializable {
                 rotateTransition.setToAngle(360);
                 rotateTransition.play();
                 isFrontShowing[0] = false;
+                rotateTransition.setOnFinished(event2 ->{
+                    verifyRoundResults();
+                });
             }
         });
 
@@ -393,8 +396,16 @@ public class BaseControllerService implements Initializable {
         if (checkIfPlayerLost(player)) {
             player.setStanding(true);
             player.setBetAmount(0);
-            changePlayerMove();
+
+            if (checkIfAllPlayersFinishedRound()) {
+                prepareNextRound();
+            }
+            else{
+                changePlayerMove();
+            }
+
         }
+
     }
 
     public void leaveGame() throws IOException {
@@ -418,7 +429,14 @@ public class BaseControllerService implements Initializable {
             return;
         }
         player.setStanding(true);
-        changePlayerMove();
+
+        if (checkIfAllPlayersFinishedRound()) {
+            prepareNextRound();
+        }
+        else{
+            changePlayerMove();
+        }
+
     }
 
     public void add1000Chip(MouseEvent event) {
@@ -556,10 +574,6 @@ public class BaseControllerService implements Initializable {
                 currentPlayerIndex = 0;
             }
 
-            if (checkIfAllPlayersFinishedRound()) {
-                prepareNextRound();
-            }
-
             Player player = baseModelService.returnPlayer(currentPlayerIndex);
             if (player.isPlaying() && !player.isStanding()) {
                 return currentPlayerIndex;
@@ -586,24 +600,6 @@ public class BaseControllerService implements Initializable {
 
         keepDrawingIfSumOfCardsValueIsLessThanSixteen(croupier);
 
-        verifyRoundResults();
-
-        for (Player player : baseModelService.getPlayers()) {
-            if (player.getAccountBalance() == 0) {
-                player.setPlaying(false);
-            }
-            player.clearCards();
-            player.setStanding(false);
-        }
-        croupier.clearCards();
-
-        cleanMoneyFields();
-        clearAllCardImages();
-
-        for (int i = 0; i < AMOUNT_OF_CARDS_ON_START; i++) {
-            croupier.takeCard();
-            moveCardToHand(croupier);
-        }
     }
 
     private int returnAmountOfPlayingPlayers() {
@@ -675,10 +671,10 @@ public class BaseControllerService implements Initializable {
         var croupierHandValue = baseModelService.getCroupier().getSumOfCardsValue();
         for (Player player : baseModelService.getPlayers()) {
             var playerIndex = findPlayerIndex(player);
-            if (croupierHandValue < player.getSumOfCardsValue()) {
+            if (croupierHandValue < player.getSumOfCardsValue() && player.getSumOfCardsValue() <= WINNING_AMOUNT) {
                 player.setAccountBalance(player.getAccountBalance() + player.getBetAmount() * BaseModelService.WIN_MULTIPLIER);
                 triggerFadeInAnimation(playerIndex, RoundStatus.WIN);
-            } else if (croupierHandValue == player.getSumOfCardsValue()) {
+            } else if (croupierHandValue == player.getSumOfCardsValue() && player.getSumOfCardsValue() <= WINNING_AMOUNT) {
                 player.setAccountBalance(player.getAccountBalance() + player.getBetAmount());
                 triggerFadeInAnimation(playerIndex, RoundStatus.DRAW);
             } else {
@@ -794,8 +790,8 @@ public class BaseControllerService implements Initializable {
 
     }
 
-    private void fadeInView(ImageView view) {
-        FadeTransition ft = new FadeTransition(Duration.millis(1500), view);
+    private void fadeInView(ImageView view){
+        FadeTransition ft = new FadeTransition(Duration.millis(1250), view);
 
         Path path = new Path();
         path.getElements().add(new MoveTo(40f, 40f));
@@ -808,6 +804,38 @@ public class BaseControllerService implements Initializable {
         pathTransition.setCycleCount(1);
         pathTransition.setAutoReverse(false);
         pathTransition.play();
+        pathTransition.setOnFinished(event ->{
+
+            assignPlayersNames();
+
+            for (Player player : baseModelService.getPlayers()) {
+                if (player.getAccountBalance() == 0) {
+                    player.setPlaying(false);
+                }
+                player.clearCards();
+                player.setStanding(false);
+            }
+
+            Croupier croupier = baseModelService.getCroupier();
+            croupier.clearCards();
+
+            cleanMoneyFields();
+            clearAllCardImages();
+
+            for (int i = 0; i < AMOUNT_OF_CARDS_ON_START; i++) {
+                croupier.takeCard();
+                moveCardToHand(croupier);
+            }
+            currentPlayerIndex = returnFirstPlayingPlayer();
+            if(currentPlayerIndex == -1){
+                try {
+                    moveToMainStarterView();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            displayIsPlaying(currentPlayerIndex);
+        });
 
         ft.setFromValue(1.0);
         ft.setToValue(0);
@@ -824,6 +852,15 @@ public class BaseControllerService implements Initializable {
         ft.setCycleCount(1);
         ft.setAutoReverse(false);
         ft.play();
+    }
+    public int returnFirstPlayingPlayer(){
+        for (int i = 0; i < MAX_PLAYERS; i++){
+            Player player = baseModelService.returnPlayer(i);
+            if(player.isPlaying()){
+                return i;
+            }
+        }
+        return -1;
     }
 }
 
