@@ -340,7 +340,7 @@ public class BaseControllerService implements Initializable {
                 rotateTransition.setToAngle(360);
                 rotateTransition.play();
                 isFrontShowing[0] = false;
-                rotateTransition.setOnFinished(event2 ->{
+                rotateTransition.setOnFinished(event2 -> {
                     verifyRoundResults();
                 });
             }
@@ -399,8 +399,7 @@ public class BaseControllerService implements Initializable {
 
             if (checkIfAllPlayersFinishedRound()) {
                 prepareNextRound();
-            }
-            else{
+            } else {
                 changePlayerMove();
             }
 
@@ -432,8 +431,7 @@ public class BaseControllerService implements Initializable {
 
         if (checkIfAllPlayersFinishedRound()) {
             prepareNextRound();
-        }
-        else{
+        } else {
             changePlayerMove();
         }
 
@@ -597,9 +595,7 @@ public class BaseControllerService implements Initializable {
     private void prepareNextRound() {
         Croupier croupier = baseModelService.getCroupier();
         turnAroundInvisibleCroupierCard(croupier);
-
         keepDrawingIfSumOfCardsValueIsLessThanSixteen(croupier);
-
     }
 
     private int returnAmountOfPlayingPlayers() {
@@ -671,14 +667,16 @@ public class BaseControllerService implements Initializable {
         var croupierHandValue = baseModelService.getCroupier().getSumOfCardsValue();
         for (Player player : baseModelService.getPlayers()) {
             var playerIndex = findPlayerIndex(player);
-            if (croupierHandValue < player.getSumOfCardsValue() && player.getSumOfCardsValue() <= WINNING_AMOUNT) {
+            if (croupierHandValue < player.getSumOfCardsValue() && player.getSumOfCardsValue() <= WINNING_AMOUNT && player.isPlaying()) {
                 player.setAccountBalance(player.getAccountBalance() + player.getBetAmount() * BaseModelService.WIN_MULTIPLIER);
                 triggerFadeInAnimation(playerIndex, RoundStatus.WIN);
-            } else if (croupierHandValue == player.getSumOfCardsValue() && player.getSumOfCardsValue() <= WINNING_AMOUNT) {
+            } else if (croupierHandValue == player.getSumOfCardsValue() && player.getSumOfCardsValue() <= WINNING_AMOUNT && player.isPlaying()) {
                 player.setAccountBalance(player.getAccountBalance() + player.getBetAmount());
                 triggerFadeInAnimation(playerIndex, RoundStatus.DRAW);
             } else {
-                triggerFadeInAnimation(playerIndex, RoundStatus.LOSS);
+                if(player.isPlaying()){
+                    triggerFadeInAnimation(playerIndex, RoundStatus.LOSS);
+                }
             }
             player.setBetAmount(0);
         }
@@ -790,8 +788,8 @@ public class BaseControllerService implements Initializable {
 
     }
 
-    private void fadeInView(ImageView view){
-        FadeTransition ft = new FadeTransition(Duration.millis(1250), view);
+    private void fadeInView(ImageView view) {
+        FadeTransition ft = new FadeTransition(Duration.millis(2250), view);
 
         Path path = new Path();
         path.getElements().add(new MoveTo(40f, 40f));
@@ -804,7 +802,7 @@ public class BaseControllerService implements Initializable {
         pathTransition.setCycleCount(1);
         pathTransition.setAutoReverse(false);
         pathTransition.play();
-        pathTransition.setOnFinished(event ->{
+        pathTransition.setOnFinished(event -> {
 
             assignPlayersNames();
 
@@ -827,7 +825,7 @@ public class BaseControllerService implements Initializable {
                 moveCardToHand(croupier);
             }
             currentPlayerIndex = returnFirstPlayingPlayer();
-            if(currentPlayerIndex == -1){
+            if (currentPlayerIndex == -1) {
                 try {
                     moveToMainStarterView();
                 } catch (IOException e) {
@@ -853,10 +851,11 @@ public class BaseControllerService implements Initializable {
         ft.setAutoReverse(false);
         ft.play();
     }
-    public int returnFirstPlayingPlayer(){
-        for (int i = 0; i < MAX_PLAYERS; i++){
+
+    public int returnFirstPlayingPlayer() {
+        for (int i = 0; i < MAX_PLAYERS; i++) {
             Player player = baseModelService.returnPlayer(i);
-            if(player.isPlaying()){
+            if (player.isPlaying()) {
                 return i;
             }
         }
