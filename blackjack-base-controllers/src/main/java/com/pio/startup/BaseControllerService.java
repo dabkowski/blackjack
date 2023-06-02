@@ -450,6 +450,10 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add1000Chip(MouseEvent event) {
+        if(!canIClickButtons){
+            return;
+        }
+
         if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 1000;
         } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -459,6 +463,10 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add500Chip(MouseEvent event) {
+        if(!canIClickButtons){
+            return;
+        }
+
         if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 500;
         } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -468,6 +476,10 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add200Chip(MouseEvent event) {
+        if(!canIClickButtons){
+            return;
+        }
+
         if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 200;
         } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -477,6 +489,10 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add100Chip(MouseEvent event) {
+        if(!canIClickButtons){
+            return;
+        }
+
         if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 100;
         } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -486,6 +502,10 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add50Chip(MouseEvent event) {
+        if(!canIClickButtons){
+            return;
+        }
+
         if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 50;
         } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -495,6 +515,10 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add20Chip(MouseEvent event) {
+        if(!canIClickButtons){
+            return;
+        }
+
         if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 20;
         } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -504,6 +528,10 @@ public class BaseControllerService implements Initializable {
     }
 
     public void add10Chip(MouseEvent event) {
+        if(!canIClickButtons){
+            return;
+        }
+        
         if (event.getButton() == MouseButton.PRIMARY) {
             betSum += 10;
         } else if (event.getButton() == MouseButton.SECONDARY) {
