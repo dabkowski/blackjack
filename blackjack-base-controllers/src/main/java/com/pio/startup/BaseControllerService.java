@@ -243,6 +243,7 @@ public class BaseControllerService implements Initializable {
         String cardName;
 
         if (player instanceof Player) {
+            ((Player) player).addCardImage(newCard);
             Point playerHandPosition = playerCardPosition.get(currentPlayerIndex);
             playerHandPositionX = playerHandPosition.getX() + ((Player) player).getCardsAmount() * DIFF_BETWEEN_PLAYER_CARDS_X;
             playerHandPositionY = playerHandPosition.getY() - ((Player) player).getCardsAmount() * DIFF_BETWEEN_PLAYER_CARDS_Y;
@@ -367,7 +368,10 @@ public class BaseControllerService implements Initializable {
             playerCards = ((Croupier) player).getCardImages();
         }
 
+        System.out.println("ILOSC KART DO USUNIECIA: " + playerCards.size());
+
         for (ImageView imageView : playerCards) {
+            System.out.println("USUWAM!");
             gamePane.getChildren().remove(imageView);
         }
     }

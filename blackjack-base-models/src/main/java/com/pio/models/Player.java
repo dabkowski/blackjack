@@ -11,7 +11,7 @@ public class Player {
     private int betAmount;
     private boolean isPlaying = true;
     private List<Card> cards = new ArrayList<>();
-    private List<ImageView> cardImages = new ArrayList<>();
+    private final List<ImageView> cardImages = new ArrayList<>();
     private int cardsAmount = 0;
     private int sumOfCardsValue = 0;
     private boolean isStanding = false;
@@ -85,6 +85,10 @@ public class Player {
 
     public List<ImageView> getCardImages() {
         return cardImages;
+    }
+
+    public void addCardImage(ImageView card){
+        cardImages.add(card);
     }
 
     public boolean isStanding() {
