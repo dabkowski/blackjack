@@ -37,7 +37,6 @@ import java.util.ResourceBundle;
 import java.util.Random;
 
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
 
 
 public class BaseControllerService implements Initializable {
@@ -128,6 +127,7 @@ public class BaseControllerService implements Initializable {
     private ImageView warningImage;
 
     private final String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry", "Lebron", "Naruto", "Cena"};
+    private final String[] samplesImages = {"startup/joker1.png", "startup/joker2.jpg", "startup/joker3.png","startup/croupier1.jpg"};
 
     private final List<Point> playerCardPosition = new ArrayList<>() {{
         add(new Point(222, 346));
@@ -208,6 +208,21 @@ public class BaseControllerService implements Initializable {
 
     @FXML
     private Pane helpArea;
+
+    @FXML
+    private ImageView HelpImage;
+
+    @FXML
+    private Label helpText;
+
+    @FXML
+    private HBox helpBox;
+
+    public int roundCounter = 0;
+
+    public boolean helpClicked = false;
+    int hBoxWidth = 370;
+
     private final BaseModelService baseModelService = new BaseModelService();
 
     private static final String[] userName = new String[MAX_PLAYERS];
@@ -623,6 +638,8 @@ public class BaseControllerService implements Initializable {
             currentPlayerIndex++;
             if (currentPlayerIndex >= MAX_PLAYERS) {
                 currentPlayerIndex = 0;
+                 roundCounter++;
+
             }
 
             Player player = baseModelService.returnPlayer(currentPlayerIndex);
@@ -731,6 +748,7 @@ public class BaseControllerService implements Initializable {
                     triggerFadeInAnimation(playerIndex, RoundStatus.LOSS);
                 }
             }
+            roundCounter=0;
             player.setBetAmount(0);
         }
     }
@@ -790,6 +808,8 @@ public class BaseControllerService implements Initializable {
             initialize();
             assignPlayersNames();
             displayIsPlaying(currentPlayerIndex);
+
+            helpBox.setTranslateX(-hBoxWidth);
 
         }
     }
@@ -939,15 +959,50 @@ public class BaseControllerService implements Initializable {
     void tipsOnMouseExited(MouseEvent event) {
         helpArea.setStyle("-fx-background-color: transparent;");
     }
-
+    public Image setJokerImage(){
+        Random random = new Random();
+        int pickedNumber = random.nextInt(samplesImages.length);
+        return new Image(samplesImages[pickedNumber]);
+    }
     @FXML
     void clickOnTipButton(MouseEvent event) {
-        if(event.getButton()==MouseButton.PRIMARY){
-            System.out.println("primary");
+        if(event.getButton()==MouseButton.PRIMARY ||event.getButton()==MouseButton.SECONDARY){
+            if(!helpClicked){
+                helpClicked = true;
+                HelpImage.setImage(setJokerImage());
+                String tipMessage = null;
+                if(roundCounter ==0){
+                    tipMessage = """
+                            -Click chip to set bet amount.
+
+                            -Right-click to increase amount
+
+                            left-click to decrease.\s
+
+                            -Click Click "Hit" to bet. to bet.""";
+                }
+                else if(roundCounter==1){
+                    tipMessage = """
+                            -Click "Hit" to receive a card
+
+                            -click "STAND" to pass your turn""";
+                }
+
+                helpText.setText(tipMessage);
+                TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), helpBox);
+                transition.setToX(0);
+                transition.play();
+            }
+            else {
+                helpClicked =false;
+                TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), helpBox);
+                transition.setToX(-hBoxWidth);
+                transition.play();
+                helpText.setText("");
+            }
+
         }
-        if(event.getButton()==MouseButton.SECONDARY){
-            System.out.println("Secondary");
-        }
+
     }
 }
 
