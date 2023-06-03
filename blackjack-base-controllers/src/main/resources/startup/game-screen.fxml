@@ -228,22 +228,14 @@
                   </ImageView>
                </children>
             </Pane>
-            <HBox fx:id="helpBox" alignment="CENTER_LEFT" layoutX="9.0" layoutY="-10.0" prefHeight="173.0" prefWidth="361.0">
+            <HBox fx:id="helpBox" alignment="CENTER_LEFT" layoutX="5.0" layoutY="3.0" prefHeight="150.0" prefWidth="361.0">
                <children>
-                  <ImageView fx:id="HelpImage" fitHeight="163.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true" />
-                  <Pane prefHeight="113.0" prefWidth="287.0">
-                     <children>
-                        <ImageView fitHeight="353.0" fitWidth="459.0" layoutX="-57.0" layoutY="-95.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@tip-card.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="helpText" layoutX="4.0" layoutY="8.0" prefHeight="134.0" prefWidth="241.0" textFill="#d0b164">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Label>
-                     </children>
-                  </Pane>
+                  <ImageView fx:id="HelpImage" fitHeight="153.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="helpText" prefHeight="145.0" prefWidth="218.0" textFill="#d0b164">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
             </children>

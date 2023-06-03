@@ -127,7 +127,8 @@ public class BaseControllerService implements Initializable {
     private ImageView warningImage;
 
     private final String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry", "Lebron", "Naruto", "Cena"};
-    private final String[] samplesImages = {"startup/joker1.png", "startup/joker2.jpg", "startup/joker3.png", "startup/croupier1.jpg"};
+    private final String[] samplesImages = {"startup/joker1.png", "startup/joker2.png",
+            "startup/joker3.png", "startup/joker4.png", "startup/joker5.png"};
 
     private final List<Point> playerCardPosition = new ArrayList<>() {{
         add(new Point(222, 346));
@@ -808,8 +809,14 @@ public class BaseControllerService implements Initializable {
             initialize();
             assignPlayersNames();
             displayIsPlaying(currentPlayerIndex);
-
             helpBox.setTranslateX(-hBoxWidth);
+            helpBox.setStyle("-fx-padding: 5px;" +
+                    " -fx-background-radius: 10px; -fx-background-color: #D0A616;");
+            helpText.setStyle("-fx-text-fill: #5E4300; -fx-padding-left: 5px; ");
+            /*Rectangle clip = new Rectangle(76.0, 77.0);
+            clip.setArcWidth(20);
+            clip.setArcHeight(20);
+            HelpImage.setClip(clip);*/
 
         }
     }
@@ -969,6 +976,8 @@ public class BaseControllerService implements Initializable {
     @FXML
     void clickOnTipButton(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY || event.getButton() == MouseButton.SECONDARY) {
+
+
             if (!helpClicked) {
                 helpClicked = true;
                 HelpImage.setImage(setJokerImage());
@@ -979,9 +988,9 @@ public class BaseControllerService implements Initializable {
 
                             -Right-click to increase amount
 
-                            Left-click to decrease.\s
+                            -Left-click to decrease.
 
-                            -Click Click "Hit" to bet. to bet.""";
+                            -Click "Hit"  to bet.""";
                 } else if (roundCounter == 1) {
                     tipMessage = """
                             -Click "Hit" to receive a card
