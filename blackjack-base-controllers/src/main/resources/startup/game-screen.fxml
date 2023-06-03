@@ -228,7 +228,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <HBox fx:id="helpBox" alignment="CENTER_LEFT" layoutX="5.0" layoutY="3.0" prefHeight="150.0" prefWidth="361.0">
+            <HBox fx:id="helpBox" alignment="CENTER_LEFT" layoutX="5.0" layoutY="2.0" prefHeight="148.0" prefWidth="361.0">
                <children>
                   <ImageView fx:id="HelpImage" fitHeight="153.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="helpText" prefHeight="145.0" prefWidth="218.0" textFill="#d0b164">
