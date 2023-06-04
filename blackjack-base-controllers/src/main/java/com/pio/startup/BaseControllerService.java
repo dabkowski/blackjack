@@ -20,7 +20,7 @@ import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
@@ -37,6 +37,9 @@ import java.util.ResourceBundle;
 import java.util.Random;
 
 import javafx.scene.input.MouseEvent;
+
+import static java.awt.Color.black;
+
 
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
@@ -126,6 +129,8 @@ public class BaseControllerService implements Initializable {
     private ImageView warningImage;
 
     private final String[] samplesNames = {"David", "Rabbit", "Tatum", "Curry", "Lebron", "Naruto", "Cena"};
+    private final String[] samplesImages = {"startup/joker1.png", "startup/joker2.png",
+            "startup/joker3.png", "startup/joker4.png", "startup/joker5.png"};
 
     private final List<Point> playerCardPosition = new ArrayList<>() {{
         add(new Point(222, 346));
@@ -152,7 +157,7 @@ public class BaseControllerService implements Initializable {
     @FXML
     private AnchorPane gamePane;
 
-    private final Image backImage = new Image("Cards/back.png");
+    private final Image backImage = new Image("cards/back.png");
 
     private ImageView backCard = new ImageView(backImage);
 
@@ -203,6 +208,23 @@ public class BaseControllerService implements Initializable {
 
     @FXML
     private ImageView playerFourDraw;
+
+    @FXML
+    private Pane helpArea;
+
+    @FXML
+    private ImageView HelpImage;
+
+    @FXML
+    private Label helpText;
+
+    @FXML
+    private HBox helpBox;
+
+    public int roundCounter = 0;
+
+    public boolean helpClicked = false;
+    int hBoxWidth = 370;
 
     private final BaseModelService baseModelService = new BaseModelService();
 
@@ -380,6 +402,8 @@ public class BaseControllerService implements Initializable {
             return;
         }
 
+        if (helpClicked) handleTheHelpTextArea();
+
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
 
         if (betSum == 0 && player.getBetAmount() == 0) {
@@ -415,6 +439,7 @@ public class BaseControllerService implements Initializable {
 
         }
 
+
     }
 
     public void leaveGame() throws IOException {
@@ -442,7 +467,7 @@ public class BaseControllerService implements Initializable {
         if (!canIClickButtons) {
             return;
         }
-
+        if (helpClicked) handleTheHelpTextArea();
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         if (player.getBetAmount() == 0) {
             return;
@@ -619,6 +644,8 @@ public class BaseControllerService implements Initializable {
             currentPlayerIndex++;
             if (currentPlayerIndex >= MAX_PLAYERS) {
                 currentPlayerIndex = 0;
+                roundCounter++;
+
             }
 
             Player player = baseModelService.returnPlayer(currentPlayerIndex);
@@ -727,6 +754,7 @@ public class BaseControllerService implements Initializable {
                     triggerFadeInAnimation(playerIndex, RoundStatus.LOSS);
                 }
             }
+            roundCounter = 0;
             player.setBetAmount(0);
         }
     }
@@ -786,7 +814,26 @@ public class BaseControllerService implements Initializable {
             initialize();
             assignPlayersNames();
             displayIsPlaying(currentPlayerIndex);
+            initializeHelpButton();
+
         }
+    }
+
+    public void initializeHelpButton() {
+        helpBox.setTranslateX(-hBoxWidth);
+        helpBox.setStyle("-fx-padding: 5px;" +
+                " -fx-background-radius: 10px; -fx-background-color: #D0A616;");
+        helpText.setStyle("-fx-text-fill: #5E4300; -fx-padding-left: 5px; ");
+
+        Circle clipCircle = new Circle();
+        double radius = 36;
+        double pixelForScaling = 4.5;
+        clipCircle.setRadius(radius - pixelForScaling);
+        clipCircle.setCenterX(radius);
+        clipCircle.setCenterY(radius);
+        clipCircle.setStroke(Color.BLACK);
+        clipCircle.setStrokeWidth(4);
+        helpArea.setClip(clipCircle);
     }
 
     public void displayIsPlaying(int currentPlayer) {
@@ -834,7 +881,7 @@ public class BaseControllerService implements Initializable {
     }
 
     @FXML
-    private void enter(KeyEvent event) throws IOException {
+    private void startWithKeyEnter(KeyEvent event) throws IOException {
 
         if (event.getCode() == KeyCode.ENTER) {
             moveToGameView();
@@ -916,6 +963,67 @@ public class BaseControllerService implements Initializable {
         }
         return -1;
     }
+
+    @FXML
+    void tipsOnMouseEntered(MouseEvent event) {
+        helpArea.setStyle("-fx-background-color: yellow;");
+
+    }
+
+    @FXML
+    void tipsOnMouseExited(MouseEvent event) {
+        helpArea.setStyle("-fx-background-color: transparent;");
+    }
+
+    public Image setJokerImage() {
+        Random random = new Random();
+        int pickedNumber = random.nextInt(samplesImages.length);
+        return new Image(samplesImages[pickedNumber]);
+    }
+
+    @FXML
+    void clickOnTipButton(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY || event.getButton() == MouseButton.SECONDARY) {
+            handleTheHelpTextArea();
+        }
+
+    }
+
+    public void handleTheHelpTextArea() {
+        if (!helpClicked) {
+            helpClicked = true;
+            HelpImage.setImage(setJokerImage());
+            String tipMessage = null;
+            if (roundCounter == 0) {
+                tipMessage = """
+                        -Click chip to set bet amount.
+
+                        -Right-click to increase amount
+
+                        -Left-click to decrease.
+
+                        -Click "Hit"  to bet.""";
+            } else if (roundCounter == 1) {
+                tipMessage = """
+                        -Click "Hit" to receive a card
+
+                        -Click "STAND" to pass your turn""";
+            }
+
+            helpText.setText(tipMessage);
+            TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), helpBox);
+            transition.setToX(0);
+            transition.play();
+        } else {
+            helpClicked = false;
+            TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), helpBox);
+            transition.setToX(-hBoxWidth);
+            transition.play();
+            helpText.setText("");
+        }
+    }
 }
+
+
 
 
