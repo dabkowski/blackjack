@@ -221,14 +221,14 @@
                 </ImageView>
             <Pane fx:id="helpArea" layoutX="990.0" layoutY="2.0" onMouseClicked="#clickOnTipButton" onMouseEntered="#tipsOnMouseEntered" onMouseExited="#tipsOnMouseExited" prefHeight="79.0" prefWidth="79.0">
                <children>
-                  <ImageView fx:id="tips" fitHeight="77.0" fitWidth="76.0" layoutX="-1.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="tips" fitHeight="93.0" fitWidth="81.0" layoutX="-4.5" layoutY="-5.0"  pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@tips.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
-            <HBox fx:id="helpBox" alignment="CENTER_LEFT" layoutX="5.0" layoutY="2.0" prefHeight="148.0" prefWidth="361.0">
+            <HBox fx:id="helpBox" alignment="CENTER_LEFT" layoutX="5.0" layoutY="1.0" prefHeight="147.0" prefWidth="361.0">
                <children>
                   <ImageView fx:id="HelpImage" fitHeight="153.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="helpText" prefHeight="145.0" prefWidth="218.0" textFill="#d0b164">

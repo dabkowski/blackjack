@@ -38,6 +38,8 @@ import java.util.Random;
 
 import javafx.scene.input.MouseEvent;
 
+import static java.awt.Color.black;
+
 
 public class BaseControllerService implements Initializable {
     public static int MAX_PLAYERS = 4;
@@ -400,6 +402,8 @@ public class BaseControllerService implements Initializable {
             return;
         }
 
+        if (helpClicked) handleTheHelpTextArea();
+
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
 
         if (betSum == 0 && player.getBetAmount() == 0) {
@@ -435,6 +439,7 @@ public class BaseControllerService implements Initializable {
 
         }
 
+
     }
 
     public void leaveGame() throws IOException {
@@ -462,7 +467,7 @@ public class BaseControllerService implements Initializable {
         if (!canIClickButtons) {
             return;
         }
-
+        if (helpClicked) handleTheHelpTextArea();
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
         if (player.getBetAmount() == 0) {
             return;
@@ -809,16 +814,26 @@ public class BaseControllerService implements Initializable {
             initialize();
             assignPlayersNames();
             displayIsPlaying(currentPlayerIndex);
-            helpBox.setTranslateX(-hBoxWidth);
-            helpBox.setStyle("-fx-padding: 5px;" +
-                    " -fx-background-radius: 10px; -fx-background-color: #D0A616;");
-            helpText.setStyle("-fx-text-fill: #5E4300; -fx-padding-left: 5px; ");
-            /*Rectangle clip = new Rectangle(76.0, 77.0);
-            clip.setArcWidth(20);
-            clip.setArcHeight(20);
-            HelpImage.setClip(clip);*/
+            initializeHelpButton();
 
         }
+    }
+
+    public void initializeHelpButton() {
+        helpBox.setTranslateX(-hBoxWidth);
+        helpBox.setStyle("-fx-padding: 5px;" +
+                " -fx-background-radius: 10px; -fx-background-color: #D0A616;");
+        helpText.setStyle("-fx-text-fill: #5E4300; -fx-padding-left: 5px; ");
+
+        Circle clipCircle = new Circle();
+        double radius = 36;
+        double pixelForScaling = 4.5;
+        clipCircle.setRadius(radius - pixelForScaling);
+        clipCircle.setCenterX(radius);
+        clipCircle.setCenterY(radius);
+        clipCircle.setStroke(Color.BLACK);
+        clipCircle.setStrokeWidth(4);
+        helpArea.setClip(clipCircle);
     }
 
     public void displayIsPlaying(int currentPlayer) {
@@ -866,7 +881,7 @@ public class BaseControllerService implements Initializable {
     }
 
     @FXML
-    private void enter(KeyEvent event) throws IOException {
+    private void startWithKeyEnter(KeyEvent event) throws IOException {
 
         if (event.getCode() == KeyCode.ENTER) {
             moveToGameView();
@@ -951,13 +966,6 @@ public class BaseControllerService implements Initializable {
 
     @FXML
     void tipsOnMouseEntered(MouseEvent event) {
-
-        Circle clipCircle = new Circle();
-        double radius = 36; // Set the desired radius
-        clipCircle.setRadius(radius);
-        clipCircle.setCenterX(radius);
-        clipCircle.setCenterY(radius);
-        helpArea.setClip(clipCircle);
         helpArea.setStyle("-fx-background-color: yellow;");
 
     }
@@ -976,43 +984,46 @@ public class BaseControllerService implements Initializable {
     @FXML
     void clickOnTipButton(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY || event.getButton() == MouseButton.SECONDARY) {
-
-
-            if (!helpClicked) {
-                helpClicked = true;
-                HelpImage.setImage(setJokerImage());
-                String tipMessage = null;
-                if (roundCounter == 0) {
-                    tipMessage = """
-                            -Click chip to set bet amount.
-
-                            -Right-click to increase amount
-
-                            -Left-click to decrease.
-
-                            -Click "Hit"  to bet.""";
-                } else if (roundCounter == 1) {
-                    tipMessage = """
-                            -Click "Hit" to receive a card
-
-                            -Click "STAND" to pass your turn""";
-                }
-
-                helpText.setText(tipMessage);
-                TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), helpBox);
-                transition.setToX(0);
-                transition.play();
-            } else {
-                helpClicked = false;
-                TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), helpBox);
-                transition.setToX(-hBoxWidth);
-                transition.play();
-                helpText.setText("");
-            }
-
+            handleTheHelpTextArea();
         }
 
     }
+
+    public void handleTheHelpTextArea() {
+        if (!helpClicked) {
+            helpClicked = true;
+            HelpImage.setImage(setJokerImage());
+            String tipMessage = null;
+            if (roundCounter == 0) {
+                tipMessage = """
+                        -Click chip to set bet amount.
+
+                        -Right-click to increase amount
+
+                        -Left-click to decrease.
+
+                        -Click "Hit"  to bet.""";
+            } else if (roundCounter == 1) {
+                tipMessage = """
+                        -Click "Hit" to receive a card
+
+                        -Click "STAND" to pass your turn""";
+            }
+
+            helpText.setText(tipMessage);
+            TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), helpBox);
+            transition.setToX(0);
+            transition.play();
+        } else {
+            helpClicked = false;
+            TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), helpBox);
+            transition.setToX(-hBoxWidth);
+            transition.play();
+            helpText.setText("");
+        }
+    }
 }
+
+
 
 
