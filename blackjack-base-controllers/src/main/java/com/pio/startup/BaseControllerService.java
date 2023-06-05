@@ -86,7 +86,7 @@ public class BaseControllerService implements Initializable {
 
     public static String COLOR_OF_THE_CIRCLE_MOVE = "YELLOW";
 
-    public static String WARNING_MESSAGE = "You must have at least one player name ";
+    public static String WARNING_MESSAGE = "You must have at least one player name";
 
     @FXML
     private Label dataFirstPlayer;

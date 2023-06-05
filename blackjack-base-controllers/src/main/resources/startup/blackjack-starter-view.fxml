@@ -69,7 +69,7 @@
             </Button>
             <Label fx:id="noPlayerName" layoutX="439.0" layoutY="714.0" prefHeight="97.0" prefWidth="278.0" textAlignment="CENTER" textFill="#cd1a1a">
                <font>
-                  <Font name="System Bold Italic" size="14.0" />
+                  <Font name="System Bold Italic" size="13.0" />
                </font>
             </Label>
             <Button fx:id="Info_Button" layoutX="446.0" layoutY="640.0" mnemonicParsing="false" onMouseClicked="#moveToInfoView" onMouseEntered="#cursorChangeToHandIfEntered" style="-fx-background-color: transparent;">
