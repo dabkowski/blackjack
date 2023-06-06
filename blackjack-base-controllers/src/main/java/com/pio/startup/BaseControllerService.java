@@ -721,10 +721,9 @@ public class BaseControllerService implements Initializable {
             userName[i] = getUserName(names[i]);
 
         }
-
         currentPlayerInGame = sortUserNames();
         currentPlayerNotInGame = MAX_PLAYERS - currentPlayerInGame;
-        baseModelService.getNumberOfPlayerNotInGame(currentPlayerInGame);
+        baseModelService.getNumberOfPlayerInGame(currentPlayerInGame);
 
         return currentPlayerInGame;
     }

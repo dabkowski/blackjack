@@ -30,7 +30,7 @@ public class BaseModelService {
         return croupier;
     }
 
-    public void getNumberOfPlayerNotInGame(int playerInGame) {
+    public void getNumberOfPlayerInGame(int playerInGame) {
         currentPlayerInGame = playerInGame;
     }
 }
