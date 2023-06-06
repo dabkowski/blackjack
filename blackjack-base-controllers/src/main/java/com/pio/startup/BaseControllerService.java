@@ -147,7 +147,6 @@ public class BaseControllerService implements Initializable {
 
     private int currentPlayerIndex = 0;
     private static int currentPlayerInGame = 0;
-    private static int currentPlayerNotInGame = 0;
 
     private int betSum = 0;
 
@@ -722,7 +721,6 @@ public class BaseControllerService implements Initializable {
 
         }
         currentPlayerInGame = sortUserNames();
-        currentPlayerNotInGame = MAX_PLAYERS - currentPlayerInGame;
         baseModelService.getNumberOfPlayerInGame(currentPlayerInGame);
 
         return currentPlayerInGame;
