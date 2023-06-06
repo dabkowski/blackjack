@@ -146,7 +146,7 @@ public class BaseControllerService implements Initializable {
     private Stage stage;
 
     private int currentPlayerIndex = 0;
-    private int currentPlayerInGame = 0;
+    private static int currentPlayerInGame = 0;
     private static int currentPlayerNotInGame = 0;
 
     private int betSum = 0;
@@ -613,7 +613,7 @@ public class BaseControllerService implements Initializable {
 
     private void cleanMoneyFields() {
 
-        for (int i = 0; i < MAX_PLAYERS - currentPlayerNotInGame; i++) {
+        for (int i = 0; i < currentPlayerInGame; i++) {
             Player player = baseModelService.returnPlayer(i);
             if (player.isPlaying()) {
                 currentBet[i].setText("0$");
@@ -645,7 +645,7 @@ public class BaseControllerService implements Initializable {
         while (true) {
             currentPlayerIndex++;
 
-            if (currentPlayerIndex >= MAX_PLAYERS - currentPlayerNotInGame) {
+            if (currentPlayerIndex >= currentPlayerInGame) {
 
                 currentPlayerIndex = 0;
                 roundCounter++;
@@ -661,7 +661,7 @@ public class BaseControllerService implements Initializable {
 
     private boolean checkIfAllPlayersFinishedRound() {
 
-        for (int i = 0; i < MAX_PLAYERS - currentPlayerNotInGame; i++) {
+        for (int i = 0; i < currentPlayerInGame; i++) {
             Player player = baseModelService.returnPlayer(i);
             if (player.isPlaying()) {
                 if (!player.isStanding()) {
@@ -681,7 +681,7 @@ public class BaseControllerService implements Initializable {
 
     private int returnAmountOfPlayingPlayers() {
         int onlinePlayers = 0;
-        for (int i = 0; i < MAX_PLAYERS - currentPlayerNotInGame; i++) {
+        for (int i = 0; i < currentPlayerInGame; i++) {
             Player player = baseModelService.returnPlayer(i);
             if (player.isPlaying()) {
                 onlinePlayers++;
@@ -800,7 +800,8 @@ public class BaseControllerService implements Initializable {
 
     public void assignPlayersNames() {
         Label[] dataPlayers = {dataFirstPlayer, dataSecondPlayer, dataThirdPlayer, dataFourthPlayer};
-        for (int i = 0; i < MAX_PLAYERS - currentPlayerNotInGame; i++) {
+
+        for (int i = 0; i < currentPlayerInGame; i++) {
             Player player = baseModelService.returnPlayer(i);
             if (player.isPlaying()) {
                 dataPlayers[i].setText(userName[i] + '\n' + baseModelService.returnPlayer(i).getAccountBalance() + " $");
@@ -844,10 +845,11 @@ public class BaseControllerService implements Initializable {
     }
 
     public void displayIsPlaying(int currentPlayer) {
-        if (currentPlayer < MAX_PLAYERS - currentPlayerNotInGame) {
+
+        if (currentPlayer < currentPlayerInGame) {
             Circle[] playerCircles = {firstPlayerCircle, secondPlayerCircle, thirdPlayerCircle, fourthPlayerCircle};
 
-            for (int i = 0; i < MAX_PLAYERS - currentPlayerNotInGame; i++) {
+            for (int i = 0; i < currentPlayerInGame; i++) {
                 if (currentPlayer == i) {
                     playerCircles[i].setStroke(Color.valueOf(COLOR_OF_THE_CIRCLE_MOVE));
                     playerCircles[i].setEffect(createLightingEffect());
@@ -962,7 +964,8 @@ public class BaseControllerService implements Initializable {
     }
 
     public int returnFirstPlayingPlayer() {
-        for (int i = 0; i < MAX_PLAYERS - currentPlayerNotInGame; i++) {
+
+        for (int i = 0; i < currentPlayerInGame; i++) {
             Player player = baseModelService.returnPlayer(i);
             if (player.isPlaying()) {
                 return i;
