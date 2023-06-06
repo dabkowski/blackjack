@@ -128,8 +128,7 @@ public class BaseControllerService implements Initializable {
     @FXML
     private ImageView warningImage;
 
-    private final String[] samplesImages = {"startup/joker1.png", "startup/joker2.png",
-            "startup/joker3.png", "startup/joker4.png", "startup/joker5.png"};
+    private final String[] samplesImages = {"startup/joker1.png", "startup/joker2.png", "startup/joker3.png", "startup/joker4.png", "startup/joker5.png"};
 
     private final List<Point> playerCardPosition = new ArrayList<>() {{
         add(new Point(222, 346));
@@ -241,9 +240,8 @@ public class BaseControllerService implements Initializable {
     }
 
     public void moveToGameView() throws IOException {
-        currentPlayerInGame = checkNumberOfPlayers();
-        System.out.println(currentPlayerInGame);
-        if (currentPlayerInGame > 0) {
+
+        if (checkNumberOfPlayers() > 0) {
 
             initializeView(GAME_SCREEN_PATH);
         } else {
@@ -614,6 +612,7 @@ public class BaseControllerService implements Initializable {
     }
 
     private void cleanMoneyFields() {
+
         for (int i = 0; i < MAX_PLAYERS - currentPlayerNotInGame; i++) {
             Player player = baseModelService.returnPlayer(i);
             if (player.isPlaying()) {
@@ -645,7 +644,9 @@ public class BaseControllerService implements Initializable {
     private int returnNextPlayingPlayersIndex() {
         while (true) {
             currentPlayerIndex++;
+
             if (currentPlayerIndex >= MAX_PLAYERS - currentPlayerNotInGame) {
+
                 currentPlayerIndex = 0;
                 roundCounter++;
 
@@ -659,6 +660,7 @@ public class BaseControllerService implements Initializable {
     }
 
     private boolean checkIfAllPlayersFinishedRound() {
+
         for (int i = 0; i < MAX_PLAYERS - currentPlayerNotInGame; i++) {
             Player player = baseModelService.returnPlayer(i);
             if (player.isPlaying()) {
@@ -709,8 +711,7 @@ public class BaseControllerService implements Initializable {
 
     public void setCurrentBetToEmpty() {
         for (int i = 0; i < MAX_PLAYERS; i++) {
-            if (Objects.equals(userName[i], EMPTY_FIELD))
-                currentBet[i].setText(EMPTY_FIELD);
+            if (Objects.equals(userName[i], EMPTY_FIELD)) currentBet[i].setText(EMPTY_FIELD);
         }
     }
 
@@ -720,9 +721,11 @@ public class BaseControllerService implements Initializable {
             userName[i] = getUserName(names[i]);
 
         }
+
         currentPlayerInGame = sortUserNames();
         currentPlayerNotInGame = MAX_PLAYERS - currentPlayerInGame;
-        baseModelService.getNumberOfPlayerNotInGame(currentPlayerNotInGame);
+        baseModelService.getNumberOfPlayerNotInGame(currentPlayerInGame);
+
         return currentPlayerInGame;
     }
 
@@ -781,9 +784,7 @@ public class BaseControllerService implements Initializable {
     }
 
     private enum RoundStatus {
-        WIN,
-        LOSS,
-        DRAW
+        WIN, LOSS, DRAW
     }
 
     private int findPlayerIndex(Player player) {
@@ -830,8 +831,7 @@ public class BaseControllerService implements Initializable {
 
     public void initializeHelpButton() {
         helpBox.setTranslateX(-hBoxWidth);
-        helpBox.setStyle("-fx-padding: 5px;" +
-                " -fx-background-radius: 10px; -fx-background-color: #D0A616;");
+        helpBox.setStyle("-fx-padding: 5px;" + " -fx-background-radius: 10px; -fx-background-color: #D0A616;");
         helpText.setStyle("-fx-text-fill: #5E4300; -fx-padding-left: 5px; ");
 
         Circle clipCircle = new Circle();
