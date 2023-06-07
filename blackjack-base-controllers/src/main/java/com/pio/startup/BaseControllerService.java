@@ -40,8 +40,11 @@ import javafx.scene.input.MouseEvent;
 
 
 public class BaseControllerService implements Initializable {
+
     public static final int RADIUS_HELP_BUTTON = 36;
+
     public static final double PIXEL_FOR_SCALING = 4.5;
+
     public static int MAX_PLAYERS = 4;
 
     public static int CROUPIER_HAND_ID = 4;
