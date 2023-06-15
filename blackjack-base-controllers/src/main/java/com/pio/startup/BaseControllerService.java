@@ -413,12 +413,12 @@ public class BaseControllerService implements Initializable {
             return;
         }
 
-        System.out.println(userName[currentPlayerIndex] + " | " +  player.getBetAmount());
+        System.out.println(userName[currentPlayerIndex] + " | " + player.getBetAmount());
 
         player.placeBet(betSum);
         assignPlayersNames();
 
-        System.out.println(userName[currentPlayerIndex] + " | " +  player.getBetAmount());
+        System.out.println(userName[currentPlayerIndex] + " | " + player.getBetAmount());
         /*if (player.getBetAmount() == 0) {
             player.placeBet(betSum);
         }*/
