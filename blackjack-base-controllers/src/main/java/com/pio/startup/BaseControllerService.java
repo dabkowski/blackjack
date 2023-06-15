@@ -413,9 +413,15 @@ public class BaseControllerService implements Initializable {
             return;
         }
 
-        if (player.getBetAmount() == 0) {
+        System.out.println(userName[currentPlayerIndex] + " | " +  player.getBetAmount());
+
+        player.placeBet(betSum);
+        assignPlayersNames();
+
+        System.out.println(userName[currentPlayerIndex] + " | " +  player.getBetAmount());
+        /*if (player.getBetAmount() == 0) {
             player.placeBet(betSum);
-        }
+        }*/
 
         if (player.getCardsAmount() == 0) {
             for (int i = 0; i < AMOUNT_OF_CARDS_ON_START; i++) {
@@ -475,6 +481,9 @@ public class BaseControllerService implements Initializable {
         if (player.getBetAmount() == 0) {
             return;
         }
+
+        player.placeBet(betSum);
+        assignPlayersNames();
         player.setStanding(true);
 
         if (checkIfAllPlayersFinishedRound()) {
@@ -483,7 +492,6 @@ public class BaseControllerService implements Initializable {
         } else {
             changePlayerMove();
         }
-
     }
 
     public void add1000Chip(MouseEvent event) {
@@ -632,15 +640,15 @@ public class BaseControllerService implements Initializable {
         }
 
         Player player = baseModelService.returnPlayer(currentPlayerIndex);
-        if (player.getBetAmount() > 0) {
+        /*if (player.getBetAmount() > 0) {
             return;
-        }
+        }*/
         if (player.getAccountBalance() < amount) {
             amount = player.getAccountBalance();
             betSum = amount;
         }
-
-        currentBet[currentPlayerIndex].setText(amount + "$");
+        int newAmount = amount + player.getBetAmount();
+        currentBet[currentPlayerIndex].setText(newAmount + "$");
     }
 
     private int returnNextPlayingPlayersIndex() {
@@ -679,6 +687,7 @@ public class BaseControllerService implements Initializable {
         Croupier croupier = baseModelService.getCroupier();
         turnAroundInvisibleCroupierCard(croupier);
         keepDrawingIfSumOfCardsValueIsLessThanSixteen(croupier);
+        betSum = 0;
     }
 
     private int returnAmountOfPlayingPlayers() {
