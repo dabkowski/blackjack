@@ -157,8 +157,8 @@
                 </Label>
                 <Circle fx:id="firstPlayerCircle" fill="#1f93ff00" layoutX="109.0" layoutY="489.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
                 <Circle fx:id="secondPlayerCircle" fill="#1f93ff00" layoutX="331.0" layoutY="639.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
-                <Circle fx:id="thirdPlayerCircle" fill="#1f93ff00" layoutX="792.0" layoutY="630.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
-                <Circle fx:id="fourthPlayerCircle" fill="#1f93ff00" layoutX="985.0" layoutY="472.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                <Circle fx:id="thirdPlayerCircle" fill="#1f93ff00" layoutX="771.0" layoutY="638.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                <Circle fx:id="fourthPlayerCircle" fill="#1f93ff00" layoutX="964.0" layoutY="489.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
                 <ImageView fx:id="playerOneWin" fitHeight="90.0" fitWidth="134.0" layoutX="252.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@green-win.png" />
@@ -221,7 +221,7 @@
                 </ImageView>
             <Pane fx:id="helpArea" layoutX="990.0" layoutY="2.0" onMouseClicked="#clickOnTipButton" onMouseEntered="#tipsOnMouseEntered" onMouseExited="#tipsOnMouseExited" prefHeight="79.0" prefWidth="79.0">
                <children>
-                  <ImageView fx:id="tips" fitHeight="93.0" fitWidth="81.0" layoutX="-4.5" layoutY="-5.0"  pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="tips" fitHeight="93.0" fitWidth="81.0" layoutX="-4.5" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@tips.png" />
                      </image>
