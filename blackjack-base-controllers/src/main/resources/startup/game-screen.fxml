@@ -135,12 +135,12 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="dataFourthPlayer" alignment="CENTER" layoutX="938.0" layoutY="437.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dataFourthPlayer" alignment="CENTER" layoutX="911.0" layoutY="448.0" prefHeight="83.0" prefWidth="108.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="dataThirdPlayer" alignment="CENTER" layoutX="744.0" layoutY="596.0" prefHeight="73.0" prefWidth="101.0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="dataThirdPlayer" alignment="CENTER" layoutX="716.0" layoutY="602.0" prefHeight="73.0" prefWidth="108.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
